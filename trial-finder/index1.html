@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1820">
+  <meta name="description" content="Find UK trials, check basic requirements and prepare a study-specific email for published researcher contacts.">
+  <title>Trial Finder | UK Trials, Easy Apply & Application Tracker</title>
+  <style>
+    :root { --ink:#12232a; --dark:#10242c; --teal:#006f66; --mint:#c7f2e6; --page:#f5f8f6; --white:#fff; --line:#dce7e3; --muted:#61717a; --blue:#2265a4; --amber:#875b17; --radius:18px; }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--page);color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.5}
+    button,input,select{font:inherit} button{cursor:pointer} a{color:var(--teal)} a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #63b9a9;outline-offset:3px}
+    .shell{max-width:1230px;padding:0 22px;margin:auto} header{background:var(--dark);color:#fff;border-bottom:1px solid #28444b} .topbar{min-height:72px;display:flex;justify-content:space-between;align-items:center;gap:14px}
+    .brand{display:inline-flex;align-items:center;gap:12px;font-weight:800;font-size:20px;color:#fff;text-decoration:none;letter-spacing:-.5px}.brand-icon{background:var(--mint);border-radius:12px;width:35px;height:35px;display:grid;place-items:center;color:#153a34;font-size:24px;font-weight:800}.toplinks{display:flex;gap:22px;align-items:center;font-size:13px}.toplinks a{color:#d9eeea;text-decoration:none}.tag{display:inline-block;font-size:11px;letter-spacing:.06em;font-weight:800;text-transform:uppercase;padding:5px 9px;border-radius:100px;background:#dcf2eb;color:#00675f}
+    .hero{background:radial-gradient(circle at 86% 22%,#205850 0%,transparent 39%),var(--dark);color:white;padding:50px 0 56px}.hero-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(255px,.7fr);align-items:center;gap:45px}.hero .eyebrow{color:#b8f1df;font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.hero h1{font-size:clamp(33px,4.3vw,58px);line-height:1.08;letter-spacing:-2.1px;margin:12px 0 17px;max-width:760px}.hero p{font-size:16px;color:#d7e5e4;max-width:655px;margin:0}.hero-note{background:#ffffff0c;border:1px solid #ffffff2a;padding:22px;border-radius:20px}.hero-note strong{display:block;margin-bottom:6px;font-size:18px}.hero-note small{color:#cadcd9;font-size:13px}.hero-note .pillrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:17px}.hero-note .pillrow span{border:1px solid #8db8ac70;background:#2a5b51;padding:6px 9px;border-radius:8px;font-size:12px}
+    main{margin-top:-24px;position:relative;padding-bottom:55px}.layout{display:grid;grid-template-columns:minmax(300px,365px) minmax(0,1fr);gap:22px;align-items:start}.panel{background:var(--white);border-radius:var(--radius);border:1px solid var(--line);box-shadow:0 12px 35px #112b2410}.form-panel{padding:24px;position:sticky;top:14px}.form-panel h2,.results-panel h2{font-size:21px;letter-spacing:-.7px;margin:0 0 8px}.muted{color:var(--muted)}.small{font-size:12px}.intro{font-size:13px;margin:0 0 18px}.section-label{font-weight:800;color:#264b46;font-size:11px;letter-spacing:.13em;text-transform:uppercase;margin:22px 0 11px;display:block}.form-field{margin:0 0 13px}.form-field label{display:block;margin-bottom:6px;font-size:13px;font-weight:650}.form-field .hint{display:block;font-size:11px;color:var(--muted);font-weight:400;margin-top:4px}.field{width:100%;border:1px solid #cbdcd5;border-radius:10px;min-height:43px;padding:10px 12px;background:white;color:var(--ink)}.field:hover{border-color:#83b8ab}.field:focus{border-color:#167e72;outline:2px solid #b7e6da}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}.checkline{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#546c6b;margin-top:12px}.checkline input{margin-top:4px;accent-color:var(--teal)}.primary{border:0;border-radius:11px;padding:13px 18px;background:var(--teal);color:white;font-weight:750;transition:background .15s}.primary:hover{background:#00554e}.primary:disabled{cursor:wait;opacity:.7}.primary.full{width:100%;margin-top:20px}.secondary{border:1px solid #b8d3ca;border-radius:9px;background:#fff;padding:9px 12px;color:#155b51;font-weight:700}.secondary:hover{background:#eff7f4}.link-btn{border:none;background:none;color:var(--teal);font-weight:700;padding:7px;cursor:pointer}.form-foot{font-size:11px;color:#637b76;margin-top:12px}
+    .content{display:flex;flex-direction:column;gap:20px}.results-panel{padding:23px}.results-header{display:flex;align-items:flex-start;justify-content:space-between;gap:15px}.results-header p{font-size:13px;margin:3px 0 0}.live{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid #cde3db;border-radius:100px;font-size:12px;color:#226056;background:#f6fbf9;white-space:nowrap}.dot{height:7px;width:7px;border-radius:50%;background:#0aa37d}.tabs{display:flex;gap:7px;flex-wrap:wrap;border-bottom:1px solid #dce7e3;margin-top:20px;padding-bottom:12px}.tab{border:1px solid transparent;border-radius:9px;background:none;padding:9px 13px;font-size:13px;color:#546b69;font-weight:700}.tab[aria-selected=true]{background:#e3f4ee;color:#00665b;border-color:#bde6d8}.controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 0 13px;flex-wrap:wrap}.controls select{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px;color:#37524c;font-size:12px}.result-count{font-size:13px;color:#5e7771}.empty-state{border-radius:13px;background:#f3f8f6;border:1px dashed #c1d7cf;padding:38px 22px;text-align:center}.empty-state .empty-icon{font-size:34px;line-height:1}.empty-state h3{margin:12px 0 6px;font-size:18px}.empty-state p{max-width:520px;margin:0 auto;color:#5b746c;font-size:13px}.study-list{display:grid;gap:13px}.study{border:1px solid var(--line);padding:18px;border-radius:14px;background:#fff}.study:hover{border-color:#a8d5c5}.study-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.study h3{font-size:16px;line-height:1.4;margin:10px 0 8px;letter-spacing:-.23px}.study .sub{font-size:12px;color:#5a716d;margin:0 0 11px}.badge-row{display:flex;flex-wrap:wrap;gap:6px}.chip{display:inline-block;border-radius:6px;padding:5px 8px;font-size:11px;font-weight:730;background:#eff4f2;color:#45665e}.chip.good{background:#e0f5e8;color:#0b714d}.chip.warn{background:#fff2d7;color:#865d16}.chip.bad{background:#fce8e5;color:#9f3d37}.chip.info{background:#eaf1fb;color:#2b60a2}.bookmark{flex-shrink:0;border:1px solid #d4e4df;background:#fff;color:#276c5c;border-radius:9px;padding:8px 10px;font-size:12px;font-weight:750}.bookmark.is-saved{background:#ddf5ec;border-color:#9bd5c3}.fact-row{display:flex;gap:15px;flex-wrap:wrap;margin:10px 0;color:#4c615d;font-size:12px}.fact-row span{display:inline-flex;align-items:center;gap:5px}.study-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:13px}.study-actions a{font-size:12px;font-weight:800;text-decoration:none}.study details{margin-top:13px;border-top:1px solid var(--line);padding-top:12px}.study summary{color:#1a6659;font-size:13px;font-weight:700;cursor:pointer}.criteria{margin-top:10px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:340px;overflow:auto;font-size:12px;background:#f7faf8;border-radius:9px;padding:13px;color:#455852}.whatmatched{margin-top:10px;background:#f3f8f6;border-radius:9px;padding:11px 13px;font-size:12px}.whatmatched p{margin:4px 0}.provider-grid{display:grid;gap:12px}.provider{border:1px solid #cfdfd8;border-radius:13px;padding:17px;background:#f9fcfa}.provider h3{font-size:17px;margin:10px 0 6px}.provider p{font-size:13px;margin:0 0 12px;color:#536c65}.provider .provider-foot{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px}.provider a{font-weight:800;text-decoration:none}.info-panel{padding:21px}.info-panel h3{margin:0 0 12px;font-size:16px}.links{display:flex;flex-wrap:wrap;gap:9px}.links a{background:#eff7f4;border:1px solid #d0e7de;border-radius:9px;padding:9px 11px;text-decoration:none;font-weight:700;font-size:12px}.privacy{font-size:12px;color:#62776f;margin:13px 0 0}.pagefooter{padding:35px 0;color:#667b74;font-size:12px;border-top:1px solid #dce7e3}.banner{border-left:3px solid #128b79;background:#eff8f4;border-radius:8px;padding:12px 14px;font-size:12px;color:#365d52;margin-top:14px}.banner.error{background:#fff1eb;border-left-color:#c65c41;color:#934532}.banner[hidden], [hidden]{display:none!important}.loading{display:inline-flex;gap:8px;align-items:center}.spinner{width:14px;height:14px;border:2px solid #c4e6dc;border-top-color:#126958;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+
+
+    /* Application tracking — private local records; no automatic email access. */
+    .tracker-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:12px 0 17px}
+    .tracker-stat{padding:12px 10px;border:1px solid #d6e5e0;border-radius:12px;background:#f7fbf9}
+    .tracker-stat strong{display:block;font-size:24px;line-height:1.2;color:#0a5d52}
+    .tracker-stat span{font-size:11px;color:#57736d}
+    .tracker-toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0 17px}
+    .tracker-toolbar select{border:1px solid #c6dcd2;border-radius:9px;background:white;padding:9px;font-size:13px;max-width:100%}
+    .tracker-toolbar button{padding:9px 11px;font-size:12px}
+    .tracker-card{border:1px solid #d5e5dd;border-radius:14px;padding:16px;margin:10px 0;background:white}
+    .tracker-card h3{font-size:16px;margin:7px 0 4px;line-height:1.4}
+    .tracker-details{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+    .tracker-details span{background:#eef6f1;border-radius:7px;padding:5px 8px;font-size:12px;color:#375b52}
+    .tracker-history{border-top:1px solid #e6eeea;margin:12px 0 0;padding-top:12px}
+    .tracker-history summary{color:#12665b;font-size:12px;cursor:pointer;font-weight:800}
+    .tracker-history ol{padding-left:20px;margin:9px 0 0;font-size:12px;color:#536f65}
+    .tracker-history li{margin:7px 0}.tracker-history li span{display:block;white-space:pre-wrap;overflow-wrap:anywhere}
+    .tracker-card .study-actions{margin-top:10px}
+    .tracker-card .secondary{padding:8px 11px;font-size:12px}
+    .tracker-form-note{color:#59756f;font-size:12px}
+    .tracker-dialog{max-width:650px}
+    .tracker-modal-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .tracker-modal-fields .form-field{margin:0}
+    .tracker-label{display:block;font-weight:720;font-size:13px;margin:14px 0 6px}
+    .tracker-modal-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+    .tracker-modal-actions button{font-size:12px;padding:10px 12px}
+    #tracker-feedback{min-height:18px;font-size:12px;color:#12665b;margin:9px 0}
+    .quiet-warning{background:#f6f8f7;border:1px solid #dce9e1;border-radius:9px;padding:10px;font-size:12px;color:#526e65}
+    @media(max-width:650px){.tracker-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.tracker-modal-fields{grid-template-columns:1fr}}
+
+    /* Local-only participant profile — editing and storage are explicit */
+    .profile-editor{margin:13px 0 19px;border:1px solid #b4dacc;background:#f5fbf7;border-radius:13px;padding:14px}
+    .profile-editor>summary{cursor:pointer;color:#0d6356;font-size:14px;font-weight:850;list-style-position:outside}
+    .profile-editor .profile-status{margin:7px 0;font-size:12px;color:#536f63}
+    .profile-editor .profile-fields{margin-top:14px}
+    .profile-editor .two-col{gap:7px 10px}
+    .profile-editor .form-field{margin-bottom:9px}
+    .profile-editor .form-field label{font-size:12px}
+    .profile-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 5px}
+    .profile-actions .primary,.profile-actions .secondary{padding:10px 12px;font-size:12px}
+    .profile-feedback{font-size:12px;min-height:20px;margin:7px 0;color:#0d6356}
+    .profile-security{font-size:11px;color:#5d756d;line-height:1.55;margin:9px 0 0}
+    /* V2: paid-first listings and compact filters */
+    .pay-block{min-width:145px;text-align:right}.amount{display:block;color:#075f52;font-size:25px;letter-spacing:-.9px;font-weight:850;line-height:1.15}.amount-note{font-size:11px;color:#5e756d}
+    .paid-card{border-color:#b7dacf;background:linear-gradient(130deg,#fff 70%,#f2fcf7)}
+    .paid-meta{display:flex;flex-wrap:wrap;gap:7px 13px;font-size:12px;color:#3f6156;margin:10px 0 12px}.paid-meta span{display:inline-flex;gap:5px;align-items:center}
+    .paid-desc{font-size:13px;color:#47685d;margin:6px 0 12px}
+    .study .verify{font-size:11px;color:#637970;margin-top:10px;line-height:1.5}
+    .paid-highlights{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+    .paid-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}
+    .paid-controls .form-field{margin:0}.paid-controls .field{min-height:38px;padding:7px 9px;font-size:12px}
+    .filter-toggle{display:flex;align-items:center;gap:8px;font-size:12px;color:#486057;margin:10px 0}
+    .filter-toggle input{accent-color:var(--teal)}
+    .paid-summary{border:1px solid #c3e2d6;background:#eaf8f1;padding:12px 14px;border-radius:10px;font-size:13px;color:#285747;margin-bottom:13px}
+    .soft-divider{margin:22px 0;border:0;border-top:1px solid var(--line)}
+    .starter{text-align:left;border:1px solid #c7e6d8;background:#f0fbf5;border-radius:11px;padding:13px;margin-bottom:12px;font-size:13px;color:#385c52}
+    .stacked-fields{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+    .modal-actions a{display:inline-flex;align-items:center;justify-content:center}
+    @media(max-width:720px){.paid-controls{grid-template-columns:1fr 1fr}.pay-block{min-width:120px}.amount{font-size:22px}.stacked-fields{grid-template-columns:1fr}}
+    @media(max-width:390px){.paid-controls{grid-template-columns:1fr}.study-head{flex-wrap:wrap}.pay-block{text-align:left}}
+
+    .search-toggles{padding:12px 13px;margin:11px 0 8px;background:#f2f8f5;border:1px solid #dde9e4;border-radius:12px;display:grid;gap:7px}
+    .search-toggles .filter-toggle{margin:0;font-size:13px}
+    /* Direct researcher contact assistant */
+    .contact-btn{border:0;border-radius:9px;padding:10px 14px;background:#dff4eb;color:#075f51;font-weight:800;font-size:12px}
+    .contact-btn:hover{background:#c9ecdc}.contacted-label{color:#08765a;font-size:12px;font-weight:750}
+    .modal-backdrop{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:18px;background:#0b2226c9}
+    .modal-box{width:min(100%,730px);max-height:min(92vh,900px);overflow:auto;border-radius:20px;background:white;padding:26px;box-shadow:0 30px 90px #051b2460}
+    .modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}.modal-head h2{font-size:23px;margin:6px 0 4px;letter-spacing:-.6px}
+    .close-btn{border:1px solid #d6e5df;background:#fff;border-radius:9px;padding:7px 11px;color:#365a54;font-weight:800}
+    .personal-details{border:1px solid #d2e7de;background:#f4faf7;border-radius:13px;margin-top:17px;padding:15px}
+    .personal-details .two-col{gap:8px 12px}
+    .contact-box{background:#f1f8f5;border:1px solid #d2e7de;padding:14px;border-radius:12px;margin:13px 0}
+    .contact-box a{overflow-wrap:anywhere}.contact-box p{margin:7px 0;font-size:13px}
+    .contact-box .field{background:white}.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}
+    .question{display:flex;align-items:flex-start;gap:9px;border:1px solid #dce8e2;border-radius:9px;padding:10px;background:#fff;font-size:12px;cursor:pointer}
+    .question input{margin-top:3px;flex-shrink:0;accent-color:#006f66}
+    .modal-box textarea{width:100%;font:inherit;font-size:13px;border:1px solid #cbdcd5;border-radius:10px;padding:12px;resize:vertical;min-height:76px;color:#12312d}
+    .modal-box .draft-preview{background:#fbfdfb;min-height:175px}
+    .modal-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+    .modal-actions a{display:inline-flex;align-items:center;text-decoration:none;font-weight:750;font-size:13px}
+    .modal-footnote{font-size:12px;color:#5a756b;margin-top:13px}
+    body.dialog-open{overflow:hidden}
+    @media(max-width:580px){.modal-box{padding:18px}.q-grid{grid-template-columns:1fr}.modal-head h2{font-size:20px}.modal-backdrop{padding:7px}.modal-actions{gap:7px}}
+    @media(max-width:890px){.layout{grid-template-columns:1fr}.form-panel{position:static}.hero-grid{grid-template-columns:1fr}.hero-note{display:none}.toplinks{gap:12px}.form-panel{padding:20px}.hero{padding-top:39px;padding-bottom:54px}}
+    @media(max-width:510px){.shell{padding:0 14px}.toplinks a:nth-child(1){display:none}.brand{font-size:17px}.toplinks{font-size:11px}.hero h1{letter-spacing:-1.4px}.hero p{font-size:14px}.results-panel{padding:16px}.results-header{flex-direction:column}.study{padding:14px}.two-col{grid-template-columns:1fr}.tab{font-size:12px;padding:8px 10px}}
+  </style>
+</head>
+<body>
+  <header><div class="shell topbar">
+    <a class="brand" href="#home"><span class="brand-icon" aria-hidden="true">✳</span> Trial Finder <span style="font-size:11px;color:#b2dfd4;font-weight:600;margin-left:4px">EASY APPLY · YOUR PROFILE</span></a>
+    <nav class="toplinks" aria-label="Main links"><a href="#find">Find studies</a><a href="#sources">Trusted sources</a><a href="https://bepartofresearch.nihr.ac.uk/" target="_blank" rel="noopener noreferrer">NIHR ↗</a></nav>
+  </div></header>
+  <section class="hero" id="home"><div class="shell hero-grid">
+    <div><div class="eyebrow">Paid clinical trials · Across England, Scotland, Wales & Northern Ireland</div><h1>Find UK clinical trials. Contact the researcher in a few clicks.</h1><p>Search recruiting research studies across the UK, check basic requirements, and draft an email directly to published study contacts. Ask about payment, screening, travel, visits and dates.</p></div>
+    <aside class="hero-note"><strong>Two complementary search sources</strong><small><b>Paid studies:</b> 20 manually collected paid-study examples, including Rewarding Research. These are dated snapshots, not live vacancies. <b>More studies:</b> browse the ClinicalTrials.gov public API, page by page, with email contacts where published.</small><div class="pillrow"><span>£ Published payments</span><span>◷ Study schedules</span><span>✓ Basic checks</span><span>✉ Personalised email draft</span></div></aside>
+  </div></section>
+  <main class="shell" id="find"><div class="layout">
+    <section class="panel form-panel" aria-labelledby="questions-title">
+      <span class="tag">Trial Finder · UK-wide search & email</span><h2 id="questions-title" style="margin-top:12px">Find studies that fit you</h2><p class="intro muted">Browse the provider catalogue or search the live public registry. Basic matching is only a first check — research teams decide eligibility.</p>
+      <details class="profile-editor" id="profile-editor" open>
+        <summary>👤 My reusable profile · <span id="profile-summary">Not saved yet</span></summary>
+        <p class="profile-status" id="profile-status">Enter your information once, then save it on this browser for future enquiries. Nothing is sent automatically.</p>
+        <div class="profile-fields" id="profile-fields">
+          <div class="form-field"><label for="pf-name">Your name (optional)</label><input class="field" id="pf-name" type="text" maxlength="70" autocomplete="name" placeholder="Name for email sign-off"></div>
+          <div class="two-col">
+            <div class="form-field"><label for="pf-age">Age</label><input class="field" id="pf-age" type="number" min="18" max="120" inputmode="numeric" value="30"></div>
+            <div class="form-field"><label for="pf-sex">Sex for eligibility</label><select class="field" id="pf-sex"><option value="">Prefer not to include</option><option value="male" selected>Male</option><option value="female">Female</option></select></div>
+          </div>
+          <div class="form-field"><label for="pf-location">Where you're based</label><input class="field" id="pf-location" type="text" maxlength="80" value="United Kingdom" placeholder="e.g. Manchester, UK"></div>
+          <div class="two-col">
+            <div class="form-field"><label for="pf-smoking">Smoking / vaping</label><select class="field" id="pf-smoking"><option value="">Prefer not to include</option><option value="nonsmoker" selected>Non-smoker (currently)</option><option value="never">Never smoked or vaped</option><option value="former">Former smoker</option><option value="current">Current smoker/vaper</option></select></div>
+            <div class="form-field"><label for="pf-availability">Availability</label><select class="field" id="pf-availability"><option value="">Prefer not to include</option><option value="fully" selected>Fully flexible</option><option value="weekdays">Weekdays</option><option value="weekends">Weekends</option><option value="discuss">Discuss with the team</option></select></div>
+          </div>
+          <p class="small muted" style="margin:9px 0">Optional sensitive screening details (saved only with the checkbox below):</p>
+          <div class="form-field"><label for="pf-medical">Medical-history summary</label><select class="field" id="pf-medical"><option value="">Prefer not to include</option><option value="none" selected>No known medical conditions</option><option value="discuss">Discuss securely during screening</option></select></div>
+          <div class="two-col">
+            <div class="form-field"><label for="pf-height">Height (cm, optional)</label><input class="field" id="pf-height" type="number" min="90" max="240" step="0.1" placeholder="e.g. 176"></div>
+            <div class="form-field"><label for="pf-weight">Weight (kg, optional)</label><input class="field" id="pf-weight" type="number" min="25" max="300" step="0.1" placeholder="e.g. 78"></div>
+            <div class="form-field"><label for="pf-gp">Registered with a UK GP?</label><select class="field" id="pf-gp"><option value="unknown">Not sure / skip</option><option value="yes">Yes</option><option value="no">No</option></select></div>
+          </div>
+          <label class="checkline" for="pf-sensitive"><input type="checkbox" id="pf-sensitive"> Also remember the medical summary, height, weight and GP answer on this device</label>
+          <div class="profile-actions"><button type="button" class="primary" id="profile-save">Save profile on this device</button><button type="button" class="secondary" id="profile-clear">Clear saved profile</button></div>
+          <p class="profile-feedback" role="status" id="profile-feedback"></p>
+          <p class="profile-security">Saved information stays in this browser's local storage (not encrypted, not synced). Anyone using this browser profile, or scripts running on this website, may access it. Avoid saving health details on a shared device. Clearing browser data also removes the profile.</p>
+        </div>
+      </details>
+      <form id="trial-form" novalidate>
+        <span class="section-label">01 · About you</span><p class="small muted" style="margin:-3px 0 11px">Your saved profile can fill these fields automatically. You can still edit your search without changing the saved profile.</p>
+        <div class="two-col">
+          <div class="form-field"><label for="age">Your age *</label><input class="field" type="number" id="age" min="18" max="120" value="30" placeholder="e.g. 30" required inputmode="numeric"></div>
+          <div class="form-field"><label for="sex">Trial eligibility sex</label><select class="field" id="sex"><option value="">Prefer not to say</option><option value="MALE" selected>Male</option><option value="FEMALE">Female</option></select></div>
+        </div>
+        <div class="form-field"><label for="location">Town, city or country *</label><input class="field" id="location" value="United Kingdom" placeholder="e.g. Glasgow, Cardiff, Belfast or United Kingdom" autocomplete="address-level2" required></div>
+        <div class="two-col">
+          <div class="form-field"><label for="uk-nation">UK nation</label><select class="field" id="uk-nation"><option value="all">All UK nations</option><option value="England">England</option><option value="Scotland">Scotland</option><option value="Wales">Wales</option><option value="Northern Ireland">Northern Ireland</option></select></div>
+          <div class="form-field"><label for="radius">Travel distance</label><select class="field" id="radius"><option value="10">10 miles</option><option value="25">25 miles</option><option value="50">50 miles</option><option value="100">100 miles</option><option value="200">200 miles</option><option value="500" selected>Anywhere in the UK</option></select></div>
+          <div class="form-field"><label for="status">Registry recruitment</label><select class="field" id="status"><option value="current">Recruiting now</option><option value="soon">Now + opening soon</option></select></div>
+        </div>
+        <span class="section-label">02 · Research interests</span>
+        <div class="form-field"><label for="health">Which best describes you?</label><select class="field" id="health"><option value="unknown">Prefer not to say / unsure</option><option value="healthy" selected>Interested as a healthy volunteer</option><option value="condition">Living with a health condition</option></select></div>
+        <div class="form-field"><label for="condition">Condition or research topic <span style="color:#637b74;font-weight:400">(optional)</span></label><input class="field" type="text" id="condition" maxlength="100" placeholder="e.g. asthma, sleep, anxiety"><span class="hint">Leave blank to explore studies across different topics.</span></div>
+        <label class="filter-toggle" for="travel-only"><input type="checkbox" id="travel-only"> Only show paid studies inside my travel distance (requires a recognised town/city; approximate straight line)</label>
+        <span class="section-label">03 · Optional eligibility basics</span>
+        <div class="two-col"><div class="form-field"><label for="height">Height (cm)</label><input class="field" id="height" type="number" min="90" max="240" step="0.1" inputmode="decimal" placeholder="e.g. 176"></div><div class="form-field"><label for="weight">Weight (kg)</label><input class="field" id="weight" type="number" min="25" max="300" step="0.1" inputmode="decimal" placeholder="e.g. 78"></div></div>
+        <p class="small muted" id="bmi-display" aria-live="polite" style="margin:-5px 0 12px">Enter both to check published BMI ranges. No weight data is sent to providers.</p>
+        <div class="two-col"><div class="form-field"><label for="smoking">Smoking / vaping status</label><select class="field" id="smoking"><option value="unknown">Prefer not to say</option><option value="nonsmoker" selected>I do not currently smoke (vaping not stated)</option><option value="never">Never smoke or vape</option><option value="former">Previously used nicotine</option><option value="current">Currently smoke or vape</option></select></div><div class="form-field"><label for="gp">Registered with a UK GP?</label><select class="field" id="gp"><option value="unknown">Not sure / skip</option><option value="yes">Yes</option><option value="no">No</option></select></div></div>
+        <span class="section-label">04 · Your preferences</span>
+        <div class="form-field"><label for="payment">Payment</label><select class="field" id="payment"><option value="paid">Paid-provider catalogue only</option><option value="any" selected>All opportunities · paid + registry studies</option><option value="registry">Registry studies (payment unknown)</option><option value="unpaid">Confirmed unpaid only</option></select><span class="hint">Registry payment information is normally unknown. The paid-provider catalogue is a dated snapshot; confirm each offer with the team.</span></div>
+        <div class="two-col"><div class="form-field"><label for="minpay">Minimum published pay</label><select class="field" id="minpay"><option value="0">Any amount</option><option value="500">£500+</option><option value="1000">£1,000+</option><option value="2000">£2,000+</option><option value="4000">£4,000+</option><option value="6000">£6,000+</option></select></div><div class="form-field"><label for="nights">Maximum overnight stays</label><select class="field" id="nights"><option value="99">Any length</option><option value="0">No nights</option><option value="2">Up to 2 nights</option><option value="4">Up to 4 nights</option><option value="8">Up to 8 nights</option></select></div></div>
+        <div class="form-field"><label for="datefilter">When can you start?</label><select class="field" id="datefilter"><option value="any">Any date, including flexible/unknown</option><option value="30">Published admission date within 30 days (ask if slots exist)</option><option value="90">Published admission date within 90 days (ask if slots exist)</option><option value="flexible">Flexible / ask recruiter for dates</option></select></div>
+        <div class="form-field"><label for="paid-status">Paid-study recruitment</label><select class="field" id="paid-status"><option value="any">All published listings (include unconfirmed)</option><option value="hide-closed">Hide provider-reported closed or paused</option><option value="verified-recruiting">Only provider-reported recruiting</option><option value="unknown">Only unconfirmed/unknown — ask recruiter</option></select><span class="hint">A study marked recruiting may still have no places. Most current listings have not been checked automatically with the provider.</span></div>
+        <div class="form-field"><label for="studytype">Registry study design (optional)</label><select class="field" id="studytype"><option value="any">All study types</option><option value="INTERVENTIONAL">Interventional (treatments/tests)</option><option value="OBSERVATIONAL">Observational (monitoring/records)</option></select></div>
+        <div class="checkline"><input type="checkbox" id="acknowledge"><label for="acknowledge">I agree to send only my chosen UK location and optional study-topic keyword to ClinicalTrials.gov for the live search. Age, BMI, sex and medical questionnaire answers are checked locally, not included in the API request.</label></div>
+        <button id="search-button" class="primary full" type="submit">Find matching UK studies →</button>
+      </form>
+      <div class="form-foot">Search answers stay in this tab unless you explicitly save a reusable profile above. Saved profile, application dates and activity remain in this browser only. A registry search sends a city/topic query only if you opt in. Avoid sharing medical details unnecessarily.</div>
+    </section>
+    <div class="content">
+      <section class="panel results-panel" aria-labelledby="matches-title">
+        <div class="banner" id="snapshot-banner"><strong>Independent discovery tool — listings checked 9 November 2026.</strong> Payment, recruitment and dates can change. <strong>Applications happen on each provider’s official website</strong> or via a published recruiter contact. Trial Finder does not send applications for you.</div>
+        <div class="results-header"><div><h2 id="matches-title">Paid clinical trial finder</h2><p class="muted">Manual paid-study examples plus paginated live UK registry results. Email the published study contacts to confirm screening and compensation.</p></div><span class="live" id="results-source-label"><span class="dot"></span> Published provider listings</span></div>
+        <div class="tabs" role="tablist" aria-label="Results categories">
+          <button type="button" id="tab-all" class="tab" role="tab" aria-selected="false" data-tab="all">All opportunities</button>
+          <button type="button" id="tab-registry" class="tab" role="tab" aria-selected="false" data-tab="registry">Registry studies</button>
+          <button type="button" id="tab-paid" class="tab" role="tab" aria-selected="true" data-tab="paid">Paid trials</button>
+          <button type="button" id="tab-saved" class="tab" role="tab" aria-selected="false" data-tab="saved">My applications <span id="saved-count">(0)</span></button>
+        </div>
+        <div id="message" class="banner" role="status">Loading paid-study examples…</div>
+        <div class="search-toggles">
+         <label class="filter-toggle" for="hide-mismatch"><input type="checkbox" id="hide-mismatch" checked> Hide studies that clearly conflict with basic age/sex/healthy-volunteer criteria</label>
+         <label class="filter-toggle" for="email-only"><input type="checkbox" id="email-only"> Show only results with a published recruitment email</label>
+         <p class="small muted" style="margin:0">These filters apply to studies already loaded. Review the full registry eligibility text before contacting a team.</p>
+        </div>
+        <div class="controls"><span id="result-count" class="result-count">Loading paid study listings…</span><label for="sort" class="small">Sort by <select id="sort"><option value="fit">Initial screening fit</option><option value="pay">Highest published payment</option><option value="date">Soonest planned admission</option><option value="nights">Fewest overnight stays</option><option value="updated">Recently updated (registry)</option><option value="title">Study title</option></select></label></div>
+        <div id="result-area"><div class="starter"><strong>Start with paid studies.</strong> These example listings were checked on 9 November 2026 and are not live vacancies. Search to see which basic requirements you meet.</div></div>
+        <div id="more-wrap" hidden style="text-align:center;margin-top:17px"><button type="button" class="secondary" id="more-button">Load next 100 registry results →</button><p class="small muted">Continue loading pages until the registry has no more results. Only loaded studies can be filtered and sorted on this page.</p></div>
+      </section>
+      <section class="panel info-panel" id="sources"><h3>More places to search</h3><p class="muted small" style="margin:0 0 13px">NIHR and ISRCTN are linked directly in this first version. Their listings are <strong>not</strong> automatically imported into the results above.</p>
+        <div class="links"><a id="nihr-link" href="https://bepartofresearch.nihr.ac.uk/results/search-results?query=&amp;location=United%20Kingdom" target="_blank" rel="noopener noreferrer">Search NIHR ↗</a><a id="isrctn-link" href="https://www.isrctn.com/search" target="_blank" rel="noopener noreferrer">Search ISRCTN ↗</a><a href="https://clinicaltrials.gov/" target="_blank" rel="noopener noreferrer">About ClinicalTrials.gov ↗</a></div>
+        <div class="privacy"><strong>Important:</strong> Registry records can be incomplete, outdated, or not recruiting at a particular site. Payment status is usually missing. No match score predicts whether a researcher will accept you; always read the official criteria and participant information sheet.</div>
+      </section>
+    </div>
+  </div></main>
+
+  <div id="contact-modal" class="modal-backdrop" hidden>
+    <section class="modal-box" role="dialog" aria-modal="true" aria-labelledby="contact-title" aria-describedby="contact-desc">
+      <div class="modal-head"><div><span class="tag">Make an enquiry</span><h2 id="contact-title">Easy apply — contact research team</h2><p id="contact-desc" class="muted small" style="margin:2px 0 10px">Choose a published recruiter email to prepare an enquiry, or open the official application page. Your email app handles sending; Trial Finder cannot submit directly into a provider’s form.</p></div><button type="button" class="close-btn" id="contact-close" aria-label="Close contact panel">✕ Close</button></div>
+      <div id="contact-study" class="small" style="font-weight:800;overflow-wrap:anywhere"></div>
+      <div class="contact-box" id="contact-details"></div>
+      <h3 style="font-size:15px;margin:18px 0 7px">What would you like to ask?</h3>
+      <p class="small muted" style="margin:0">Choose questions to include in a ready-to-edit email. Adapted from <a href="https://bepartofresearch.nihr.ac.uk/take-part-in-research/what-to-expect-on-a-study/questions-to-ask-the-study-team/" target="_blank" rel="noopener noreferrer">NIHR's guidance on contacting study teams</a>.</p>
+      <div class="q-grid" id="contact-questions">
+        <label class="question"><input type="checkbox" value="Am I likely to meet the main eligibility criteria, and is your study currently recruiting at a location I can attend?" checked> Am I eligible, and is the site recruiting?</label>
+        <label class="question"><input type="checkbox" value="What visits, tests, overnight stays and follow-up appointments would I need to attend?" checked> How many visits or overnight stays?</label>
+        <label class="question"><input type="checkbox" value="Is this a paid study? If so, how much compensation is provided, when is it paid, and are travel or parking expenses reimbursed?" checked> Is this a paid study?</label>
+        <label class="question"><input type="checkbox" value="What are the main risks, possible side effects and safeguards for participants?"> What are the risks and safeguards?</label>
+        <label class="question"><input type="checkbox" value="What is the study investigating, and what will happen during participation?"> What is the purpose and process?</label>
+        <label class="question"><input type="checkbox" value="How long would I be involved, and what happens if I decide to withdraw early?"> How long will it take? Can I withdraw?</label>
+        <label class="question"><input type="checkbox" value="Who should I contact about problems, and is help available outside normal working hours?"> Who can help if something goes wrong?</label>
+        <label class="question"><input type="checkbox" value="How will my personal and health data be used and protected?"> How will my data be protected?</label>
+        <label class="question"><input type="checkbox" value="When does recruitment close, and when might screening start?"> When would screening begin?</label>
+        <label class="question"><input type="checkbox" value="How and when will participants be told about the study results?"> Will I learn the results?</label>
+        <label class="question"><input type="checkbox" value="Is the advertised compensation guaranteed, or does it depend on completion, extra procedures or study group? When is it paid and what is the payment if I withdraw?"> Is the advertised amount guaranteed?</label>
+        <label class="question"><input type="checkbox" value="Which admission dates are still available, and what are the screening dates or cancellation policies?"> Which dates are still available?</label>
+        <label class="question"><input type="checkbox" value="Are travel, meals, accommodation, parking, and screening appointments reimbursed separately?"> Are travel and screening costs covered?</label>
+      </div>
+      <div class="personal-details" aria-label="Your profile for this enquiry">
+        <h3 style="font-size:15px;margin:0 0 5px">Your details for this enquiry</h3>
+        <p class="small muted" style="margin:0 0 13px">Filled from your reusable profile and current search. You can change details for this one enquiry or save changes for future enquiries. Nothing is submitted until you send the email yourself.</p>
+        <div class="two-col">
+          <div class="form-field"><label for="contact-name">Your name (optional)</label><input class="field" type="text" maxlength="70" id="contact-name" placeholder="Your name"></div>
+          <div class="form-field"><label for="contact-age">Age</label><input class="field" type="number" min="18" max="120" id="contact-age" placeholder="e.g. 30"></div>
+          <div class="form-field"><label for="contact-sex">Sex for trial eligibility</label><select class="field" id="contact-sex"><option value="">Prefer not to include</option><option value="male">Male</option><option value="female">Female</option></select></div>
+          <div class="form-field"><label for="contact-location">Where you're based</label><input class="field" type="text" maxlength="80" id="contact-location" placeholder="e.g. Manchester, UK"></div>
+          <div class="form-field"><label for="contact-smoking">Smoking status</label><select class="field" id="contact-smoking"><option value="">Prefer not to include</option><option value="nonsmoker">Non-smoker (currently)</option><option value="never">Never smoked or vaped</option><option value="former">Former smoker</option><option value="current">Currently smoke</option></select></div>
+          <div class="form-field"><label for="contact-medical">Medical history summary</label><select class="field" id="contact-medical"><option value="">Prefer not to include</option><option value="none">No known medical conditions</option><option value="discuss">I can discuss my medical history securely during screening</option></select></div>
+          <div class="form-field"><label for="contact-availability">Availability</label><select class="field" id="contact-availability"><option value="">Prefer not to include</option><option value="fully">Fully flexible for screening, visits and overnight stays</option><option value="weekdays">Available during weekdays</option><option value="weekends">Generally available on weekends</option><option value="discuss">Please discuss dates with me</option></select></div>
+        </div>
+        <label class="checkline" for="contact-include" style="margin:2px 0 6px"><input type="checkbox" id="contact-include" checked> Include these personal details in the email draft (review before sending)</label>
+        <label class="checkline" for="contact-save-sensitive" style="margin:6px 0"><input type="checkbox" id="contact-save-sensitive"> If I save this profile, also remember the medical-history summary on this device</label>
+        <div class="profile-actions"><button type="button" class="secondary" id="contact-save-profile">Save these details as my profile</button><button type="button" class="link-btn" id="contact-use-profile">Restore saved profile details</button></div>
+        <p class="profile-feedback" id="contact-profile-feedback" role="status"></p>
+        <p class="small muted" style="margin:4px 0 0">Avoid listing diagnoses, medicines, or other detailed medical information in a first email. Use the research team's secure screening process if required.</p>
+      </div>
+      <div class="form-field"><label for="contact-extra">Anything else you want to ask? (optional)</label><textarea id="contact-extra" rows="2" maxlength="700" placeholder="Add a question. Keep detailed health information for the research team's secure screening process."></textarea></div>
+      <div class="form-field"><label for="contact-preview">Your draft email</label><textarea id="contact-preview" class="draft-preview" rows="8" aria-label="Editable email draft"></textarea><span class="hint">You can edit the draft before copying or opening your email app. Nothing is sent by this website.</span></div>
+      <div class="application-tracker">
+        <label for="application-status"><strong>Track this application on this device</strong></label>
+        <select class="field" id="application-status" style="margin-top:5px">
+          <option value="">Not tracked</option>
+          <option value="saved">Interested / saved</option>
+          <option value="contacted">I contacted the recruiter</option>
+          <option value="applied">I submitted an application</option>
+          <option value="screening">Screening underway</option>
+          <option value="accepted">Accepted</option>
+          <option value="declined">Not eligible / withdrawn</option>
+        </select><p class="small muted" style="margin:5px 0 0">Application stage and dated activity are saved on this device. Your reusable profile is saved only when you press Save, with optional medical details only if you opt in. Nothing is sent by this website.</p>
+      </div>
+      <div class="modal-actions"><button type="button" class="secondary" id="contact-copy">Copy enquiry</button><a id="contact-email" class="secondary" href="#" hidden>Open email draft ↗</a><a id="contact-phone" class="secondary" href="#" hidden>Call researcher</a><a id="contact-official" class="primary" href="#" target="_blank" rel="noopener noreferrer">Official form / listing ↗</a><button type="button" class="secondary" id="contact-done">Mark as contacted</button><button type="button" class="secondary" id="contact-email-sent">I sent the email</button><button type="button" class="secondary" id="contact-reply-received">I received a reply</button><button type="button" class="secondary" id="contact-logged-applied">I submitted the form</button><button type="button" class="secondary" id="contact-track-details">Dates & activity log</button></div>
+      <p class="modal-footnote" id="contact-feedback" role="status">A message opens in your own email app. Trial Finder prepares your enquiry and opens official application links; it does not submit an application.</p>
+    </section>
+  </div>
+
+  <div id="tracker-modal" class="modal-backdrop" hidden>
+    <section class="modal-box tracker-dialog" role="dialog" aria-modal="true" aria-labelledby="tracker-title">
+      <div class="modal-head"><div><span class="tag">My applications</span><h2 id="tracker-title">Update application</h2><p id="tracker-study" class="small muted" style="margin:4px 0 0"></p></div><button type="button" class="close-btn" id="tracker-close" aria-label="Close application tracker">✕ Close</button></div>
+      <p class="quiet-warning">This is your personal record — it does not check your mailbox or update the research provider. Only mark emails or applications as completed after you have actually sent them.</p>
+      <div class="tracker-modal-fields" style="margin-top:15px">
+        <div class="form-field"><label for="tracker-status">Current stage</label><select class="field" id="tracker-status"><option value="saved">Interested / saved</option><option value="contacted">Contacted</option><option value="applied">Applied</option><option value="screening">Screening</option><option value="accepted">Accepted</option><option value="declined">Not eligible / withdrawn</option></select></div>
+        <div class="form-field"><label for="tracker-start">Expected trial start</label><input class="field" type="date" id="tracker-start"><span class="hint">Enter a date given by the recruiter; leave blank if unknown.</span></div>
+        <div class="form-field"><label for="tracker-screening">Screening appointment (optional)</label><input class="field" type="date" id="tracker-screening"></div>
+        <div class="form-field"><label for="tracker-contact-email">Research team email (optional)</label><input class="field" type="email" id="tracker-contact-email" placeholder="Study team's public email" maxlength="180"></div>
+      </div>
+      <label class="checkline"><input type="checkbox" id="tracker-start-confirmed"> The trial start date has been confirmed by the team (otherwise marked tentative)</label>
+      <label class="tracker-label" for="tracker-notes">Notes (avoid health information)</label><textarea id="tracker-notes" maxlength="1200" rows="3" placeholder="e.g. Recruiter said to expect screening next week"></textarea>
+      <div class="tracker-modal-actions"><button type="button" class="primary" id="tracker-save">Save dates & notes</button><button type="button" class="secondary" id="tracker-remove">Remove from my tracker</button></div>
+      <hr class="soft-divider" style="margin:19px 0">
+      <h3 style="font-size:15px;margin:3px 0 6px">Add a dated activity</h3>
+      <div class="tracker-modal-fields">
+        <div class="form-field"><label for="tracker-event">Activity</label><select class="field" id="tracker-event"><option value="email_sent">Email sent</option><option value="reply_received">Email reply received</option><option value="application_submitted">Application form submitted</option><option value="screening_booked">Screening booked</option><option value="accepted">Accepted / enrolled</option><option value="declined">Declined / withdrawn</option><option value="note">Other update</option></select></div>
+        <div class="form-field"><label for="tracker-event-date">Date this happened</label><input class="field" type="date" id="tracker-event-date"></div>
+      </div>
+      <label class="tracker-label" for="tracker-event-note">Optional activity note</label><textarea id="tracker-event-note" maxlength="500" rows="2" placeholder="e.g. They asked for a callback"></textarea>
+      <div class="tracker-modal-actions"><button type="button" class="secondary" id="tracker-add-event">Add to activity history</button></div>
+      <div id="tracker-feedback" role="status"></div>
+      <div id="tracker-modal-history"></div>
+    </section>
+  </div>
+
+  <footer class="pagefooter"><div class="shell">Trial Finder is an independent prototype, not affiliated with NIHR, the NHS, ClinicalTrials.gov, or the listed providers. ClinicalTrials.gov data comes from publicly available registry records. Email drafts open in your own mail app for review. Optional saved profiles stay in this browser, and their storage is not encrypted. Avoid sharing detailed medical history by email; use secure provider screening. No clinical advice is given. • <span id="year"></span></div></footer>
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const cityCentres = {
+    london:[51.5074,-0.1278],manchester:[53.4808,-2.2426],birmingham:[52.4862,-1.8904],bristol:[51.4545,-2.5879],leeds:[53.8008,-1.5491],liverpool:[53.4084,-2.9916],nottingham:[52.9548,-1.1581],sheffield:[53.3811,-1.4701],oxford:[51.752,-1.2577],cambridge:[52.1951,0.1313],cardiff:[51.4816,-3.1791],glasgow:[55.8642,-4.2518],edinburgh:[55.9533,-3.1883],belfast:[54.5973,-5.9301],brighton:[50.8225,-0.1372],newcastle:[54.9783,-1.6178],southampton:[50.9097,-1.4044],leicester:[52.6369,-1.1398],york:[53.959,-1.0815],bath:[51.3811,-2.359],reading:[51.4543,-0.9781],exeter:[50.7184,-3.5339],merthyr:[51.7458,-3.3778],'merthyr tydfil':[51.7458,-3.3778],swansea:[51.6214,-3.9436],newport:[51.5842,-2.9977],bangor:[53.228,-4.128],wrexham:[53.046,-2.9925],aberdeen:[57.1497,-2.0943],dundee:[56.462,-2.9707],inverness:[57.4778,-4.2247],stirling:[56.1165,-3.9369],perth:[56.395,-3.4308],lisburn:[54.516,-6.059],derry:[54.9966,-7.3086],londonderry:[54.9966,-7.3086],armagh:[54.35,-6.6528],newry:[54.175,-6.34],middlesbrough:[54.574,-1.235],sunderland:[54.9069,-1.3838],'newcastle upon tyne':[54.9783,-1.6178],derby:[52.9225,-1.4746],coventry:[52.4068,-1.5197],portsmouth:[50.8198,-1.0880],norwich:[52.6309,1.2974],plymouth:[50.3755,-4.1427],hull:[53.7457,-0.3367],blackpool:[53.8175,-3.0357],lancaster:[54.047,-2.801],wakefield:[53.682,-1.4977],stoke:[53.0027,-2.1794], 'stoke-on-trent':[53.0027,-2.1794]
+  };
+  // Provider directory is a list of official links, NOT permission to crawl or a live stock feed.
+  const providers = [
+    {name:'Nucleus Network / Hammersmith Medicines Research',place:'London · England',nation:'England',description:'Published London paid-volunteer studies with source-specific compensation and dates.',url:'https://www.nucleusnetwork.com/participants/find-a-trial/london-clinical-trials/',type:'Clinical research unit'},
+    {name:'Fortrea Clinical Trials',place:'Leeds · England',nation:'England',description:'Official UK recruitment pages list individual studies and payment arrangements.',url:'https://www.fortreaclinicaltrials.com/en-gb/clinical-research/browse-studies',type:'Clinical research unit'},
+    {name:'MAC Clinical Research',place:'Greater Manchester, Teesside, Glasgow & more',nation:'all',description:'Multiple UK clinics including Scotland and northern England. Payment varies by study; please confirm local availability.',url:'https://researchforyou.co.uk/current-studies/',type:'Multi-site clinical research'},
+    {name:'Quotient Sciences / We Need You',place:'Nottingham · England',nation:'England',description:'Nottingham paid clinical studies; published listings show amounts and clinic visits.',url:'https://www.weneedyoutrials.com/current-trials',type:'Clinical research unit'},
+    {name:'Simbec-Orion / Be Amazing',place:'Merthyr Tydfil · Wales',nation:'Wales',description:'Official Welsh research unit listing study-specific payments and participant requirements.',url:'https://researchuk.co.uk/trials/',type:'Clinical research unit'},
+    {name:'Celerion',place:'Belfast · Northern Ireland',nation:'Northern Ireland',description:'Individual Belfast clinical studies with stipend, age limits and dates.',url:'https://helpresearch.com/location/belfast',type:'Clinical research unit'},
+    {name:'Rewarding Research / Medicines Evaluation Unit',place:'Manchester · England',nation:'England',description:'Published paid clinical research opportunities. Some amounts are not disclosed; contact the recruitment team to check.',url:'https://rewardingresearch.co.uk/',type:'Paid clinical research unit'},
+    {name:'Imperial College NHS Clinical Research Facility',place:'London · England',nation:'England',description:'Healthy volunteer database and research opportunities; payments vary by study.',url:'https://www.imperial.ac.uk/nihr-crf/ppi/volunteer/',type:'NHS research facility'},
+    {name:'MAC Glasgow clinic',place:'Glasgow · Scotland',nation:'Scotland',description:'Research recruitment in Glasgow; confirm whether each study pays and which places are available.',url:'https://researchforyou.co.uk/current-studies/',type:'Multi-site clinical research'}
+  ];
+  const CATALOGUE = {"checkedForDate":"2026-11-09","generatedAt":"2026-11-09T08:33:26+00:00","studies":[{"id":"CEL-CB51757-21","title":"Healthy male volunteers — Belfast injection/oral study","provider":"Celerion","city":"Belfast","nation":"Northern Ireland","ageMin":18,"ageMax":55,"health":"healthy","condition":"","smoking":"unknown","gp":"unknown","nights":5,"visits":"5-night stay plus 4 return visits; 21 blood draws listed","payMin":0,"payMax":2650,"payLabel":"Up to £2,650","admissions":["2026-12-01"],"dateText":"1–22 Dec 2026 (5-night stay, 4 returns)","description":"Study of a candidate medicine being developed for seizures; study registration and full clinical screening required.","requirements":"Healthy males aged 18–55, BMI 18.5–30; further medical restrictions and consent criteria.","contactPhone":"02890 554000","contactEmail":"","source":"https://helpresearch.com/medical-study/cb51757-21-0x00000000000073af-0","paidType":"up-to","checked":"2026-11-09","country":"UK","verified":"Official provider-published listing checked 2026-11-09 (not a live feed)","payUnit":"published study compensation / reimbursement","payVerifiedAt":"2026-11-09","dateVerifiedAt":"2026-11-09","recruitmentVerifiedAt":"2026-11-09","recruitmentStatus":"unconfirmed","bmiMin":18.5,"bmiMax":30},{"admissions":[],"ageMax":80,"ageMin":18,"bmiMax":35,"bmiMin":17.5,"checked":"2026-11-09","city":"Leeds","condition":"immune thrombocytopenia itp","contactPhone":"0113 394 5200","country":"UK","dateText":"Flexible dates — discuss with recruiter","dateVerifiedAt":"2026-11-09","description":"Clinical study for people diagnosed with immune thrombocytopenic purpura (ITP). Provider advertises flexible dates; its example schedule is not a confirmed new admission.","freshness":{"nextPublishedDate":null,"payment":"recently_verified","paymentAgeDays":0,"publishedDates":"ask_provider","recruitment":"unconfirmed","recruitmentAgeDays":null,"schedule":"recently_verified","scheduleAgeDays":0},"gp":"unknown","health":"patient","id":"FOR-780567","nights":6,"paidType":"fixed","payLabel":"£7,675 + 12 travel payments","payMax":7675,"payMin":7675,"payUnit":"study compensation","payVerifiedAt":"2026-11-09","provider":"Fortrea Clinical Trials","recruitmentStatus":"unconfirmed","requirements":"Diagnosis of ITP, aged 18–80, BMI 17.5–35; smoking permitted, further screening required.","smoking":"allowed","source":"https://www.fortreaclinicaltrials.com/en-gb/clinical-research/780567-patients-diagnosed-immune-thrombocytopenic-purpura-itp-needed","title":"ITP (immune thrombocytopenia) study","verified":"Provider-published listing checked 9 Nov 2026 (not a live feed)","visits":"11 outpatient visits and 1 phone call","nation":"England"},{"admissions":[],"ageMax":75,"ageMin":65,"bmiMax":null,"bmiMin":null,"checked":"2026-11-09","city":"London","condition":"","contactEmail":"flu-rsv-study@imperial.ac.uk","contactPhone":"07872 850212","country":"UK","dateText":"Ask study team for schedule","dateVerifiedAt":"2026-11-09","description":"Controlled RSV infection in a monitored clinical facility. Longer follow-up is involved; participant information and risk explanation are essential.","freshness":{"nextPublishedDate":null,"payment":"recently_verified","paymentAgeDays":0,"publishedDates":"ask_provider","recruitment":"unconfirmed","recruitmentAgeDays":null,"schedule":"recently_verified","scheduleAgeDays":0},"gp":"unknown","health":"healthy","id":"IMP-CHIRP01","nights":null,"paidType":"up-to","payLabel":"Up to £2,200–£2,500","payMax":2500,"payMin":2200,"payUnit":"study compensation","payVerifiedAt":"2026-11-09","provider":"Imperial College London / NIHR CRF","recruitmentStatus":"unconfirmed","requirements":"Healthy participants aged 65–75; study team confirms other eligibility criteria.","smoking":"unknown","source":"https://www.imperial.ac.uk/infectious-disease/research/human-challenge/chirp01/study-site/","title":"RSV challenge study — older healthy volunteers","verified":"Provider-published listing checked 9 Nov 2026 (not a live feed)","visits":"Residential challenge stay and 3 follow-ups over 6 months","nation":"England"},{"admissions":[],"ageMax":64,"ageMin":18,"bmiMax":null,"bmiMin":null,"checked":"2026-11-09","city":"London","condition":"","contactEmail":"flu-rsv-study@imperial.ac.uk","contactPhone":"","country":"UK","dateText":"Enrolling for periodic appointments","dateVerifiedAt":"2026-11-09","description":"Registry that may invite participants to future vaccine and infection studies; £30 per visit, not a total payment for the registry.","freshness":{"nextPublishedDate":null,"payment":"recently_verified","paymentAgeDays":0,"publishedDates":"ask_provider","recruitment":"unconfirmed","recruitmentAgeDays":null,"schedule":"recently_verified","scheduleAgeDays":0},"gp":"unknown","health":"healthy","id":"IMP-CIVICS","nights":0,"paidType":"per-visit","payLabel":"£30 per visit","payMax":30,"payMin":30,"payUnit":"per visit","payVerifiedAt":"2026-11-09","provider":"Imperial College London / NIHR CRF","recruitmentStatus":"unconfirmed","requirements":"Healthy adults aged 18–64; eligibility for future invited studies is separate.","smoking":"unknown","source":"https://www.imperial.ac.uk/infectious-disease/research/human-challenge/civics/study-site/","title":"Respiratory infection research registry","verified":"Provider-published listing checked 9 Nov 2026 (not a live feed)","visits":"Blood sample every 3 months for up to 5 years","nation":"England"},{"id":"MAC-156","title":"Healthy male volunteers — neuropathic pain medicine","provider":"MAC Clinical Research","city":"Middlesbrough","nation":"England","ageMin":18,"ageMax":55,"health":"healthy","condition":"","smoking":"unknown","gp":"unknown","nights":6,"visits":"3 × 2-night stays and 8 outpatient visits","payMin":2270,"payMax":2270,"payLabel":"£2,270","admissions":[],"dateText":"Ask recruiter for dates","description":"Healthy-volunteer comparison of formulations of a candidate medicine for neuropathic pain.","requirements":"Healthy males aged 18–55; additional screening and lifestyle requirements apply.","contactPhone":"0800 633 5507","contactEmail":"","source":"https://researchforyou.co.uk/healthy-male-volunteers-156/","paidType":"fixed","checked":"2026-11-09","country":"UK","verified":"Official provider-published listing checked 2026-11-09 (not a live feed)","payUnit":"published study compensation / reimbursement","payVerifiedAt":"2026-11-09","dateVerifiedAt":"2026-11-09","recruitmentVerifiedAt":"2026-11-09","recruitmentStatus":"unconfirmed","bmiMin":null,"bmiMax":null},{"id":"MAC-216","title":"Healthy volunteers — potential Alzheimer’s treatment","provider":"MAC Clinical Research","city":"Manchester","nation":"England","ageMin":18,"ageMax":60,"health":"healthy","condition":"","smoking":"unknown","gp":"unknown","nights":4,"visits":"4-night residential stay plus 5 follow-up visits","payMin":3230,"payMax":3230,"payLabel":"£3,230","admissions":[],"dateText":"Contact recruiter for admission dates","description":"Early-stage healthy volunteer study evaluating an investigational treatment, with screening, residential stay and follow-ups.","requirements":"Healthy males, or females who meet reproductive eligibility requirements; age 18–60, BMI 18–32, minimum weight 50kg; full medical screening.","contactPhone":"0800 633 5507","contactEmail":"","source":"https://researchforyou.co.uk/healthy-male-and-female-volunteers-216/","paidType":"fixed","checked":"2026-11-09","country":"UK","verified":"Official provider-published listing checked 2026-11-09 (not a live feed)","payUnit":"published study compensation / reimbursement","payVerifiedAt":"2026-11-09","dateVerifiedAt":"2026-11-09","recruitmentVerifiedAt":"2026-11-09","recruitmentStatus":"unconfirmed","bmiMin":18,"bmiMax":32},{"admissions":[],"ageMax":80,"ageMin":18,"bmiMax":null,"bmiMin":null,"checked":"2026-11-09","city":"London","condition":"neuropathy chemotherapy cipn","contactPhone":"0800 783 8792","country":"UK","dateText":"Ongoing — dates not published","dateVerifiedAt":"2026-11-09","description":"Study of a treatment gel for chemotherapy-induced peripheral neuropathy; optional skin biopsies may be included.","freshness":{"nextPublishedDate":null,"payment":"recently_verified","paymentAgeDays":0,"publishedDates":"ask_provider","recruitment":"unconfirmed","recruitmentAgeDays":null,"schedule":"recently_verified","scheduleAgeDays":0},"gp":"unknown","health":"patient","id":"NUC-24-503","nights":0,"paidType":"up-to","payLabel":"Up to £2,380","payMax":2380,"payMin":2380,"payUnit":"study compensation","payVerifiedAt":"2026-11-09","provider":"Nucleus Network / HMR","recruitmentStatus":"unconfirmed","requirements":"Prior cancer chemotherapy, now in remission; CIPN for at least 3 months; ages 18–80. Further criteria apply.","smoking":"unknown","source":"https://www.nucleusnetwork.com/trial/24-503-people-with-cipn/","title":"Chemotherapy-induced peripheral neuropathy (CIPN)","verified":"Provider-published listing checked 9 Nov 2026 (not a live feed)","visits":"Up to 6 clinic visits and 1 phone follow-up over roughly 7 weeks","nation":"England"},{"admissions":["2026-11-09","2026-11-16","2026-12-08","2026-12-10"],"ageMax":55,"ageMin":18,"bmiMax":30.9,"bmiMin":18,"checked":"2026-11-09","city":"London","condition":"","contactPhone":"0800 783 8792","country":"UK","dateText":"9, 16 Nov; 8, 10 Dec 2026","dateVerifiedAt":"2026-11-09","description":"Oral experimental medicine for cognitive disorders; screening and dietary, nicotine, medication and tattoo restrictions apply.","freshness":{"nextPublishedDate":"2026-11-09","payment":"recently_verified","paymentAgeDays":0,"publishedDates":"upcoming_published_date","recruitment":"unconfirmed","recruitmentAgeDays":null,"schedule":"recently_verified","scheduleAgeDays":0},"gp":"yes","health":"healthy","id":"NUC-25-008","nights":2,"paidType":"up-to","payLabel":"Up to £1,480","payMax":1480,"payMin":1480,"payUnit":"study compensation","payVerifiedAt":"2026-11-09","provider":"Nucleus Network / HMR","recruitmentStatus":"unconfirmed","requirements":"Healthy adults aged 18–55, BMI 18–30.9, UK GP registration, contraception; smoking/vaping limits and no regular medication.","smoking":"limited","source":"https://www.nucleusnetwork.com/trial/25-008-healthy-volunteer-study/","title":"Memory and cognition medicine — healthy volunteers","verified":"Provider-published listing checked 9 Nov 2026 (not a live feed)","visits":"At least 3 clinical visits, including follow-up","nation":"England"},{"admissions":["2026-11-18"],"ageMax":55,"ageMin":18,"bmiMax":30.9,"bmiMin":18,"checked":"2026-11-09","city":"London","condition":"","contactPhone":"0800 783 8792","country":"UK","dateText":"18 Nov 2026","dateVerifiedAt":"2026-11-09","description":"Experimental cognition medicine study involving a lumbar puncture. Ask the study team about all other exclusion criteria and risks.","freshness":{"nextPublishedDate":"2026-11-18","payment":"recently_verified","paymentAgeDays":0,"publishedDates":"upcoming_published_date","recruitment":"unconfirmed","recruitmentAgeDays":null,"schedule":"recently_verified","scheduleAgeDays":0},"gp":"unknown","health":"healthy","id":"NUC-25-008B","nights":2,"paidType":"up-to","payLabel":"Up to £2,080","payMax":2080,"payMin":2080,"payUnit":"study compensation","payVerifiedAt":"2026-11-09","provider":"Nucleus Network / HMR","recruitmentStatus":"unconfirmed","requirements":"Healthy participants aged 18–55, BMI 18–30.9; lumbar puncture required. Additional screening rules apply.","smoking":"unknown","source":"https://www.nucleusnetwork.com/trial/25-008-part-b-healthy-volunteer-study/","title":"Cognition medicine Part B — healthy volunteers","verified":"Provider-published listing checked 9 Nov 2026 (not a live feed)","visits":"2 outpatient visits and 1 follow-up; lumbar puncture","nation":"England"},{"admissions":["2026-12-09","2026-12-13","2026-12-14"],"ageMax":65,"ageMin":18,"bmiMax":32,"bmiMin":18,"checked":"2026-11-09","city":"London","condition":"","contactPhone":"0800 783 8792","country":"UK","dateText":"9, 13 or 14 Dec 2026","dateVerifiedAt":"2026-11-09","description":"Single injection of an experimental immune-system medicine; additional exclusions include smoking within one year and certain infection risks.","freshness":{"nextPublishedDate":"2026-12-09","payment":"recently_verified","paymentAgeDays":0,"publishedDates":"upcoming_published_date","recruitment":"unconfirmed","recruitmentAgeDays":null,"schedule":"recently_verified","scheduleAgeDays":0},"gp":"unknown","health":"healthy","id":"NUC-25-010","nights":8,"paidType":"up-to","payLabel":"Up to £7,000","payMax":7000,"payMin":7000,"payUnit":"study compensation","payVerifiedAt":"2026-11-09","provider":"Nucleus Network / HMR","recruitmentStatus":"unconfirmed","requirements":"Healthy adults aged 18–65, BMI 18–32, 50 kg or above, tetanus vaccination and no smoking in past year; additional exclusions.","smoking":"never","source":"https://www.nucleusnetwork.com/trial/25-010-a-study-for-treating-various-immune-system-diseases/","title":"Immune-system medicine — healthy volunteers","verified":"Provider-published listing checked 9 Nov 2026 (not a live feed)","visits":"9 follow-up visits","nation":"England"},{"admissions":[],"ageMax":75,"ageMin":23,"bmiMax":null,"bmiMin":25,"checked":"2026-11-09","city":"London","condition":"masld fatty liver","contactPhone":"0800 783 8792","country":"UK","dateText":"Sessions arranged after screening","dateVerifiedAt":"2026-11-09","description":"Investigational PET tracers for monitoring fatty-liver disease; MRI/PET imaging, blood tests and further medical screening.","freshness":{"nextPublishedDate":null,"payment":"recently_verified","paymentAgeDays":0,"publishedDates":"ask_provider","recruitment":"unconfirmed","recruitmentAgeDays":null,"schedule":"recently_verified","scheduleAgeDays":0},"gp":"yes","health":"patient","id":"NUC-25-501","nights":0,"paidType":"from","payLabel":"From £2,700","payMax":2700,"payMin":2700,"payUnit":"study compensation","payVerifiedAt":"2026-11-09","provider":"Nucleus Network / HMR","recruitmentStatus":"unconfirmed","requirements":"Biopsy-confirmed MASLD within last 18 months, ages 23–75, BMI at least 25, UK GP registration; specific medical exclusions.","smoking":"limited","source":"https://www.nucleusnetwork.com/trial/25-501-patients-with-masld/","title":"MASLD fatty-liver imaging study","verified":"Provider-published listing checked 9 Nov 2026 (not a live feed)","visits":"2 screening visits, 2 one-day sessions, telephone follow-up","nation":"England"},{"admissions":["2026-11-16","2027-01-25","2027-02-10"],"ageMax":45,"ageMin":18,"bmiMax":30,"bmiMin":18,"checked":"2026-11-09","city":"London","condition":"","contactPhone":"0800 783 8792","country":"UK","dateText":"16 Nov 2026; 25 Jan or 10 Feb 2027","dateVerifiedAt":"2026-11-09","description":"Single subcutaneous dose of an experimental medicine; additional rules include regular medication, recent nicotine use, contraception and travel restrictions.","freshness":{"nextPublishedDate":"2026-11-16","payment":"recently_verified","paymentAgeDays":0,"publishedDates":"upcoming_published_date","recruitment":"unconfirmed","recruitmentAgeDays":null,"schedule":"recently_verified","scheduleAgeDays":0},"gp":"yes","health":"healthy","id":"NUC-26-005","nights":3,"paidType":"fixed","payLabel":"£4,040","payMax":4040,"payMin":4040,"payUnit":"study compensation","payVerifiedAt":"2026-11-09","provider":"Nucleus Network / HMR","recruitmentStatus":"unconfirmed","requirements":"Healthy adults aged 18–45, BMI 18–30, registered with a GP; no smoking/vaping or nicotine products in preceding 3 months; additional exclusions.","smoking":"never","source":"https://www.nucleusnetwork.com/trial/26-005-healthy-volunteer-study/","title":"Experimental VWD medicine — healthy volunteers","verified":"Provider-published listing checked 9 Nov 2026 (not a live feed)","visits":"7 outpatient follow-ups (last around 16 weeks after dosing)","nation":"England"},{"admissions":["2026-11-09"],"ageMax":65,"ageMin":18,"bmiMax":40,"bmiMin":18,"checked":"2026-11-09","city":"London","condition":"psoriasis","contactPhone":"0800 783 8792","country":"UK","dateText":"Published: 9 Nov 2026; ask for later slots","dateVerifiedAt":"2026-11-09","description":"Experimental injected medicine for mild to moderate plaque psoriasis; compensation depends on optional biopsies.","freshness":{"nextPublishedDate":"2026-11-09","payment":"recently_verified","paymentAgeDays":0,"publishedDates":"upcoming_published_date","recruitment":"unconfirmed","recruitmentAgeDays":null,"schedule":"recently_verified","scheduleAgeDays":0},"gp":"unknown","health":"patient","id":"NUC-26-502B","nights":14,"paidType":"range","payLabel":"£6,324–£6,574","payMax":6574,"payMin":6324,"payUnit":"study compensation","payVerifiedAt":"2026-11-09","provider":"Nucleus Network / HMR","recruitmentStatus":"unconfirmed","requirements":"Diagnosed mild–moderate psoriasis (with/without psoriatic arthritis), aged 18–65, BMI 18–40; other medication and vaccine restrictions.","smoking":"allowed","source":"https://www.nucleusnetwork.com/trial/26-502-part-1b-people-with-plaque-psoriasis/","title":"Plaque psoriasis treatment study","verified":"Provider-published listing checked 9 Nov 2026 (not a live feed)","visits":"7 separate 2-night sessions; biopsies including optional procedures","nation":"England"},{"id":"QSC-303813-1","title":"Healthy volunteers — six-night Nottingham study","provider":"Quotient Sciences / We Need You","city":"Nottingham","nation":"England","ageMin":18,"ageMax":55,"health":"healthy","condition":"","smoking":"never","gp":"unknown","nights":6,"visits":"6 nights plus return visits and 6 travel allowances","payMin":3360,"payMax":3360,"payLabel":"£3,360","admissions":[],"dateText":"Nov 2026–Jan 2027 (exact dates confirm with team)","description":"First-in-human study assessing absorption of an injected medicine; provider advertises a six-night clinic stay.","requirements":"Healthy age 18–55, BMI 25–35; no smoking within previous 3 months; further restrictions apply.","contactPhone":"","contactEmail":"","source":"https://www.weneedyoutrials.com/current-trials","paidType":"fixed","checked":"2026-11-09","country":"UK","verified":"Official provider-published listing checked 2026-11-09 (not a live feed)","payUnit":"published study compensation / reimbursement","payVerifiedAt":"2026-11-09","dateVerifiedAt":"2026-11-09","recruitmentVerifiedAt":"2026-11-09","recruitmentStatus":"unconfirmed","bmiMin":25,"bmiMax":35},{"id":"SIM-36446","title":"Obesity / pre-diabetes or type 2 diabetes medicine","provider":"Simbec-Orion","city":"Merthyr Tydfil","nation":"Wales","ageMin":18,"ageMax":60,"health":"patient","condition":"obesity","smoking":"never","gp":"yes","nights":6,"visits":"Up to 6 overnight stays, 2 calls and up to 30 return visits over 11 months (sentinel cohort); schedules vary","payMin":0,"payMax":9625,"payLabel":"Up to £9,625","admissions":[],"dateText":"Cohort schedules vary — contact recruiter","description":"Investigational obesity/diabetes treatment. Sentinel cohort advertises maximum £9,625; non-sentinel maximum £8,825, depending on procedures and participation.","requirements":"Age 18–60, obesity and pre-diabetes or diagnosed type 2 diabetes for Part B; UK GP requirement; no nicotine; other criteria apply.","contactPhone":"0800 691995","contactEmail":"enrolmentservices@simbecorion.com","source":"https://researchuk.co.uk/trial/clinical-study-36446/","paidType":"up-to","checked":"2026-11-09","country":"UK","verified":"Official provider-published listing checked 2026-11-09 (not a live feed)","payUnit":"published study compensation / reimbursement","payVerifiedAt":"2026-11-09","dateVerifiedAt":"2026-11-09","recruitmentVerifiedAt":"2026-11-09","recruitmentStatus":"unconfirmed","bmiMin":null,"bmiMax":null},{"provider":"Rewarding Research / Medicines Evaluation Unit","city":"Manchester","nation":"England","ageMin":null,"ageMax":null,"smoking":"unknown","gp":"unknown","bmiMin":null,"bmiMax":null,"payMin":0,"payMax":0,"payLabel":"Paid · amount not published","paidType":"undisclosed","payUnit":"amount: ask recruitment team","admissions":[],"contactPhone":"0800 655 6553","contactEmail":"recruitment@meu.org.uk","checked":"2026-11-09","country":"UK","payVerifiedAt":"2026-11-09","dateVerifiedAt":"2026-11-09","recruitmentVerifiedAt":"2026-11-09","recruitmentStatus":"unconfirmed","verified":"Rewarding Research provider listing reviewed on 2026-11-09 (snapshot; no automated updates)","id":"MEU-511","title":"Healthy volunteers — approximately two months","health":"healthy","condition":"","nights":null,"visits":"3 visits and 1 telephone call, spread over 1–2 months","dateText":"1–2 months; ask for screening and visit dates","requirements":"Healthy participants; exact age, BMI, medicine and health restrictions need confirmation.","description":"A study looking for healthy participants at the Medicines Evaluation Unit in Manchester. Study reference 511.","source":"https://rewardingresearch.co.uk/age/30/","sourceType":"official provider study listing / archive; confirm current recruitment"},{"provider":"Rewarding Research / Medicines Evaluation Unit","city":"Manchester","nation":"England","ageMin":null,"ageMax":null,"smoking":"unknown","gp":"unknown","bmiMin":null,"bmiMax":null,"payMin":0,"payMax":0,"payLabel":"Paid · amount not published","paidType":"undisclosed","payUnit":"amount: ask recruitment team","admissions":[],"contactPhone":"0800 655 6553","contactEmail":"recruitment@meu.org.uk","checked":"2026-11-09","country":"UK","payVerifiedAt":"2026-11-09","dateVerifiedAt":"2026-11-09","recruitmentVerifiedAt":"2026-11-09","recruitmentStatus":"unconfirmed","verified":"Rewarding Research provider listing reviewed on 2026-11-09 (snapshot; no automated updates)","id":"MEU-500","title":"Healthy volunteers — year-long follow-up","health":"healthy","condition":"","nights":4,"visits":"18 visits, 3 telephone calls and 4 consecutive overnight stays","dateText":"12–13 months; ask when screening starts","requirements":"Healthy participants; published schedule includes four overnight stays. All medical screening requirements must be confirmed.","description":"A longer healthy-volunteer study at the Medicines Evaluation Unit in Manchester. Study reference 500.","source":"https://rewardingresearch.co.uk/age/30/","sourceType":"official provider study listing / archive; confirm current recruitment"},{"provider":"Rewarding Research / Medicines Evaluation Unit","city":"Manchester","nation":"England","ageMin":null,"ageMax":null,"smoking":"unknown","gp":"unknown","bmiMin":null,"bmiMax":null,"payMin":0,"payMax":0,"payLabel":"Paid · amount not published","paidType":"undisclosed","payUnit":"amount: ask recruitment team","admissions":[],"contactPhone":"0800 655 6553","contactEmail":"recruitment@meu.org.uk","checked":"2026-11-09","country":"UK","payVerifiedAt":"2026-11-09","dateVerifiedAt":"2026-11-09","recruitmentVerifiedAt":"2026-11-09","recruitmentStatus":"unconfirmed","verified":"Rewarding Research provider listing reviewed on 2026-11-09 (snapshot; no automated updates)","id":"MEU-498","title":"COPD research — two to three months","health":"patient","condition":"copd","nights":null,"visits":"8 visits and 4 telephone appointments","dateText":"2–3 months; ask when screening starts","requirements":"Participants with COPD; exact age, inhaler, smoking and medical history criteria need checking.","description":"Manchester respiratory study recruiting participants with COPD. Study reference 498.","source":"https://rewardingresearch.co.uk/age/63/","sourceType":"official provider study listing / archive; confirm current recruitment"},{"provider":"Rewarding Research / Medicines Evaluation Unit","city":"Manchester","nation":"England","ageMin":null,"ageMax":null,"smoking":"unknown","gp":"unknown","bmiMin":null,"bmiMax":null,"payMin":0,"payMax":0,"payLabel":"Paid · amount not published","paidType":"undisclosed","payUnit":"amount: ask recruitment team","admissions":[],"contactPhone":"0800 655 6553","contactEmail":"recruitment@meu.org.uk","checked":"2026-11-09","country":"UK","payVerifiedAt":"2026-11-09","dateVerifiedAt":"2026-11-09","recruitmentVerifiedAt":"2026-11-09","recruitmentStatus":"unconfirmed","verified":"Rewarding Research provider listing reviewed on 2026-11-09 (snapshot; no automated updates)","id":"MEU-503","title":"Asthma research — approximately four months","health":"patient","condition":"asthma","nights":null,"visits":"8 visits to the study unit","dateText":"4–5 months; ask for dates","requirements":"Participants with asthma; confirm diagnosis requirements and medicines with the research team.","description":"Manchester asthma clinical research advertised by Rewarding Research. Study reference 503.","source":"https://rewardingresearch.co.uk/age/30/","sourceType":"official provider study listing / archive; confirm current recruitment"},{"provider":"Rewarding Research / Medicines Evaluation Unit","city":"Manchester","nation":"England","ageMin":40,"ageMax":80,"smoking":"unknown","gp":"unknown","bmiMin":null,"bmiMax":null,"payMin":0,"payMax":0,"payLabel":"Paid · amount not published","paidType":"undisclosed","payUnit":"amount: ask recruitment team","admissions":[],"contactPhone":"0800 655 6553","contactEmail":"recruitment@meu.org.uk","checked":"2026-11-09","country":"UK","payVerifiedAt":"2026-11-09","dateVerifiedAt":"2026-11-09","recruitmentVerifiedAt":"2026-11-09","recruitmentStatus":"unconfirmed","verified":"Rewarding Research provider listing reviewed on 2026-11-09 (snapshot; no automated updates)","id":"MEU-508","title":"COPD study — 12-month follow-up","health":"patient","condition":"copd","nights":4,"visits":"Approx. 13–15 visits and a four-night residential stay","dateText":"12 months; ask for admission dates","requirements":"Aged 40–80, living with COPD; full eligibility and medicines to be checked by study team.","description":"Manchester COPD research listing; source says aged 40–80. Study reference 508.","source":"https://rewardingresearch.co.uk/study/copd-12-months/","sourceType":"official provider study listing / archive; confirm current recruitment"}],"summary":{"providerFeedsSuccessful":0,"reviewRequired":0,"stalePayments":0,"total":15},"version":"2.1"};
+  let paidStudies = CATALOGUE.studies;
+  let catalogueStatus = CATALOGUE, catalogueLoaded = true, catalogueError = '';
+  function loadPaidCatalogue(){setMessage('The paid-study catalogue includes 20 manually collected examples checked on <strong>9 November 2026</strong>. Recruitment, compensation and dates may have changed. <strong>Use Start application to contact the organiser or open the official provider page.</strong>');render();}
+  const TRACK_KEY = 'trialFinderPublicStatusesV1';
+  function readTracking(){
+    try { const v=JSON.parse(localStorage.getItem(TRACK_KEY)||'{}');
+      if(v&&typeof v==='object'&&!Array.isArray(v))return Object.fromEntries(Object.entries(v).filter(([k,s])=>/^(?:NCT\d{8}|[A-Z]{2,5}-[A-Z0-9-]{2,32})$/.test(k)&&['saved','contacted','applied','screening','accepted','declined'].includes(s)).slice(0,1000));
+    } catch(e){}return {};
+  }
+  let tracked=readTracking();
+  function storeTracking(){try{localStorage.setItem(TRACK_KEY,JSON.stringify(tracked));}catch(e){}}
+  function updateTracking(id,status){
+    if(status) tracked[id]=status;else delete tracked[id];
+    storeTracking();saved=new Set(Object.keys(tracked));contacted=new Set(Object.keys(tracked).filter(x=>['contacted','applied','screening','accepted','declined'].includes(tracked[x])));render();
+  }
+
+  // Separate rich, local-only application diary. Legacy statuses remain compatible.
+  const APPLICATIONS_KEY='trialFinderApplicationJournalV1';
+  const EVENT_LABELS={email_sent:'Email sent',reply_received:'Email reply received',application_submitted:'Application submitted',screening_booked:'Screening booked',accepted:'Accepted / enrolled',declined:'Declined / withdrawn',note:'Note added',status:'Status updated'};
+  const STATUS_LABELS={saved:'Interested',contacted:'Contacted',applied:'Applied',screening:'Screening',accepted:'Accepted',declined:'Declined / withdrawn'};
+  const validId=id=>/^(?:NCT\d{8}|[A-Z]{2,5}-[A-Z0-9-]{2,32})$/.test(String(id||''));
+  const validDate=v=>typeof v==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(v)&&!Number.isNaN(Date.parse(v+'T12:00:00'))?v:'';
+  const clip=(v,n=300)=>String(v||'').slice(0,n);
+  const studyFor=id=>paidStudies.find(s=>s.id===id)||records.find(s=>s.id===id);
+  function urlForStudy(s,id){if(s?.source&&/^https:\/\//i.test(s.source))return s.source;if(/^NCT\d{8}$/.test(id))return 'https://clinicaltrials.gov/study/'+id;return '';}
+  function cleanEntry(id,raw){
+    const r=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{};
+    const history=Array.isArray(r.history)?r.history.filter(e=>e&&EVENT_LABELS[e.type]&&validDate(e.date)).slice(-100).map(e=>({type:e.type,date:validDate(e.date),note:clip(e.note,500)})):[];
+    const url=clip(r.url,600);
+    return {id,title:clip(r.title,250)||id,provider:clip(r.provider,120),city:clip(r.city,80),url:/^https:\/\//i.test(url)?url:'',status:STATUS_LABELS[r.status]?r.status:(tracked[id]||'saved'),expectedStart:validDate(r.expectedStart),startConfirmed:r.startConfirmed===true,screeningDate:validDate(r.screeningDate),contactEmail:safeEmail(r.contactEmail),notes:clip(r.notes,1200),history};
+  }
+  function readApplications(){try{const o=JSON.parse(localStorage.getItem(APPLICATIONS_KEY)||'{}');if(o&&typeof o==='object'&&!Array.isArray(o))return Object.fromEntries(Object.entries(o).filter(([id])=>validId(id)).slice(0,1000).map(([id,r])=>[id,cleanEntry(id,r)]));}catch(e){}return {};}
+  let applications=readApplications();let selectedTrackedId=null,trackerFocus=null,trackerFilter='all';
+  // Preserve previous saved statuses (including records that aren't in current filters or pagination).
+  function ensureEntry(id){
+    if(!validId(id))return null;
+    const s=studyFor(id);let entry=applications[id];
+    if(!entry)entry=cleanEntry(id,{status:tracked[id]||'saved'});
+    if(s){entry.title=clip(s.title,250)||id;entry.provider=clip(s.provider||'ClinicalTrials.gov',120);entry.city=clip(s.city||s.nearest?.city||'',80);entry.url=urlForStudy(s,id);}
+    applications[id]=entry;return entry;
+  }
+  function persistApplications(){try{localStorage.setItem(APPLICATIONS_KEY,JSON.stringify(applications));return true;}catch(e){return false;}}
+  function rememberEntry(id){const e=ensureEntry(id);if(!e)return; if(!tracked[id])tracked[id]=e.status||'saved';storeTracking();persistApplications();saved=new Set(Object.keys(tracked));}
+  function statusAfterEvent(type){return ({email_sent:'contacted',reply_received:'contacted',application_submitted:'applied',screening_booked:'screening',accepted:'accepted',declined:'declined'})[type]||null;}
+  function recordEvent(id,type,date,note=''){
+    if(!EVENT_LABELS[type]||!validDate(date))return false;
+    const e=ensureEntry(id);if(!e)return false;
+    e.history.push({type,date,note:clip(note,500)});e.history=e.history.slice(-100);
+    const next=statusAfterEvent(type);if(next&&!(type==='email_sent'&&['applied','screening','accepted'].includes(e.status))&&!(type==='reply_received'&&['applied','screening','accepted'].includes(e.status)))e.status=next;
+    applications[id]=e;tracked[id]=e.status;storeTracking();persistApplications();saved=new Set(Object.keys(tracked));contacted=new Set(Object.keys(tracked).filter(x=>['contacted','applied','screening','accepted','declined'].includes(tracked[x])));render();return true;
+  }
+  function dateLabel(date){return date?formattedDate(date):'Not set';}
+  function hasEvent(e,type){return !!(e?.history||[]).find(x=>x.type===type);}
+  function journalHtml(e){
+    const history=[...(e.history||[])].sort((a,b)=>b.date.localeCompare(a.date));
+    return `<details class="tracker-history"><summary>Activity history (${history.length})</summary>${history.length?`<ol>${history.map(x=>`<li><strong>${esc(dateLabel(x.date))}</strong> · ${esc(EVENT_LABELS[x.type]||'Update')}${x.note?`<span>${esc(x.note)}</span>`:''}</li>`).join('')}</ol>`:'<p class="small muted">No activity recorded yet. Use Log activity to add your first email or application date.</p>'}</details>`;
+  }
+  function dashboardHtml(){
+    for(const id of Object.keys(tracked))if(validId(id))ensureEntry(id);
+    const all=Object.values(applications).filter(e=>tracked[e.id]&&validId(e.id));
+    const stats={total:all.length,sent:all.filter(e=>hasEvent(e,'email_sent')).length,replied:all.filter(e=>hasEvent(e,'reply_received')).length,applied:all.filter(e=>hasEvent(e,'application_submitted')||['applied','screening','accepted'].includes(e.status)).length};
+    const stat=(n,label)=>`<div class="tracker-stat"><strong>${n}</strong><span>${label}</span></div>`;
+    const toolbar=`<div class="tracker-stats">${stat(stats.total,'Tracked studies')}${stat(stats.sent,'Emails sent')}${stat(stats.replied,'Replies received')}${stat(stats.applied,'Applied')}</div>
+      <div class="tracker-toolbar"><label class="small" for="tracker-filter"><strong>Show</strong></label><select id="tracker-filter"><option value="all" ${trackerFilter==='all'?'selected':''}>All tracked</option><option value="sent" ${trackerFilter==='sent'?'selected':''}>Emails sent</option><option value="replied" ${trackerFilter==='replied'?'selected':''}>Replies received</option><option value="applied" ${trackerFilter==='applied'?'selected':''}>Applied / screening</option><option value="upcoming" ${trackerFilter==='upcoming'?'selected':''}>Upcoming dates</option></select><button type="button" class="secondary" data-export-csv>Export CSV</button><button type="button" class="secondary" data-export-json>Backup JSON</button><button type="button" class="secondary" data-import-json>Restore backup</button><input hidden type="file" id="tracker-import-file" accept="application/json,.json" aria-label="Import application backup"></div><p class="small muted" style="margin:0 0 12px">Private tracker on this browser. Dates are yours to enter and confirm — advertised dates do not automatically become booked appointments. Export a backup if you change device or website address.</p>`;
+    const now=isoToday();let view=all.filter(e=>trackerFilter==='sent'?hasEvent(e,'email_sent'):trackerFilter==='replied'?hasEvent(e,'reply_received'):trackerFilter==='applied'?hasEvent(e,'application_submitted')||['applied','screening','accepted'].includes(e.status):trackerFilter==='upcoming'?(e.expectedStart>=now||e.screeningDate>=now):true);
+    view.sort((a,b)=>{const aa=[a.expectedStart,a.screeningDate].filter(x=>x&&x>=now).sort()[0]||'9999';const bb=[b.expectedStart,b.screeningDate].filter(x=>x&&x>=now).sort()[0]||'9999';return aa.localeCompare(bb)||a.title.localeCompare(b.title);});
+    const cards=view.map(e=>{
+      const url=e.url||urlForStudy(studyFor(e.id),e.id);
+      const mail=e.history.filter(x=>x.type==='email_sent').sort((a,b)=>b.date.localeCompare(a.date))[0];
+      const reply=e.history.filter(x=>x.type==='reply_received').sort((a,b)=>b.date.localeCompare(a.date))[0];
+      const app=e.history.filter(x=>x.type==='application_submitted').sort((a,b)=>b.date.localeCompare(a.date))[0];
+      return `<article class="tracker-card"><div class="badge-row"><span class="chip good">${esc(STATUS_LABELS[e.status]||'Saved')}</span>${e.expectedStart?`<span class="chip ${e.expectedStart<now?'warn':'info'}">${e.startConfirmed?'Confirmed':'Tentative'} start: ${esc(dateLabel(e.expectedStart))}</span>`:'<span class="chip warn">Trial start not recorded</span>'}</div><h3>${esc(e.title)}</h3><p class="small muted" style="margin:0">${esc(e.id)}${e.provider?' · '+esc(e.provider):''}${e.city?' · '+esc(e.city):''}</p><div class="tracker-details"><span>✉ Sent: ${mail?esc(dateLabel(mail.date)):'Not recorded'}</span><span>↩ Reply: ${reply?esc(dateLabel(reply.date)):'Not recorded'}</span><span>✓ Applied: ${app?esc(dateLabel(app.date)):['applied','screening','accepted'].includes(e.status)?'Date not recorded':'Not recorded'}</span><span>◷ Screening: ${esc(dateLabel(e.screeningDate))}</span></div>${e.notes?`<p class="small muted" style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(e.notes)}</p>`:''}<div class="study-actions"><button type="button" class="secondary" data-track="${esc(e.id)}">Update dates & activity</button>${studyFor(e.id)?`<button type="button" class="secondary" data-contact="${esc(e.id)}">Easy apply / email</button>`:''}${url?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Official study ↗</a>`:''}</div>${journalHtml(e)}</article>`;
+    }).join('');
+    return `<div class="banner"><strong>My application tracker</strong> · You control these records. Emails are not checked automatically and no form is submitted by logging an event.</div>${toolbar}${cards||'<div class="empty-state"><h3>No matching applications</h3><p>Save a study using ♥ Save or Track / log activity, or choose another tracker filter.</p></div>'}`;
+  }
+  function openTracker(id){
+    if(!validId(id))return;
+    rememberEntry(id);const e=ensureEntry(id);if(!e)return;
+    selectedTrackedId=id;trackerFocus=document.activeElement;
+    $('tracker-study').textContent=e.title+' · '+id;
+    $('tracker-status').value=e.status||'saved';$('tracker-start').value=e.expectedStart||'';$('tracker-screening').value=e.screeningDate||'';$('tracker-start-confirmed').checked=!!e.startConfirmed;$('tracker-contact-email').value=e.contactEmail||'';$('tracker-notes').value=e.notes||'';
+    $('tracker-event').value='email_sent';$('tracker-event-date').value=isoToday();$('tracker-event-note').value='';$('tracker-feedback').textContent='';
+    $('tracker-modal').hidden=false;document.body.classList.add('dialog-open');renderTrackerHistory();$('tracker-close').focus();render();
+  }
+  function closeTracker(){ $('tracker-modal').hidden=true;selectedTrackedId=null;document.body.classList.remove('dialog-open');if(trackerFocus?.isConnected)trackerFocus.focus(); }
+  function renderTrackerHistory(){const e=applications[selectedTrackedId];$('tracker-modal-history').innerHTML=e?journalHtml(e):'';}
+  function changeStatus(id,status){
+    if(!id)return;const e=ensureEntry(id);if(status&&STATUS_LABELS[status]){e.status=status;tracked[id]=status;}else{delete tracked[id];delete applications[id];}
+    storeTracking();persistApplications();saved=new Set(Object.keys(tracked));contacted=new Set(Object.keys(tracked).filter(x=>['contacted','applied','screening','accepted','declined'].includes(tracked[x])));render();
+  }
+  function downloadText(name,txt,mime){const u=URL.createObjectURL(new Blob([txt],{type:mime}));const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);}
+  function csvCell(x){const s=String(x??'');const safe=/^[\s]*[=+@\-\t\r]/.test(s)?"'"+s:s;return '"'+safe.replace(/"/g,'""')+'"';}
+  function exportCsv(){const header=['Study ID','Study title','Provider','Current stage','Email sent','Email reply received','Applied','Screening date','Expected start','Start confirmed','Notes','Official link'];const rows=Object.values(applications).filter(e=>tracked[e.id]).map(e=>{const first=t=>e.history.filter(h=>h.type===t).sort((a,b)=>b.date.localeCompare(a.date))[0]?.date||'';return [e.id,e.title,e.provider,e.status,first('email_sent'),first('reply_received'),first('application_submitted'),e.screeningDate,e.expectedStart,e.startConfirmed?'Yes':'No',e.notes,e.url]});downloadText('trial-finder-applications-'+isoToday()+'.csv','\ufeff'+[header,...rows].map(r=>r.map(csvCell).join(',')).join('\r\n'),'text/csv;charset=utf-8');}
+  function exportJson(){const entries=Object.fromEntries(Object.entries(applications).filter(([id])=>tracked[id]));downloadText('trial-finder-backup-'+isoToday()+'.json',JSON.stringify({version:1,exportedAt:new Date().toISOString(),applications:entries},null,2),'application/json');}
+  async function importJson(file){try{if(!file||file.size>3e6)throw Error('Select a JSON backup smaller than 3 MB.');const data=JSON.parse(await file.text());if(data.version!==1||!data.applications||typeof data.applications!=='object'||Array.isArray(data.applications))throw Error('This does not look like a Trial Finder backup.');const incoming=Object.entries(data.applications).filter(([id])=>validId(id)).slice(0,1000);if(!incoming.length)throw Error('No usable application records were found.');if(!window.confirm(`Import ${incoming.length} application records? Existing records with matching IDs will be replaced.`))return;
+      for(const [id,r] of incoming){applications[id]=cleanEntry(id,r);tracked[id]=applications[id].status;}persistApplications();storeTracking();saved=new Set(Object.keys(tracked));contacted=new Set(Object.keys(tracked).filter(x=>['contacted','applied','screening','accepted','declined'].includes(tracked[x])));render();}
+    catch(err){window.alert('Could not restore backup: '+String(err.message||err));}}
+
+  // An opt-in local profile: never sent to the server or an email until the user acts.
+  // Stored on this origin, not encrypted or shared across devices.
+  const PROFILE_KEY='trialFinderReusableProfileV1';
+  const PROFILE_CLEARED_KEY='trialFinderReusableProfileClearedV1';
+  const PROFILE_FIELDS=['name','age','sex','location','smoking','availability','medical','height','weight','gp'];
+  let savedProfile=null;
+  const choices={sex:['','male','female'],smoking:['','nonsmoker','never','former','current'],availability:['','fully','weekdays','weekends','discuss'],medical:['','none','discuss'],gp:['unknown','yes','no']};
+  function cleanProfile(data,saveSensitive){
+    const p={version:1,name:String(data.name||'').trim().slice(0,70),location:String(data.location||'').trim().slice(0,80),age:'',sex:'',smoking:'',availability:'',saveSensitive:!!saveSensitive};
+    const age=Number(data.age);if(String(data.age).trim()&&Number.isInteger(age)&&age>=18&&age<=120)p.age=String(age);
+    for(const k of ['sex','smoking','availability'])p[k]=choices[k].includes(data[k])?data[k]:'';
+    if(p.saveSensitive){
+      p.medical=choices.medical.includes(data.medical)?data.medical:'';
+      for(const k of ['height','weight']){
+        const v=String(data[k]||'').trim(),n=Number(v),min=k==='height'?90:25,max=k==='height'?240:300;
+        p[k]=v&&Number.isFinite(n)&&n>=min&&n<=max?String(n):'';
+      }
+      p.gp=choices.gp.includes(data.gp)?data.gp:'unknown';
+    }
+    return p;
+  }
+  function readSavedProfile(){
+    try{const raw=localStorage.getItem(PROFILE_KEY);if(!raw)return null;const p=JSON.parse(raw);
+      if(!p||typeof p!=='object'||Array.isArray(p)||p.version!==1)return null;
+      return cleanProfile(p,p.saveSensitive===true);
+    }catch(e){return null;}
+  }
+  function editorProfile(){return Object.fromEntries(PROFILE_FIELDS.map(k=>[k,$('pf-'+k).value]));}
+  function contactProfile(){
+    const p=Object.fromEntries(['name','age','sex','location','smoking','medical','availability'].map(k=>[k,$('contact-'+k).value]));
+    // Keep optional BMI/GP only if they were set in the editor and explicitly opted in.
+    p.height=$('pf-height').value;p.weight=$('pf-weight').value;p.gp=$('pf-gp').value;
+    return p;
+  }
+  function setEditorProfile(p,saveSensitive){
+    if(!p)return;
+    for(const k of PROFILE_FIELDS)if(k==='medical'||k==='height'||k==='weight'||k==='gp'){
+      $('pf-'+k).value=saveSensitive?(p[k]|| (k==='gp'?'unknown':'')):(k==='gp'?'unknown':'');
+    }else $('pf-'+k).value=p[k]||'';
+    $('pf-sensitive').checked=!!saveSensitive;
+  }
+  function setContactProfile(p){
+    if(!p)return;
+    for(const k of ['name','age','sex','location','smoking','medical','availability'])$('contact-'+k).value=p[k]||'';
+    $('contact-save-sensitive').checked=!!p.saveSensitive;
+    draftEmail();
+  }
+  function applyProfileToSearch(p){
+    if(!p)return;
+    $('age').value=p.age||'';
+    $('sex').value=(p.sex||'').toUpperCase();
+    $('location').value=p.location||'';
+    $('smoking').value=p.smoking||'unknown';
+    if(p.saveSensitive){$('height').value=p.height||'';$('weight').value=p.weight||'';$('gp').value=p.gp||'unknown';
+      if(p.medical==='none')$('health').value='healthy';}
+    $('height').dispatchEvent(new Event('input',{bubbles:true}));
+    // Search results use the last explicitly submitted questionnaire; never silently refilter.
+  }
+  function updateProfileSummary(){
+    $('profile-summary').textContent=savedProfile?'Saved on this device':'Not saved yet';
+    $('profile-status').textContent=savedProfile
+      ?`Ready to reuse${savedProfile.name?' for '+savedProfile.name:''}. ${savedProfile.saveSensitive?'Optional medical/BMI details are saved locally.':'Medical/BMI details are NOT stored.'} Editing fields doesn't change the saved profile until you press Save.`
+      :'Set your details once. Press Save to use them in searches and future study enquiries.';
+  }
+  function saveProfile(p,saveSensitive,feedback){
+    const cleaned=cleanProfile(p,saveSensitive);
+    if(!cleaned.age||!cleaned.location){feedback.textContent='Please enter an age (18–120) and a location before saving.';return false;}
+    try{localStorage.setItem(PROFILE_KEY,JSON.stringify(cleaned));localStorage.removeItem(PROFILE_CLEARED_KEY);}
+    catch(e){feedback.textContent='Profile could not be stored in this browser. Check your browser privacy/storage settings.';return false;}
+    savedProfile=cleaned;
+    setEditorProfile(cleaned,cleaned.saveSensitive);
+    applyProfileToSearch(cleaned);
+    updateProfileSummary();
+    feedback.textContent=`Saved only on this device. ${cleaned.saveSensitive?'You chose to remember optional medical/BMI details.':'Medical/BMI details were not stored.'} You can clear this anytime.`;
+    return true;
+  }
+  function initSavedProfile(){
+    savedProfile=readSavedProfile();
+    if(savedProfile){setEditorProfile(savedProfile,savedProfile.saveSensitive);applyProfileToSearch(savedProfile);$('profile-editor').open=false;}
+    else{
+      // Do not bring back the personal-version example fields after a user clears them.
+      try{if(localStorage.getItem(PROFILE_CLEARED_KEY)==='yes'){
+        setEditorProfile({name:'',age:'',sex:'',location:'',smoking:'',availability:'',medical:'',height:'',weight:'',gp:'unknown'},false);
+        applyProfileToSearch({age:'',sex:'',location:'',smoking:'',availability:'',saveSensitive:true,medical:'',height:'',weight:'',gp:'unknown'});
+        $('health').value='unknown';
+      }}catch(e){}
+    }
+    updateProfileSummary();
+  }
+  let records=[], hasSearched=false, activeTab='all', nextToken=null, loading=false, currentProfile=null, saved=new Set(Object.keys(tracked)), contacted=new Set(Object.keys(tracked).filter(x=>['contacted','applied','screening','accepted','declined'].includes(tracked[x]))), selectedStudy=null, lastFocused=null, totalCount=null, loadError='';
+  const batchSize=100; // No 500-record cap: continue with nextPageToken until exhausted.
+  $('year').textContent = new Date().getFullYear();
+  function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  function readProfile(){
+    const age = Number($('age').value), location=$('location').value.trim(), rawLocation=location.toLowerCase().replace(/\s+(city|uk|united kingdom|england|scotland|wales|northern ireland)/g,'').replace(/[,\.]/g,' ').trim();
+    const city=Object.keys(cityCentres).find(c=>rawLocation===c || rawLocation.startsWith(c+' ') || location.toLowerCase().startsWith(c+','));
+    return {age,location,city,coords:city?cityCentres[city]:null, nation:$('uk-nation').value, radius:Number($('radius').value),sex:$('sex').value,health:$('health').value,condition:$('condition').value.trim(),payment:$('payment').value,status:$('status').value,studytype:$('studytype').value,
+      bmi: (Number($('height').value)>0&&Number($('weight').value)>0)?Number($('weight').value)/Math.pow(Number($('height').value)/100,2):null,
+      smoking:$('smoking').value,gp:$('gp').value,minpay:Number($('minpay').value),nights:Number($('nights').value),datefilter:$('datefilter').value,paidstatus:$('paid-status').value,travelOnly:$('travel-only').checked};
+  }
+  function setMessage(msg,type='info'){$('message').hidden=!msg;$('message').className=type==='error'?'banner error':'banner';$('message').innerHTML=msg||'';}
+  function updateLinks(p){
+    const nihr=new URL('https://bepartofresearch.nihr.ac.uk/results/search-results');nihr.searchParams.set('query',p.condition);nihr.searchParams.set('location',/^(uk|united kingdom|great britain|britain)$/i.test(p.location)?'United Kingdom':p.location+(p.location.toLowerCase().endsWith(', uk')?'':', UK'));$('nihr-link').href=nihr.href;
+    const isr=new URL('https://www.isrctn.com/search');if(p.condition)isr.searchParams.set('q',p.condition);$('isrctn-link').href=isr.href;
+  }
+  function makeURL(p,token){
+    const u=new URL('https://clinicaltrials.gov/api/v2/studies');
+    u.searchParams.set('format','json');u.searchParams.set('pageSize',String(batchSize));u.searchParams.set('countTotal','true');u.searchParams.set('sort','LastUpdatePostDate:desc');
+    u.searchParams.set('filter.overallStatus',p.status==='soon'?'RECRUITING,NOT_YET_RECRUITING':'RECRUITING');
+    if(p.condition)u.searchParams.set('query.term',p.condition);
+    // UK only: a nationwide query is explicit rather than an arbitrary city-based search.
+    // Use UK location alongside an optional radius to avoid cross-border false matches.
+    u.searchParams.set('query.locn',p.nation==='all'?'United Kingdom':p.nation+', United Kingdom');
+    if(p.coords && p.radius<500)u.searchParams.set('filter.geo',`distance(${p.coords[0]},${p.coords[1]},${p.radius}mi)`);
+    if(token)u.searchParams.set('pageToken',token);
+    return u;
+  }
+  function parseAge(s){if(!s)return null;const m=String(s).match(/([\d.]+)\s*(year|month|week|day)/i);if(!m)return null;const n=Number(m[1]);return n*({year:1,month:1/12,week:1/52,day:1/365})[m[2].toLowerCase()];}
+  function radians(n){return n*Math.PI/180;}
+  function miles(a,b){const dlat=radians(b[0]-a[0]),dlon=radians(b[1]-a[1]);return 3958.8*2*Math.asin(Math.min(1,Math.sqrt(Math.sin(dlat/2)**2+Math.cos(radians(a[0]))*Math.cos(radians(b[0]))*Math.sin(dlon/2)**2)));}
+  function convert(s,p){
+    const m=s.protocolSection||{}, id=m.identificationModule||{}, st=m.statusModule||{}, el=m.eligibilityModule||{}, des=m.descriptionModule||{}, ct=m.contactsLocationsModule||{}, design=m.designModule||{};
+    const allSites=(ct.locations||[]).filter(l=>['united kingdom','uk'].includes((l.country||'').toLowerCase())).map(l=>({city:l.city||'',state:l.state||'',country:l.country||'',status:l.status||'',facility:l.facility||'',contacts:Array.isArray(l.contacts)?l.contacts:[],point:l.geoPoint?[Number(l.geoPoint.lat),Number(l.geoPoint.lon)]:null}));
+    const withDist=allSites.map(x=>({...x,distance:p.coords&&x.point?miles(p.coords,x.point):null})).sort((a,b)=>(a.distance??Infinity)-(b.distance??Infinity));
+    const nationSites=p.nation==='all'?withDist:withDist.filter(x=>(x.state||'').toLowerCase()===p.nation.toLowerCase());
+    const near=nationSites.find(x=>['RECRUITING','NOT_YET_RECRUITING'].includes(x.status)&&x.distance!=null&&x.distance<=p.radius)
+      || nationSites.find(x=>['RECRUITING','NOT_YET_RECRUITING'].includes(x.status)) || nationSites[0] || null;
+    return {ukNationMatch:p.nation==='all'||nationSites.length>0,id:id.nctId||'',title:id.briefTitle||'Untitled study',status:st.overallStatus||'UNKNOWN',updated:st.lastUpdatePostDateStruct?.date||st.studyFirstPostDateStruct?.date||'',type:design.studyType||'Not specified',phases:design.phases||[],minAge:parseAge(el.minimumAge),maxAge:parseAge(el.maximumAge),minText:el.minimumAge||'Not specified',maxText:el.maximumAge||'No stated maximum',sex:el.sex||'ALL',healthy:el.healthyVolunteers,criteria:el.eligibilityCriteria||'Full criteria not provided in this record.',description:des.briefSummary||'',conditions:(m.conditionsModule?.conditions||[]),sites:withDist,nearest:near,contacts:Array.isArray(ct.centralContacts)?ct.centralContacts:[],contact:(ct.centralContacts||[])[0]||null};
+  }
+  function assess(s,p){
+    const good=[],unknown=[],issues=[];
+    if(s.minAge===null&&s.maxAge===null)unknown.push('Age criteria not stated');
+    else if((s.minAge!==null&&p.age<s.minAge)||(s.maxAge!==null&&p.age>s.maxAge))issues.push('Outside stated age range');
+    else good.push('Within stated age range');
+    if(p.sex){if(s.sex&&s.sex!=='ALL'&&s.sex!==p.sex)issues.push('Trial sex criterion differs');else if(s.sex==='ALL'||s.sex===p.sex)good.push('Sex criterion matches');else unknown.push('Sex criterion unclear');}
+    else unknown.push('Sex criterion not checked');
+    if(p.health==='healthy'){
+      if(s.healthy===false)issues.push('Does not list healthy volunteers as eligible');
+      else if(s.healthy===true)good.push('Accepts healthy volunteers');
+      else unknown.push('Healthy-volunteer rules need checking');
+    }else if(p.health==='condition')unknown.push('Diagnosis and medical details require screening');
+    if(s.nearest&&s.nearest.distance!=null&&s.nearest.distance<=p.radius)good.push('A listed site is within travel range');
+    else if(s.nearest&&s.nearest.distance!=null)unknown.push('Check travel distance to study site');
+    else unknown.push('Site distance unavailable');
+    if(s.nearest&&s.nearest.status&&s.nearest.status!=='RECRUITING'&&s.nearest.status!=='NOT_YET_RECRUITING')unknown.push('Nearest site may not be enrolling');
+    unknown.push('Detailed inclusion/exclusion criteria not checked');
+    const level=issues.length?'mismatch':good.length>=2?'promising':'review';
+    return {good,unknown,issues,level,score: issues.length?-1:good.length};
+  }
+  function studyHtml(s,p){
+    const a=assess(s,p),flag=a.level==='promising'?'Initial fit looks promising':a.level==='mismatch'?'Potential criteria mismatch':'Needs more screening';
+    const cls=a.level==='promising'?'good':a.level==='mismatch'?'bad':'warn';
+    const place=s.nearest?[s.nearest.city,s.nearest.country].filter(Boolean).join(', '):'Site not listed';
+    const nearby=s.nearest?.distance!=null?' · about '+Math.round(s.nearest.distance)+' miles (straight line)':'';
+    const ages=`${s.minText} – ${s.maxText}`;
+    const nct=/^NCT\d{8}$/.test(s.id)?s.id:'';
+    const url=nct?'https://clinicaltrials.gov/study/'+nct:'https://clinicaltrials.gov/';
+    const savedAlready=saved.has(s.id);
+    const notes=[...a.issues.map(x=>'⚠ '+x),...a.good.map(x=>'✓ '+x),...a.unknown.map(x=>'• '+x)].map(x=>`<p>${esc(x)}</p>`).join('');
+    return `<article class="study"><div class="study-head"><div><div class="badge-row"><span class="chip ${cls}">${esc(flag)}</span><span class="chip">${esc(s.status.replaceAll('_',' ').toLowerCase())}</span><span class="chip">Payment: ask team</span>${trialContacts(s).some(c=>c.email)?'<span class="chip good">Email contact published</span>':''}</div><h3>${esc(s.title)}</h3><p class="sub">${esc(s.id)} · ${esc(s.type.toLowerCase())} · ${esc(s.conditions.slice(0,2).join(', ')||'Mixed / not specified')}</p></div><button type="button" class="bookmark ${savedAlready?'is-saved':''}" data-save="${esc(s.id)}" aria-label="${savedAlready?'Remove saved':'Save'} ${esc(s.id)}">${savedAlready?'♥ Saved':'♡ Save'}</button></div>
+      <div class="fact-row"><span>⌖ ${esc(place+nearby)}</span><span>◷ Ages: ${esc(ages)}</span><span>◉ ${esc(s.nearest?.status||'Site status not stated').replaceAll('_',' ').toLowerCase()}</span></div>
+      <div class="study-actions"><button type="button" class="contact-btn" data-contact="${esc(s.id)}">Easy apply / email →</button><button type="button" class="secondary" data-track="${esc(s.id)}">Track / log activity</button><a href="${url}" target="_blank" rel="noopener noreferrer">View official trial ↗</a>${contacted.has(s.id)?'<span class="contacted-label">✓ Marked contacted</span>':'<span class="muted small">Researcher confirms eligibility</span>'}</div>
+      <details><summary>Why this is showing · read eligibility</summary><div class="whatmatched">${notes}</div><p class="small muted">The following text is from the public registry. It has not been automatically interpreted into a medical eligibility decision.</p><div class="criteria">${esc(s.criteria)}</div></details>
+    </article>`;
+  }
+  function safeEmail(e){const t=String(e||'').trim();return /^[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}$/i.test(t)&&t.length<255?t:'';}
+  function safePhone(t){const v=String(t||'').trim();return /^[+0-9()\s.\-]{5,35}$/.test(v)?v:'';}
+  function trialContacts(s){
+    const seen=new Set(), results=[];
+    const add=(c,site)=>{if(!c)return;const email=safeEmail(c.email),phone=safePhone(c.phone);if(!email&&!phone)return;const key=(email+'|'+phone).toLowerCase();if(seen.has(key))return;seen.add(key);results.push({name:String(c.name||'Study contact').slice(0,130),email,phone,site});};
+    if(s.nearest)for(const c of s.nearest.contacts||[])add(c,[s.nearest.facility,s.nearest.city].filter(Boolean).join(', '));
+    if(s.contactEmail||s.contactPhone)add({name:s.provider+' recruitment team',email:s.contactEmail,phone:s.contactPhone},s.city);
+    for(const c of s.contacts||[])add(c,'Central recruitment contact');
+    for(const site of s.sites||[])for(const c of site.contacts||[])add(c,[site.facility,site.city].filter(Boolean).join(', '));
+    return results;
+  }
+  function emailSubject(s){return `Study ${s.id} — participation, eligibility and payment enquiry`;}
+  function draftEmail(){
+    if(!selectedStudy)return;
+    const q=[...document.querySelectorAll('#contact-questions input:checked')].map(x=>x.value);
+    const name=$('contact-name').value.trim(), city=$('contact-location').value.trim(), extra=$('contact-extra').value.trim();
+    let body=`Hello,\n\nI'm interested in participating in the study "${selectedStudy.title}" (${selectedStudy.id}).`;
+    if($('contact-include').checked){
+      const details=[];
+      const age=Number($('contact-age').value);
+      if($('contact-age').value.trim()&&Number.isInteger(age)&&age>=18&&age<=120)details.push(`Age: ${age}`);
+      const sex={male:'Male',female:'Female'}[$('contact-sex').value];if(sex)details.push(`Sex for study eligibility: ${sex}`);
+      if(city)details.push(`Location: ${city}`);
+      const smoke={nonsmoker:'I do not currently smoke',never:'I have never smoked or vaped',former:'I previously smoked',current:'I currently smoke'}[$('contact-smoking').value];if(smoke)details.push(`Smoking status: ${smoke}`);
+      const med={none:'I have no known medical conditions',discuss:'I can discuss my medical history confidentially during formal screening'}[$('contact-medical').value];if(med)details.push(`Medical history: ${med}`);
+      const avail={fully:'I am fully available for screening, visits and any required overnight stays',weekdays:'I am generally available during weekdays',weekends:'I am generally available on weekends',discuss:'I can discuss dates with the research team'}[$('contact-availability').value];if(avail)details.push(`Availability: ${avail}`);
+      if(details.length)body+='\n\nTo help with preliminary screening, here are my details:\n'+details.map(d=>'- '+d).join('\n');
+    }
+    body+='\n\nIs this study currently accepting volunteers, and could I complete your initial screening or application form?';
+    if(q.length)body+='\n\nI also have a few questions:\n'+q.map((x,i)=>`${i+1}. ${x}`).join('\n');
+    if(extra)body+='\n\n'+extra;
+    body+=`\n\nMany thanks,\n${name||'[Your name]'}`;
+    if(selectedStudy.provider)body+='\n\nI understand advertised pay and dates may change, and that I need to complete your formal screening before being accepted.';
+    $('contact-preview').value=body;
+    updateMailto();
+  }
+  function currentContact(){const el=$('contact-select');const arr=selectedStudy?trialContacts(selectedStudy):[];return arr[el?Number(el.value)||0:0]||null;}
+  function updateMailto(){
+    const c=currentContact(), a=$('contact-email');
+    if(c?.email){a.href='mailto:'+c.email+'?subject='+encodeURIComponent(emailSubject(selectedStudy))+'&body='+encodeURIComponent($('contact-preview').value);a.hidden=false;}
+    else{a.hidden=true;a.removeAttribute('href');}
+    const phone=$('contact-phone');if(c?.phone){phone.href='tel:'+c.phone.replace(/[^+\d]/g,'');phone.hidden=false;phone.textContent='Call '+c.phone;}else{phone.hidden=true;phone.removeAttribute('href');}
+  }
+  function openContact(id){
+    const s=records.find(r=>r.id===id)||paidStudies.find(r=>r.id===id);if(!s)return;selectedStudy=s;lastFocused=document.activeElement;
+    $('contact-study').textContent=s.title+' · '+s.id+(s.payLabel?' · '+s.payLabel:'');
+    const contacts=trialContacts(s), details=$('contact-details');
+    if(contacts.length){
+      details.innerHTML=`<label for="contact-select" style="font-size:13px;font-weight:800">Choose published study contact</label><select class="field" id="contact-select" style="margin:7px 0 9px">${contacts.map((c,i)=>`<option value="${i}">${esc(c.name+' — '+(c.site||'Study contact'))}</option>`).join('')}</select><div id="contact-methods"></div>`;
+      const update=()=>{const c=currentContact();$('contact-methods').innerHTML=`<p><strong>${esc(c.name)}</strong>${c.site?' · '+esc(c.site):''}</p>${c.email?`<p>Email: <a href="mailto:${encodeURIComponent(c.email)}">${esc(c.email)}</a></p>`:''}${c.phone?`<p>Phone: <a href="tel:${c.phone.replace(/[^+\d]/g,'')}">${esc(c.phone)}</a></p>`:''}`;updateMailto();};
+      const emailIndex=contacts.findIndex(c=>c.email);if(emailIndex>=0)$('contact-select').value=String(emailIndex);$('contact-select').addEventListener('change',update);update();
+    }else{details.innerHTML='<p><strong>No direct recruitment email or phone is published for this study.</strong></p><p>Use the official trial listing to access its application form or recruitment team. Do not email your medical history to an unverified recipient.</p>';}
+    // Saved profile supplies name, availability and optional medical summary;
+    // the current search supplies age, location, sex and smoking if edited since saving.
+    const p=savedProfile||editorProfile();
+    $('contact-name').value=p.name||'';
+    $('contact-location').value=$('location').value.trim()||p.location||'';
+    $('contact-age').value=$('age').value||p.age||'';
+    $('contact-sex').value=($('sex').value||'').toLowerCase()||p.sex||'';
+    const smoke=$('smoking').value;
+    $('contact-smoking').value=['never','former','current','nonsmoker'].includes(smoke)?smoke:(p.smoking||'');
+    $('contact-medical').value=p.medical||'';
+    $('contact-availability').value=p.availability||'';
+    $('contact-save-sensitive').checked=!!p.saveSensitive;
+    $('contact-profile-feedback').textContent='';
+    $('contact-include').checked=true;
+    $('contact-extra').value='';
+    for(const [i,x] of [...document.querySelectorAll('#contact-questions input')].entries())x.checked=[0,1,2,8,10,12].includes(i);
+    $('contact-official').href=s.source||('https://clinicaltrials.gov/study/'+s.id);$('contact-official').textContent=s.provider?'Open provider form / listing ↗':'View study and official contacts ↗';
+    $('application-status').value=tracked[s.id]||'';
+    $('contact-done').textContent=contacted.has(s.id)?'✓ Marked contacted':'Mark as contacted';
+    $('contact-feedback').textContent=contacts.some(c=>c.email)?'A public recruitment email is available. Edit the enquiry, press Open email draft, check the recipient and press Send in your email app. Trial Finder does not send it itself.':'No published email was found. Copy the enquiry into the official study contact form or use the published phone number. Do not send sensitive medical information to an unverified address.';
+    $('contact-modal').hidden=false;document.body.classList.add('dialog-open');draftEmail();$('contact-close').focus();
+  }
+  function closeContact(){ $('contact-modal').hidden=true;document.body.classList.remove('dialog-open');selectedStudy=null;if(lastFocused&&lastFocused.isConnected)lastFocused.focus(); }
+  // Snapshot entries are verified against provider pages on 9 Nov 2026, not fetched live.
+  const formattedDate = iso => { if(!iso)return ''; const [y,m,d]=iso.split('-').map(Number); return new Date(y,m-1,d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); };
+  const isoToday = () => {const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');};
+  const nextAdmission = s => (s.admissions||[]).filter(d=>d>=isoToday()).sort()[0]||'';
+  function paidAssess(s,p){
+    const good=[],issues=[],unknown=[];
+    if(s.ageMin==null&&s.ageMax==null)unknown.push('Age limits not published — check with study team');else if((s.ageMin!=null&&p.age<s.ageMin)||(s.ageMax!=null&&p.age>s.ageMax))issues.push('Outside published age range');else good.push('Age is within the published range');
+    if(p.bmi!=null&&Number.isFinite(p.bmi)){
+      if((s.bmiMin!=null&&p.bmi<s.bmiMin)||(s.bmiMax!=null&&p.bmi>s.bmiMax))issues.push('BMI outside the published range');
+      else if(s.bmiMin!=null||s.bmiMax!=null)good.push('BMI is within the published range');
+      else unknown.push('BMI requirement not shown');
+    }else if(s.bmiMin!=null||s.bmiMax!=null)unknown.push('BMI not checked');
+    if(p.health==='healthy'&&s.health==='patient')issues.push('This study requires a particular diagnosis');
+    else if(p.health==='healthy'&&s.health==='healthy')good.push('Advertised for healthy volunteers');
+    else if(s.health==='patient'){
+      const matches=p.condition&&s.condition.split(' ').some(t=>t.length>3&&p.condition.toLowerCase().includes(t));
+      if(matches)good.push('Your research-topic keyword resembles the advertised condition (diagnosis not checked)');
+      else unknown.push('A specific medical diagnosis is required');
+    }
+    if(p.smoking==='current'&&s.smoking==='never')issues.push('Published nicotine restrictions may rule this out');
+    else if(p.smoking==='former'&&s.smoking==='never')unknown.push('Nicotine-free period needs checking');
+    else if(s.smoking!=='allowed')unknown.push('Detailed smoking/vaping restrictions need checking');
+    if(p.gp==='no'&&s.gp==='yes')issues.push('Provider requires UK GP registration');
+    else if(p.gp==='yes'&&s.gp==='yes')good.push('UK GP requirement appears met');
+    const point=cityCentres[s.city.toLowerCase()];
+    if(p.coords&&point){const dist=miles(p.coords,point);if(dist>p.radius&&p.radius<500)issues.push('Study city is outside the selected straight-line radius');else good.push('Study city is within approximate travel radius');}
+    else if(p.location)unknown.push('Distance to study city not checked');
+    unknown.push('Full medical, medication and consent criteria need confirmation');
+    return {good,issues,unknown,score:good.length-issues.length*5,level:issues.length?'mismatch':good.length>=2?'promising':'review'};
+  }
+  function paidFiltered(p){
+    return paidStudies.filter(s=>{
+      if(s.payMax<p.minpay)return false;
+      if(p.nation!=='all'&&s.nation!==p.nation)return false;
+      const state=s.recruitmentStatus||'unconfirmed';
+      if(p.paidstatus==='hide-closed'&&['closed','paused'].includes(state))return false;
+      if(p.paidstatus==='verified-recruiting'&&state!=='recruiting')return false;
+      if(p.paidstatus==='unknown'&&state!=='unconfirmed')return false;
+      if(p.travelOnly&&p.coords&&p.radius<500&&cityCentres[s.city.toLowerCase()]&&miles(p.coords,cityCentres[s.city.toLowerCase()])>p.radius)return false;
+      if(s.nights!=null&&s.nights>p.nights)return false;
+      if(s.nights==null&&p.nights<99)return false;
+      if(p.datefilter==='flexible'&&s.admissions.length)return false;
+      if(['30','90'].includes(p.datefilter)){
+        const max=new Date();max.setDate(max.getDate()+Number(p.datefilter));const lim=[max.getFullYear(),String(max.getMonth()+1).padStart(2,'0'),String(max.getDate()).padStart(2,'0')].join('-');
+        if(!s.admissions.some(d=>d>=isoToday()&&d<=lim))return false;
+      }
+      return true;
+    });
+  }
+  function sortPaid(rows,p){
+    const sort=$('sort').value;
+    return rows.sort((a,b)=>{
+      if(sort==='pay')return b.payMax-a.payMax;
+      if(sort==='date')return (nextAdmission(a)||'9999').localeCompare(nextAdmission(b)||'9999');
+      if(sort==='nights')return (a.nights??999)-(b.nights??999);
+      if(sort==='title')return a.title.localeCompare(b.title);
+      return (paidAssess(b,p).score-paidAssess(a,p).score)||(b.payMax-a.payMax);
+    });
+  }
+  function paidHtml(s,p){
+    const match=paidAssess(s,p),isSaved=saved.has(s.id),status=!hasSearched?'Answer questions to check':match.level==='mismatch'?'May not meet basic criteria':match.level==='promising'?'Basic criteria appear compatible':'Needs screening review';
+    const flag=!hasSearched?'info':match.level==='mismatch'?'bad':match.level==='promising'?'good':'warn';
+    const listed=s.admissions.length?`Planned admissions: ${s.dateText}`:s.dateText;
+    const next=nextAdmission(s);
+    const dtNotice=s.admissions.length&&!next?'Listed dates have passed — ask for new dates':'Check the available slots with the provider';
+    const payDate=s.payVerifiedAt||s.checked;
+    const checkedAge=Math.floor((new Date()-new Date(payDate+'T12:00:00'))/86400000);
+    const stale=s.paidType==='undisclosed'?'<span class="chip warn">Compensation amount not published — ask recruiter</span>':checkedAge>14?`<span class="chip warn">Payment needs rechecking · ${esc(formattedDate(payDate))}</span>`:`<span class="chip info">Published payment checked ${esc(formattedDate(payDate))}</span>`;
+    const recruit=s.recruitmentStatus||'unconfirmed';
+    const recruitText={recruiting:'Provider-reported recruiting — ask about slots',not_yet_recruiting:'Provider says recruiting soon',paused:'Provider says paused',closed:'Provider says closed',unconfirmed:'Recruitment unconfirmed — ask provider'}[recruit]||'Recruitment unconfirmed';
+    const recruitBadge=`<span class="chip ${recruit==='recruiting'?'good':recruit==='closed'||recruit==='paused'?'bad':'warn'}">${esc(recruitText)}</span>`;
+    const scheduleBadge=s.freshness?.publishedDates==='all_published_dates_passed'?'<span class="chip warn">All published start dates passed</span>':'';
+    const dateChecked=s.dateVerifiedAt||s.checked;
+    const dateAge=Math.floor((new Date()-new Date(dateChecked+'T12:00:00'))/86400000);
+    const dated=dateAge>14?`<span class="chip warn">Dates need rechecking · ${esc(formattedDate(dateChecked))}</span>`:`<span class="chip info">Dates checked ${esc(formattedDate(dateChecked))}</span>`;
+    const matchNotes=[...match.issues.map(t=>'⚠ '+t),...match.good.map(t=>'✓ '+t),...match.unknown.map(t=>'• '+t)].map(t=>`<p>${esc(t)}</p>`).join('');
+    const allowBadge=s.health==='healthy'?'Healthy volunteers':'Condition-specific study';
+    return `<article class="study paid-card"><div class="study-head"><div style="flex:1;min-width:150px"><div class="badge-row"><span class="chip ${flag}">${esc(status)}</span><span class="chip">${esc(allowBadge)}</span></div><h3>${esc(s.title)}</h3><p class="sub">${esc(s.id)} · ${esc(s.provider)}</p></div><div class="pay-block"><span class="amount">${esc(s.payLabel)}</span><span class="amount-note">${esc(s.payUnit)}</span></div></div>
+      <div class="paid-meta"><span>⌖ ${esc(s.city)}, ${esc(s.nation||'UK')}</span><span>◷ ${s.nights==null?'Residential stay (length ask team)':s.nights+' nights'}</span><span>👤 ${s.ageMin==null&&s.ageMax==null?'Age: ask recruiter':`Ages ${s.ageMin??'not stated'}–${s.ageMax??'not stated'}`}</span>${s.bmiMin!=null?`<span>BMI ${s.bmiMin}${s.bmiMax!=null?'–'+s.bmiMax:'+'}</span>`:''}</div>
+      <p class="paid-desc">${esc(s.description)}</p><div class="paid-highlights"><span class="chip info">${esc(listed)}</span>${stale}${dated}${recruitBadge}${scheduleBadge}</div>
+      <p class="small muted" style="margin:5px 0">${esc(s.visits)}. ${esc(dtNotice)}.</p>
+      <div class="study-actions"><button type="button" class="contact-btn" data-contact="${esc(s.id)}">Easy apply / email →</button><button type="button" class="secondary" data-track="${esc(s.id)}">Track / log activity</button><a href="${esc(s.source)}" target="_blank" rel="noopener noreferrer">Official form / listing ↗</a><button type="button" class="bookmark ${isSaved?'is-saved':''}" data-save="${esc(s.id)}">${isSaved?'♥ Saved':'♡ Save'}</button>${tracked[s.id]?`<span class="contacted-label">${esc(({saved:'Saved',contacted:'Contacted',applied:'Applied',screening:'Screening',accepted:'Accepted',declined:'Closed'}[tracked[s.id]]||'Tracked'))}</span>`:''}</div>
+      <details><summary>Requirements, why matched and payment details</summary><div class="whatmatched">${hasSearched?matchNotes:"Complete the questionnaire and click search for preliminary matching notes."}</div><p class="small"><strong>Published main requirements:</strong> ${esc(s.requirements)}</p><p class="small"><strong>Payment:</strong> ${esc(s.payLabel)}. ${s.paidType==='undisclosed'?'The provider says compensation is available, but no amount was published in the source reviewed.':'A published amount is not guaranteed.'} Ask about screening, completion and withdrawal.</p><p class="small"><strong>Schedule:</strong> ${esc(listed)}. ${esc(s.visits)}.</p><p class="small"><a href="${esc(s.source)}" target="_blank" rel="noopener noreferrer">Read the official provider's full study page ↗</a></p></details>
+      <p class="verify">${s.paidType==='undisclosed'?'Provider compensation statement checked':'Published payment checked'}: ${esc(formattedDate(payDate))}. Catalogue snapshot date: ${esc(formattedDate(s.lastProviderSync||s.checked))}. This listing is not checked live. Confirm current pay and available places directly with the provider.</p></article>`;
+  }
+  function providerHtml(p){return `<article class="provider"><div class="badge-row"><span class="chip good">Paid research provider</span><span class="chip">${esc(p.place)}</span></div><h3>${esc(p.name)}</h3><p>${esc(p.description)}</p><div class="provider-foot"><span class="muted">${esc(p.type)} · Trial availability varies</span><a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">Browse current studies ↗</a></div></article>`;}
+  function render(){
+    if(activeTab==='saved'){
+      $('result-area').innerHTML=dashboardHtml();
+      $('result-count').textContent=Object.keys(tracked).length+' tracked studies · private to this browser';
+      $('saved-count').textContent=`(${saved.size})`;
+      $('more-wrap').hidden=true;
+      $('results-source-label').innerHTML='<span class="dot"></span> Local application tracker';
+      document.querySelectorAll('[data-tab]').forEach(x=>x.setAttribute('aria-selected',String(x.dataset.tab==='saved')));
+      return;
+    }
+    const p=currentProfile||({...readProfile(),age:30,health:'unknown'}), tab=activeTab;
+    const showPaid=tab==='paid'||tab==='saved'||(tab==='all'&&['paid','any'].includes(p.payment));
+    const showRegistry=tab==='registry'||tab==='saved'||(tab==='all'&&['registry','any'].includes(p.payment));
+    const paidAll=showPaid?sortPaid(paidFiltered(p),p):[];
+    const paidFilteredView=paidAll.filter(s=>(!$('hide-mismatch').checked||!hasSearched||paidAssess(s,p).issues.length===0)&&(!$('email-only').checked||trialContacts(s).some(c=>c.email)));
+    const paid=tab==='saved'?paidFilteredView.filter(x=>saved.has(x.id)):paidFilteredView;
+    const visible=records.filter(x=>x.ukNationMatch&&(p.studytype==='any'||x.type===p.studytype));
+    visible.sort((x,y)=>{
+      if($('sort').value==='title')return x.title.localeCompare(y.title);
+      if($('sort').value==='updated')return (y.updated||'').localeCompare(x.updated||'');
+      return assess(y,p).score-assess(x,p).score;
+    });
+    const registryVisible=visible.filter(s=>(!$('hide-mismatch').checked||assess(s,p).issues.length===0)&&(!$('email-only').checked||trialContacts(s).some(c=>c.email)));
+    const registry=showRegistry?(tab==='saved'?registryVisible.filter(x=>saved.has(x.id)):registryVisible):[];
+    let blocks='';
+    if(p.payment==='unpaid')blocks='<div class="empty-state"><h3>Payment status cannot be confirmed</h3><p>Public registries do not reliably distinguish unpaid studies from studies with undisclosed payment. Try a paid or general search instead.</p></div>';
+    else{
+      if(showPaid){
+        const generated=catalogueStatus?.checkedForDate ? formattedDate(catalogueStatus.checkedForDate) : 'not available';
+        const availableFeed=Number(catalogueStatus?.summary?.providerFeedsSuccessful||0);
+        const snapshot=catalogueLoaded?`<strong>Published snapshot ${esc(generated)}</strong> · ${paidStudies.length} manually collected paid-study examples across the UK. <strong>Not a live availability feed.</strong> Payment, recruitment and dates may have changed; confirm directly before applying.`:'<strong>Catalogue unavailable.</strong> No stored example records are being presented as current.';
+        blocks+=`<div class="paid-summary">${snapshot} <span style="display:block;margin-top:6px">Potential mismatches are shown for transparency — only recruiters decide eligibility.</span></div>`;
+        if(paid.length)blocks+=`<div class="study-list">${paid.map(x=>paidHtml(x,p)).join('')}</div>`;
+        else blocks+='<div class="empty-state"><h3>No paid listings found for these UK filters</h3><p>Try reducing the minimum payment, increasing the nights allowed, extending the date range or choosing All UK nations. You can also browse official providers below.</p></div>';
+        if(tab!=='saved')blocks+=`<details style="margin-top:15px"><summary style="cursor:pointer;color:#006f66;font-weight:750">Explore verified UK research providers (payment varies; check individual listings)</summary><div class="provider-grid" style="margin-top:12px">${providers.filter(x=>p.nation==='all'||x.nation==='all'||x.nation===p.nation).map(providerHtml).join('')}</div></details>`;
+      }
+      if(showRegistry){
+        if(showPaid&&tab!=='saved')blocks+='<hr class="soft-divider"><h3>Broader clinical trial registry results</h3><p class="small muted">Payment is not provided reliably by this registry. The prepared enquiry always asks whether participation is paid.</p>';
+        if(registry.length)blocks+=`<div class="study-list">${registry.map(x=>studyHtml(x,p)).join('')}</div>`;
+        else if(!showPaid)blocks+='<div class="empty-state"><h3>No registry studies loaded yet</h3><p>To run a live registry search, select All opportunities or Registry studies, tick the data-sharing consent box, and press Find matching UK studies.</p></div>';
+      }
+    }
+    if(showPaid&&!catalogueLoaded&&catalogueError)blocks='<div class="banner error">Paid-study data unavailable: '+esc(catalogueError)+'. The page will not show outdated examples as live.</div>'+blocks;
+    if(tab==='saved'&&saved.size)blocks='<div class="banner" style="margin:0 0 14px"><strong>My tracked trials</strong> — stored in this browser, not shared with providers. <button type="button" class="link-btn" data-clear-tracked>Clear my tracking</button></div>'+blocks;
+    if(!blocks)blocks='<div class="empty-state"><h3>No studies in this view</h3><p>Switch back to Paid trials or change the questionnaire payment option and search again.</p></div>';
+    $('result-area').innerHTML=blocks;
+    $('result-count').textContent=loading?'Searching registry…':`${paid.length} paid study listings${showRegistry?' · '+registry.length+' registry records loaded':''}${totalCount!=null?' · '+totalCount+' registry total (load pages to see more)':''}`;
+    $('saved-count').textContent=`(${saved.size})`;
+    $('more-wrap').hidden=!(hasSearched&&!loading&&!!nextToken&&showRegistry&&tab!=='saved');
+    $('results-source-label').innerHTML=showPaid?'<span class="dot"></span> Paid listings · dated snapshot':'<span class="dot"></span> Registry on search';
+    document.querySelectorAll('[data-tab]').forEach(x=>x.setAttribute('aria-selected',String(x.dataset.tab===tab)));
+  }
+  async function fetchPage(token){
+    if(loading||!currentProfile)return;loading=true;$('search-button').disabled=true;$('search-button').textContent='Searching registry…';render();
+    const ctrl=new AbortController(),timeout=setTimeout(()=>ctrl.abort(),20000);
+    try{
+      const response=await fetch(makeURL(currentProfile,token),{headers:{'Accept':'application/json'},signal:ctrl.signal});
+      if(!response.ok)throw new Error('Registry request returned HTTP '+response.status);
+      const data=await response.json();
+      if(!data||!Array.isArray(data.studies))throw new Error('Unexpected registry response');
+      const incoming=data.studies.map(s=>convert(s,currentProfile)).filter(x=>/^NCT\d{8}$/.test(x.id)&&x.sites.length&&x.ukNationMatch);
+      const known=new Set(records.map(s=>s.id));records.push(...incoming.filter(s=>!known.has(s.id)));
+      nextToken=data.nextPageToken||null;
+      if(typeof data.totalCount==='number')totalCount=data.totalCount;
+      loadError='';
+      if(token)setMessage(`Loaded more studies. <strong>Preliminary matching only:</strong> you must confirm all eligibility details with a study team.`);
+      else setMessage('Registry search loaded from <strong>ClinicalTrials.gov</strong>; payment status is unknown unless published separately. NIHR listings are linked but not imported.');
+    }catch(err){
+      loadError=err?.name==='AbortError'?'The request timed out':String(err?.message||err);
+      setMessage(`Couldn't load live registry results (${esc(loadError)}). Try again or use the NIHR and ISRCTN links below. No demo studies have been invented.`, 'error');
+      if(!token)nextToken=null;
+    }finally{clearTimeout(timeout);loading=false;$('search-button').disabled=false;$('search-button').textContent='Find matching UK studies →';render();}
+  }
+  $('trial-form').addEventListener('submit',async ev=>{
+    ev.preventDefault();const p=readProfile();if(!Number.isInteger(p.age)||p.age<18||p.age>120){$('age').focus();setMessage('Please enter an age between 18 and 120. This first version is for adults.','error');return;}
+    if(!p.location){$('location').focus();setMessage('Please enter a city or country.','error');return;}
+    if(p.travelOnly&&p.radius<500&&!p.coords){$('location').focus();setMessage('To limit by travel distance, choose a recognised UK city or select Anywhere in the UK.','error');return;}
+    if(['any','registry','unpaid'].includes(p.payment)&&!$('acknowledge').checked){setMessage('Please opt into sending city/topic terms to the public registry to use this search. For local-only paid studies select Paid individual studies first.','error');return;}
+    currentProfile=p;updateLinks(p);records=[];nextToken=null;totalCount=null;loadError='';hasSearched=true;activeTab=p.payment==='paid'?'paid':p.payment==='registry'?'registry':'all';
+    if(p.payment==='unpaid'){setMessage('You selected confirmed unpaid studies. This first data source cannot reliably identify them. Change your payment filter to explore registry studies.');render();return;}
+    if(p.payment==='paid'){
+      if(!catalogueLoaded){setMessage('Paid listings could not be loaded.', 'error');render();return;}
+      setMessage('Showing paid studies from the 9 November 2026 snapshot. The published price or a place is not guaranteed; check the official listing and contact the provider before applying.');render();return;
+    }
+    setMessage('<span class="loading"><span class="spinner" aria-hidden="true"></span> Searching the ClinicalTrials.gov public API…</span>');render();await fetchPage(null);
+  });
+  $('more-button').addEventListener('click',()=>fetchPage(nextToken));
+  $('sort').addEventListener('change',render);$('hide-mismatch').addEventListener('change',render);$('email-only').addEventListener('change',render);
+  document.querySelectorAll('[data-tab]').forEach(tab=>tab.addEventListener('click',()=>{activeTab=tab.dataset.tab;render();}));
+  $('result-area').addEventListener('click',ev=>{
+    if(ev.target.closest('[data-export-csv]')){exportCsv();return;}
+    if(ev.target.closest('[data-export-json]')){exportJson();return;}
+    if(ev.target.closest('[data-import-json]')){$('tracker-import-file')?.click();return;}
+    const trackBtn=ev.target.closest('[data-track]');if(trackBtn){openTracker(trackBtn.dataset.track);return;}
+    const clear=ev.target.closest('[data-clear-tracked]');if(clear){if(window.confirm('Clear all saved studies and application statuses from this browser? This will not cancel any application with a provider.')){tracked={};applications={};storeTracking();persistApplications();saved.clear();contacted.clear();render();}return;}
+    const contact=ev.target.closest('[data-contact]');if(contact){openContact(contact.dataset.contact);return;}
+    const btn=ev.target.closest('[data-save]');if(!btn)return;const id=btn.dataset.save;if(!/^NCT\d{8}$/.test(id)&&!paidStudies.some(r=>r.id===id))return;
+    if(saved.has(id)){
+      if(!window.confirm('Remove this study from your tracker, including its saved activity and dates?'))return;
+      delete applications[id];delete tracked[id];storeTracking();persistApplications();saved.delete(id);contacted.delete(id);render();return;
+    }
+    rememberEntry(id);updateTracking(id,'saved');
+  });
+
+  $('result-area').addEventListener('change',ev=>{
+    if(ev.target.id==='tracker-filter'){trackerFilter=ev.target.value;render();}
+    if(ev.target.id==='tracker-import-file'){const f=ev.target.files?.[0];if(f)importJson(f);}
+  });
+  $('tracker-close').addEventListener('click',closeTracker);
+  $('tracker-modal').addEventListener('click',e=>{if(e.target===$('tracker-modal'))closeTracker();});
+  $('tracker-save').addEventListener('click',()=>{
+    if(!selectedTrackedId)return;const e=ensureEntry(selectedTrackedId);const status=$('tracker-status').value;
+    if(!STATUS_LABELS[status])return;
+    const start=$('tracker-start').value,screen=$('tracker-screening').value;
+    if((start&&!validDate(start))||(screen&&!validDate(screen))){$('tracker-feedback').textContent='Please enter valid dates.';return;}
+    const email=$('tracker-contact-email').value.trim();if(email&&!safeEmail(email)){$('tracker-feedback').textContent='Please check the contact email address.';return;}
+    const statusChanged=e.status!==status;
+    e.status=status;e.expectedStart=start||'';e.startConfirmed=!!start&&$('tracker-start-confirmed').checked;e.screeningDate=screen||'';e.contactEmail=safeEmail(email);e.notes=clip($('tracker-notes').value,1200);
+    if(statusChanged)e.history.push({type:'status',date:isoToday(),note:'Stage changed to '+(STATUS_LABELS[status]||status)});
+    applications[e.id]=e;tracked[e.id]=status;storeTracking();persistApplications();saved=new Set(Object.keys(tracked));contacted=new Set(Object.keys(tracked).filter(x=>['contacted','applied','screening','accepted','declined'].includes(tracked[x])));render();renderTrackerHistory();$('tracker-feedback').textContent='Saved locally. Dates and notes will appear on My applications.';
+  });
+  $('tracker-add-event').addEventListener('click',()=>{
+    const type=$('tracker-event').value,date=$('tracker-event-date').value,note=$('tracker-event-note').value;
+    if(!selectedTrackedId||!validDate(date)){$('tracker-feedback').textContent='Choose a valid date for the activity.';return;}
+    if(!recordEvent(selectedTrackedId,type,date,note)){$('tracker-feedback').textContent='Could not save activity.';return;}
+    $('tracker-status').value=applications[selectedTrackedId].status;$('tracker-event-note').value='';renderTrackerHistory();$('tracker-feedback').textContent='Activity added. It will remain on your timeline until you remove the application.';
+  });
+  $('tracker-remove').addEventListener('click',()=>{
+    if(!selectedTrackedId||!window.confirm('Permanently remove this study and its local timeline from this browser?'))return;
+    const id=selectedTrackedId;closeTracker();changeStatus(id,'');
+  });
+  $('contact-email-sent').addEventListener('click',()=>{
+    if(!selectedStudy||!window.confirm('Confirm: have you actually pressed Send in your email application? Opening an email draft is not enough.'))return;
+    const c=currentContact();recordEvent(selectedStudy.id,'email_sent',isoToday(),c?.email?'Sent to '+c.email:'Email sent; recipient not saved');
+    $('application-status').value=tracked[selectedStudy.id];$('contact-feedback').textContent='Email sent recorded for today. A copy of the message is NOT stored. View its date in My applications.';
+  });
+  $('contact-reply-received').addEventListener('click',()=>{
+    if(!selectedStudy||!window.confirm('Record that you received a response from this research team?'))return;
+    recordEvent(selectedStudy.id,'reply_received',isoToday());$('application-status').value=tracked[selectedStudy.id];$('contact-feedback').textContent='Reply received recorded for today.';
+  });
+  $('contact-logged-applied').addEventListener('click',()=>{
+    if(!selectedStudy||!window.confirm('Confirm: did you complete and submit the official application form?'))return;
+    recordEvent(selectedStudy.id,'application_submitted',isoToday());$('application-status').value=tracked[selectedStudy.id];$('contact-feedback').textContent='Application submitted recorded for today. This does not submit any form on your behalf.';
+  });
+  $('contact-track-details').addEventListener('click',()=>{
+    if(!selectedStudy)return;const id=selectedStudy.id;closeContact();openTracker(id);
+  });
+
+  $('contact-close').addEventListener('click',closeContact);
+  $('contact-modal').addEventListener('click',e=>{if(e.target===$('contact-modal'))closeContact();});
+  document.addEventListener('keydown',e=>{const active=!$('tracker-modal').hidden?$('tracker-modal'):(!$('contact-modal').hidden?$('contact-modal'):null);if(!active)return;if(e.key==='Escape'){active===$('tracker-modal')?closeTracker():closeContact();return;}if(e.key==='Tab'){
+    const el=[...active.querySelectorAll('button:not([disabled]):not([hidden]),a[href]:not([hidden]),input:not([disabled]),select:not([disabled]),textarea:not([disabled])')].filter(x=>x.getClientRects().length), first=el[0],last=el.at(-1);
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  }});
+  // Profile controls: nothing is persisted merely by typing into the form.
+  $('profile-save').addEventListener('click',()=>{saveProfile(editorProfile(),$('pf-sensitive').checked,$('profile-feedback'));});
+  $('profile-clear').addEventListener('click',()=>{
+    if(!window.confirm('Remove the saved personal profile from this browser? Application statuses are not affected.'))return;
+    try{localStorage.removeItem(PROFILE_KEY);localStorage.setItem(PROFILE_CLEARED_KEY,'yes');}catch(e){}
+    savedProfile=null;setEditorProfile({name:'',age:'',sex:'',location:'',smoking:'',availability:'',medical:'',height:'',weight:'',gp:'unknown'},false);
+    applyProfileToSearch({age:'',sex:'',location:'',smoking:'',availability:'',saveSensitive:true,medical:'',height:'',weight:'',gp:'unknown'});
+    $('health').value='unknown';
+    updateProfileSummary();$('profile-feedback').textContent='Saved profile cleared. Current search fields cleared too. Application statuses remain.';
+    if(selectedStudy){setContactProfile({name:'',age:'',sex:'',location:'',smoking:'',medical:'',availability:'',saveSensitive:false});}
+  });
+  $('contact-save-profile').addEventListener('click',()=>{
+    if(saveProfile(contactProfile(),$('contact-save-sensitive').checked,$('contact-profile-feedback'))){
+      $('contact-profile-feedback').textContent+=' Changes are ready for your next enquiry.';
+    }
+  });
+  $('contact-use-profile').addEventListener('click',()=>{
+    if(!savedProfile){$('contact-profile-feedback').textContent='No saved profile yet. Fill the fields and press Save these details as my profile.';return;}
+    setContactProfile(savedProfile);
+    $('contact-profile-feedback').textContent='Restored your saved details. Review the email draft before sending.';
+  });
+  $('contact-questions').addEventListener('change',draftEmail);
+  ['contact-name','contact-location','contact-age','contact-sex','contact-smoking','contact-medical','contact-availability','contact-extra'].forEach(id=>$(id).addEventListener('input',draftEmail));
+  $('contact-include').addEventListener('change',draftEmail);
+  $('contact-preview').addEventListener('input',updateMailto);
+  $('contact-copy').addEventListener('click',async()=>{
+    const t=`Subject: ${emailSubject(selectedStudy)}\n\n${$('contact-preview').value}`;
+    try{if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(t);
+    else{const v=$('contact-preview');v.focus();v.select();if(!document.execCommand('copy'))throw Error('Copy unavailable');}
+    $('contact-feedback').textContent='Copied your message. Paste it into your email app and check the recipient before sending.';
+    }catch(e){$('contact-feedback').textContent='Automatic copying is unavailable here. Select the draft and copy it manually.';}
+  });
+  $('contact-done').addEventListener('click',()=>{if(!selectedStudy)return;changeStatus(selectedStudy.id,'contacted');$('application-status').value='contacted';$('contact-done').textContent='✓ Marked contacted';$('contact-feedback').textContent='Marked contacted on this device. You must send the enquiry yourself.';});
+  $('application-status').addEventListener('change',()=>{if(!selectedStudy)return;const status=$('application-status').value,id=selectedStudy.id;if(!status&&applications[id]&&(applications[id].history.length||applications[id].expectedStart||applications[id].notes)){if(!window.confirm('Remove this application from tracking, including its activity history and dates?')){$('application-status').value=tracked[id]||'';return;}}changeStatus(id,status);$('contact-feedback').textContent='Saved the application status on this device. No message or application has been sent.';});
+  $('payment').addEventListener('change',()=>{const v=$('payment').value;$('search-button').textContent='Find matching UK studies →';if(hasSearched){currentProfile.payment=v;activeTab=v==='paid'?'paid':v==='registry'?'registry':'all';render();}});
+  $('studytype').addEventListener('change',()=>{if(hasSearched){currentProfile.studytype=$('studytype').value;render();}});
+  ['height','weight'].forEach(id=>$(id).addEventListener('input',()=>{
+    const h=Number($('height').value),w=Number($('weight').value);
+    $('bmi-display').textContent=h&&w&&h>=90&&h<=240&&w>=25&&w<=300?`Estimated BMI: ${(w/(h/100)**2).toFixed(1)}. Researcher will remeasure during screening.`:'Enter both height and weight to compare published BMI ranges. Nothing is sent to a provider.';
+  }));
+  // The user must explicitly search to make screening comparisons; changing a field after
+  // searching does not silently change their profile until the next search.
+  // Profile is saved only by a deliberate Save action; optional health details require opt-in.
+  initSavedProfile();
+  render();
+  loadPaidCatalogue();
+})();
+</script>
+</body>
+</html>

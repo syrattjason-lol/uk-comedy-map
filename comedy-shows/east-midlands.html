@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comedy Shows in East Midlands | UK Comedy Map</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="icon" href="/favicon.png">
+  
+<style>
+.city-layout .hero.compact { padding: 54px 0 34px; }
+.city-tools { margin-top: 26px; display: grid; gap: 18px; justify-items: center; }
+.city-search { width: min(620px, 100%); padding: 15px 20px; border-radius: 999px; border: 1px solid rgba(0,0,0,.16); font-size: 1rem; box-shadow: 0 8px 22px rgba(0,0,0,.08); }
+.show-filter-row, .city-pill-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.show-filter-row button, .city-pill-row a { border: 1px solid rgba(0,0,0,.16); background: #fff; color: #141414; border-radius: 999px; padding: 10px 17px; font-weight: 700; text-decoration: none; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,.06); }
+.show-filter-row button.active, .show-filter-row button:hover, .city-pill-row a:hover { background: #141414; color: #fff; }
+.city-layout .show-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.city-highlight { margin: 34px 0; border-radius: 28px; padding: 34px; color: #fff; background: radial-gradient(circle at top right, rgba(255,255,255,.24), transparent 26%), linear-gradient(135deg,#151515,#FF3C5A); display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; overflow: hidden; }
+.city-highlight h2 { margin: 0 0 8px; color: #fff; }
+.city-highlight p { margin: 0; max-width: 720px; opacity: .92; }
+.highlight-badge { font-size: 3rem; line-height: 1; }
+.venue-list { display: grid; gap: 16px; }
+.venue-card { display: grid; grid-template-columns: 150px 1fr; gap: 18px; align-items: center; border-radius: 22px; padding: 16px; background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+.venue-thumb { height: 105px; border-radius: 16px; overflow: hidden; background: #eee; }
+.venue-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.venue-card h3 { margin: 0 0 6px; }
+.venue-card p { margin: 0 0 10px; }
+.venue-card a { font-weight: 700; }
+.city-map-section { margin-bottom: 46px; }
+.city-map-section .map-shell { border-radius: 24px; overflow: hidden; box-shadow: 0 10px 28px rgba(0,0,0,.10); }
+@media (max-width: 900px) { .city-layout .show-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .city-highlight { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .city-layout .show-grid { grid-template-columns: 1fr; } .venue-card { grid-template-columns: 1fr; } .venue-thumb { height: 170px; } }
+.load-more-btn{ display:inline-flex !important; align-items:center; justify-content:center; margin:42px auto 10px !important; padding:19px 46px !important; min-width:290px; min-height:58px; border:0 !important; border-radius:999px !important; background:linear-gradient(135deg,#FF3C5A,#c91635) !important; color:#fff !important; font-size:1.12rem !important; font-weight:800 !important; letter-spacing:.01em; box-shadow:0 14px 30px rgba(255,60,90,.30) !important; cursor:pointer; transition:transform .22s ease, box-shadow .22s ease; }
+.load-more-btn:hover{ transform:translateY(-2px); box-shadow:0 18px 36px rgba(255,60,90,.38) !important; }
+.venue-card p{ margin:0 0 12px; line-height:1.6; color:#555; }
+.map-load-btn{ display:inline-flex; align-items:center; justify-content:center; margin:18px auto 0; padding:16px 34px; min-width:220px; border-radius:999px; background:linear-gradient(135deg,#FF3C5A,#c91635); color:#fff !important; font-weight:800; text-decoration:none; box-shadow:0 12px 26px rgba(255,60,90,.30); transition:transform .22s ease, box-shadow .22s ease; }
+.map-load-btn:hover{ transform:translateY(-2px); box-shadow:0 16px 32px rgba(255,60,90,.38); }
+.map-cta{text-align:center;}
+.region-pill-row { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+.region-pill-row a { border:1px solid rgba(0,0,0,.16); background:#fff; color:#141414; border-radius:999px; padding:10px 17px; font-weight:800; text-decoration:none; box-shadow:0 4px 12px rgba(0,0,0,.06); }
+.region-pill-row a:hover { background:linear-gradient(135deg,#FF3C5A,#c91635); color:#fff; border-color:transparent; box-shadow:0 14px 30px rgba(255,60,90,.30); }
+.ticket-btn { background:linear-gradient(135deg,#FF3C5A,#c91635) !important; box-shadow:0 12px 26px rgba(255,60,90,.28) !important; }
+
+
+/* UKCM nav dropdown + city image tiles only */
+.site-header { position: relative; z-index: 1000; }
+.header-inner { position: relative; }
+.main-nav { align-items: center; }
+.main-nav .nav-dropdown { position: relative; }
+.main-nav .nav-dropdown-toggle {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.main-nav .nav-dropdown-menu {
+  display: none !important;
+  position: absolute;
+  top: calc(100% + 18px);
+  right: 0;
+  min-width: 285px;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 18px;
+  box-shadow: 0 18px 45px rgba(0,0,0,.16);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  z-index: 1001;
+}
+.main-nav .nav-dropdown.open .nav-dropdown-menu,
+.main-nav .nav-dropdown:focus-within .nav-dropdown-menu {
+  display: grid !important;
+}
+.main-nav .nav-dropdown-menu a {
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: #141414;
+  text-decoration: none;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.main-nav .nav-dropdown-menu a:hover,
+.main-nav .nav-dropdown-menu a:focus {
+  background: rgba(255,60,90,.10);
+  color: #FF3C5A;
+}
+.city-icon-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 20px;
+}
+.city-icon-card {
+  min-height: 155px;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 5px;
+  padding: 18px 16px !important;
+}
+.city-icon-card img {
+  width: min(170px, 86%);
+  height: 82px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 4px;
+}
+.city-icon-card h3 { margin: 0; }
+.city-icon-card span { color: #444; font-weight: 700; }
+.city-icon-card strong { color: #FF3C5A; padding-left: 6px; }
+@media (max-width: 1000px) {
+  .city-icon-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .hamburger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 12px;
+    background: #f5f5f5;
+    color: #141414;
+    font-size: 1.35rem;
+    cursor: pointer;
+  }
+  .main-nav {
+    display: none !important;
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    top: calc(100% + 10px);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    padding: 12px;
+    border-radius: 22px;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.08);
+    box-shadow: 0 18px 45px rgba(0,0,0,.18);
+    z-index: 1000;
+  }
+  .main-nav.nav-open { display: flex !important; }
+  .main-nav > a,
+  .main-nav .nav-dropdown-toggle {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 14px;
+    border-radius: 14px;
+    color: #141414 !important;
+    text-decoration: none;
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+  .main-nav > a:hover,
+  .main-nav .nav-dropdown-toggle:hover {
+    background: rgba(255,60,90,.10);
+    color: #FF3C5A !important;
+  }
+  .main-nav .nav-dropdown { width: 100%; }
+  .main-nav .nav-dropdown-menu {
+    position: static;
+    min-width: 0;
+    width: 100%;
+    margin: 3px 0 8px;
+    padding: 8px;
+    border-radius: 16px;
+    box-shadow: none;
+    background: #fafafa;
+    grid-template-columns: 1fr;
+  }
+  .main-nav .nav-dropdown-menu a {
+    white-space: normal;
+    padding: 11px 12px;
+  }
+  .city-icon-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .city-icon-grid { grid-template-columns: 1fr; }
+  .city-icon-card { min-height: 145px; }
+  .city-icon-card img { height: 76px; }
+}
+
+</style>
+
+  <script defer src="/js/venue.js"></script>
+  <script defer src="/js/shows.js"></script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-K9GNHR9Z');</script>
+  <!-- End Google Tag Manager -->
+<!-- Hotjar Tracking Code for https://ukcomedymap.co.uk/ -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:6733578,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+  <script defer src="/js/ukcm-nav.js"></script>
+</head>
+<body class="city-layout">
+<header class="site-header">
+  <div class="container header-inner">
+    <button class="hamburger" id="hamburger">☰</button>
+    <a class="logo" href="/">UK Comedy Map</a>
+    <nav class="main-nav" id="mainNav" aria-label="Main navigation">
+      <a href="/">Home</a>
+      <a href="/comedy-shows/london">London</a>
+      <a href="/comedy-shows/manchester">Manchester</a>
+      <a href="/comedy-shows/bristol">Bristol</a>
+      <a href="/comedy-shows/leeds">Leeds</a>
+      <a href="/comedy-shows/birmingham">Birmingham</a>
+      <div class="nav-dropdown region-nav">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false">
+          Regions <span aria-hidden="true">▾</span>
+        </button>
+        <div class="nav-dropdown-menu" aria-label="Comedy regions">
+          <a href="/comedy-shows/east-midlands">East Midlands</a>
+          <a href="/comedy-shows/east-of-england">East of England</a>
+          <a href="/comedy-shows/north-east">North East</a>
+          <a href="/comedy-shows/north-west">North West</a>
+          <a href="/comedy-shows/northern-ireland">Northern Ireland</a>
+          <a href="/comedy-shows/scotland">Scotland</a>
+          <a href="/comedy-shows/south-east">South East</a>
+          <a href="/comedy-shows/south-west">South West</a>
+          <a href="/comedy-shows/wales">Wales</a>
+          <a href="/comedy-shows/west-midlands">West Midlands</a>
+          <a href="/comedy-shows/yorkshire">Yorkshire</a>
+        </div>
+      </div>
+      <a href="/blog/">Blog</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero compact">
+  <div class="container">
+    <h1>Comedy Shows in East Midlands</h1>
+    <p>Find upcoming stand-up shows, comedy club nights and live comedy events across East Midlands.</p>
+    <div class="city-tools">
+      <input id="showSearch" class="city-search" type="search" placeholder="Search East Midlands comedy shows, venues or dates">
+      <div class="show-filter-row" aria-label="Show filters">
+        <button class="active" type="button" data-show-filter="all">All</button>
+        <button type="button" data-show-filter="featured">Featured</button>
+        <button type="button" data-show-filter="popular">Popular</button>
+        <button type="button" data-show-filter="cheap">Cheap / Open Mic</button>
+        <button type="button" data-show-filter="weekend">This Weekend</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+  <section class="section">
+    <h2>Upcoming Comedy Shows in East Midlands</h2>
+    <p class="section-intro">Browse East Midlands comedy listings using the search and quick filters.</p>
+    <div id="shows" class="show-grid"></div>
+    <button id="loadMoreBtn" class="load-more-btn">Load more shows</button>
+  </section>
+
+  <section class="city-highlight">
+    <div>
+      <h2>East Midlands Comedy Guide</h2>
+      <p>Use this page to find stand-up shows, comedy clubs, regular nights and venue listings across East Midlands. Cards pull from the same live show data, images, ticket links and text.</p>
+    </div>
+    <div class="highlight-badge">🎤</div>
+  </section>
+
+  <section class="section">
+    <h2>East Midlands Comedy Venues</h2>
+    <p class="section-intro">Venue cards are generated from the live listings above, so they stay linked to the same show data.</p>
+    <div id="venueCards" class="venue-list"></div>
+  </section>
+
+  <section class="section">
+    <h2>Browse Comedy Shows by City</h2>
+    <p class="section-intro">Jump straight into the biggest city pages and browse listings that automatically filter by location.</p>
+    <div class="city-pill-row">
+      <a href="/comedy-shows/london">London</a>
+      <a href="/comedy-shows/manchester">Manchester</a>
+      <a href="/comedy-shows/leeds">Leeds</a>
+      <a href="/comedy-shows/birmingham">Birmingham</a>
+      <a href="/comedy-shows/bristol">Bristol</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Browse Comedy Shows by Region</h2>
+    <p class="section-intro">Explore broader regional pages covering comedy venues and shows across the UK.</p>
+    <div class="region-pill-row">
+      <a class="active" href="/comedy-shows/east-midlands">East Midlands</a>
+      <a href="/comedy-shows/east-of-england">East of England</a>
+      <a href="/comedy-shows/london">London</a>
+      <a href="/comedy-shows/north-east">North East</a>
+      <a href="/comedy-shows/north-west">North West</a>
+      <a href="/comedy-shows/northern-ireland">Northern Ireland</a>
+      <a href="/comedy-shows/scotland">Scotland</a>
+      <a href="/comedy-shows/south-east">South East</a>
+      <a href="/comedy-shows/south-west">South West</a>
+      <a href="/comedy-shows/wales">Wales</a>
+      <a href="/comedy-shows/west-midlands">West Midlands</a>
+      <a href="/comedy-shows/yorkshire">Yorkshire</a>
+    </div>
+  </section>
+
+  <section class="section map-cta">
+    <h2>Local Comedy Map</h2>
+    <p class="section-intro">Open the full UK Comedy Map on a separate page to browse comedy clubs and regular comedy spaces near East Midlands and across the UK.</p>
+    <a class="map-load-btn" href="/comedy-map.html">Load Comedy Map</a>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-section">
+      <h3>UK Comedy Map</h3>
+      <p>Discover comedy shows, open mics, and comedy clubs across the UK.</p>
+    </div>
+    <div class="footer-section">
+      <h4>Comedy Cities</h4>
+      <ul>
+        <li><a href="/comedy-shows/london.html">London Comedy Shows</a></li>
+        <li><a href="/comedy-shows/manchester.html">Manchester Comedy Shows</a></li>
+        <li><a href="/comedy-shows/leeds.html">Leeds Comedy Shows</a></li>
+        <li><a href="/comedy-shows/birmingham.html">Birmingham Comedy Shows</a></li>
+        <li><a href="/comedy-shows/bristol.html">Bristol Comedy Shows</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Comedy Regions</h4>
+      <ul>
+        <li><a href="/comedy-shows/north-west.html">North West Comedy Shows</a></li>
+        <li><a href="/comedy-shows/scotland.html">Scotland Comedy Shows</a></li>
+        <li><a href="/comedy-shows/south-west.html">South West Comedy Shows</a></li>
+        <li><a href="/comedy-shows/yorkshire.html">Yorkshire Comedy Shows</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Comedy Guides</h4>
+      <ul>
+        <li><a href="/best-cities-for-comedy-uk.html">Best Cities for Comedy</a></li>
+        <li><a href="/comedy-festivals-uk.html">UK Comedy Festivals</a></li>
+        <li><a href="/famous-comedy-clubs-uk.html">Famous Comedy Clubs</a></li>
+        <li><a href="/open-mic-comedy-uk.html">Open Mic Comedy UK</a></li>
+        <li><a href="/comedy-shows-this-weekend.html">Comedy This Weekend</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Site</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+<li><a href="/faq.html">FAQs</a></li>
+        <li><a href="/sitemap.xml">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 UK Comedy Map</p></div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,81 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function loggedIn() { return request.auth != null; }
+    function roomPath(id) { return /databases/$(database)/documents/rooms/$(id); }
+    function roomExists(id) { return exists(roomPath(id)); }
+    function isHost(id) { return loggedIn() && roomExists(id) && get(roomPath(id)).data.hostUid == request.auth.uid; }
+    function isPlaying(id, roundKey) {
+      return roomExists(id)
+        && get(roomPath(id)).data.phase == 'answering'
+        && get(roomPath(id)).data.roundKey == roundKey;
+    }
+
+    match /rooms/{roomId} {
+      // An unguessable room URL is required. Listing all rooms is prohibited.
+      allow get: if loggedIn();
+      allow list: if false;
+      allow create: if loggedIn()
+        && request.resource.data.hostUid == request.auth.uid
+        && request.resource.data.phase == 'lobby'
+        && request.resource.data.round == 0
+        && request.resource.data.keys().hasOnly([
+          'hostUid', 'phase', 'round', 'roundKey', 'question',
+          'questionId', 'history', 'createdAt'
+        ]);
+      allow update: if isHost(roomId) && request.resource.data.hostUid == resource.data.hostUid;
+      allow delete: if false;
+
+      match /players/{userId} {
+        allow get, list: if loggedIn() && roomExists(roomId);
+        allow create: if loggedIn() && roomExists(roomId)
+          && request.auth.uid == userId
+          && request.resource.data.uid == userId
+          && request.resource.data.name is string
+          && request.resource.data.name.size() >= 1
+          && request.resource.data.name.size() <= 24
+          && request.resource.data.answeredRound == 0
+          && request.resource.data.keys().hasOnly(['uid', 'name', 'answeredRound', 'joinedAt']);
+        allow update: if loggedIn() && request.auth.uid == userId
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name', 'answeredRound'])
+          && request.resource.data.name is string
+          && request.resource.data.name.size() >= 1
+          && request.resource.data.name.size() <= 24
+          && request.resource.data.answeredRound is int
+          && request.resource.data.uid == resource.data.uid
+          && request.resource.data.answeredRound >= resource.data.answeredRound
+          && (
+            request.resource.data.answeredRound == resource.data.answeredRound
+            || (
+              get(roomPath(roomId)).data.phase == 'answering'
+              && request.resource.data.answeredRound == get(roomPath(roomId)).data.round
+            )
+          );
+        allow delete: if loggedIn() && (request.auth.uid == userId || isHost(roomId));
+      }
+
+      match /rounds/{roundKey} {
+        allow get, list: if loggedIn() && roomExists(roomId);
+        allow create: if isHost(roomId)
+          && request.resource.data.roundKey == roundKey
+          && request.resource.data.keys().hasAll(['roundKey','question','groups','winners','oddOneUid','createdAt']);
+        allow update, delete: if false;
+
+        match /submissions/{userId} {
+          allow get: if loggedIn() && roomExists(roomId)
+            && (request.auth.uid == userId || isHost(roomId));
+          allow list: if isHost(roomId);
+          allow create, update: if loggedIn() && request.auth.uid == userId
+            && isPlaying(roomId, roundKey)
+            && exists(/databases/$(database)/documents/rooms/$(roomId)/players/$(userId))
+            && request.resource.data.uid == userId
+            && request.resource.data.text is string
+            && request.resource.data.text.size() >= 1
+            && request.resource.data.text.size() <= 80
+            && request.resource.data.keys().hasOnly(['uid','text','submittedAt']);
+          allow delete: if false;
+        }
+      }
+    }
+  }
+}

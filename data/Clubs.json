@@ -1,0 +1,110 @@
+[
+  {
+    "city": "London",
+    "comedian": "Josh Widdicombe",
+    "venue": "Leicester Square Theatre",
+    "date": "2026-05-18",
+    "tickets": "https://tickets.com",
+    "type": "tour",
+    "image": "/images/comedians/josh.jpg"
+  },
+{
+"city":"London",
+"comedian":"Angel Comedy Night",
+"venue":"Angel Comedy",
+"date":"Every Night",
+"tickets":"https://angelcomedy.co.uk",
+"type":"club",
+"image":"/images/comedians/openmic.jpg"
+},
+{
+"city":"London",
+"comedian":"Top Secret Comedy Club Show",
+"venue":"Top Secret Comedy Club",
+"date":"Nightly Shows",
+"tickets":"https://thetopsecretcomedyclub.co.uk",
+"type":"club",
+"image":"/images/comedians/openmic.jpg"
+},
+{
+"city":"Manchester",
+"comedian":"Frog & Bucket Comedy Night",
+"venue":"Frog & Bucket",
+"date":"Weekly Shows",
+"tickets":"https://frogandbucket.com",
+"type":"club",
+"image":"/images/venues/club.jpg"
+},
+{
+"city":"Manchester",
+"comedian":"XS Malarkey",
+"venue":"XS Malarkey",
+"date":"Weekly",
+"tickets":"https://xsmalarkey.com",
+"type":"club",
+"image":"/images/comedians/openmic.jpg"
+},
+{
+"city":"Manchester",
+"comedian":"Laughienda Comedy Night",
+"venue":"Laughienda",
+"date":"Monthly",
+"tickets":"https://laughienda.com",
+"type":"club",
+"image":"/images/comedians/openmic.jpg"
+},
+{
+"city":"Leeds",
+"comedian":"The Wardrobe Comedy Club",
+"venue":"The Wardrobe",
+"date":"Weekly",
+"tickets":"https://thewardrobe.co.uk",
+"type":"club",
+"image":"/images/comedians/openmic.jpg"
+},
+{
+"city":"Leeds",
+"comedian":"Hifi Comedy Club",
+"venue":"HiFi Club",
+"date":"Weekly",
+"tickets":"https://thehificlub.co.uk",
+"type":"club",
+"image":"/images/comedians/openmic.jpg"
+},
+{
+"city":"Birmingham",
+"comedian":"Glee Club Comedy Night",
+"venue":"The Glee Club",
+"date":"Weekly",
+"tickets":"https://glee.co.uk",
+"type":"club",
+"image":"/images/comedians/openmic.jpg"
+},
+{
+"city":"Birmingham",
+"comedian":"Cherry Reds Comedy",
+"venue":"Cherry Reds",
+"date":"Monthly",
+"tickets":"https://cherryreds.com",
+"type":"club",
+"image":"/images/comedians/openmic.jpg"
+},
+{
+"city":"Bristol",
+"comedian":"Smoke & Mirrors Comedy",
+"venue":"Smoke & Mirrors",
+"date":"Weekly",
+"tickets":"https://smokeandmirrorsbar.com",
+"type":"club",
+"image":"/images/comedians/openmic.jpg"
+},
+{
+"city":"Bristol",
+"comedian":"The Comedy Box",
+"venue":"The Comedy Box",
+"date":"Monthly",
+"tickets":"https://thecomedybox.co.uk",
+"type":"club",
+"image":"/images/comedians/openmic.jpg"
+}
+]

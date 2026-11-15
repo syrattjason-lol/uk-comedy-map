@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#171426">
+  <meta name="description" content="A private, link-only party game where the most popular answer wins.">
+  <title>Same Brain — the answer is everyone</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Same Brain home">
+        <span class="brand-symbol" aria-hidden="true"><span>✦</span><span>✦</span></span>
+        <span>SAME<span class="brand-highlight">BRAIN</span><small>PARTY GAME</small></span>
+      </a>
+      <div class="header-right">
+        <span class="private-pill"><span class="dot"></span> LINK-ONLY ROOMS</span>
+        <a class="ukcm" href="https://www.ukcomedymap.co.uk/" target="_blank" rel="noopener noreferrer">by UK Comedy Map ↗</a>
+      </div>
+    </header>
+    <main id="app" aria-live="polite">
+      <section class="welcome-shell"><div class="loader"></div><p>Warming up the collective brain…</p></section>
+    </main>
+    <footer class="footer"><span>Less clever. More together. ✳</span><span>Built for awkwardly brilliant people.</span></footer>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="app.js?v=3"></script>
+</body>
+</html>

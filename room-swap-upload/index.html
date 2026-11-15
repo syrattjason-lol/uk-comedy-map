@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive"><meta name="theme-color" content="#111121">
+<meta name="description" content="Room Swap: a private, in-person social deduction game for groups.">
+<title>ROOM SWAP · Trust & Timers v7 — UK Comedy Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.gstatic.com">
+<style>
+:root{--bg:#111121;--panel:#211d33;--panel2:#2c2642;--line:#39354c;--text:#f6f5fc;--muted:#b8b1d0;--lime:#d0ff87;--pink:#ff87ae;--blue:#7da9ff;--red:#ff7380;--radius:24px}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui,sans-serif;overflow-x:hidden}.glow{position:fixed;z-index:-1;pointer-events:none;filter:blur(85px);opacity:.25}.glow-a{width:430px;height:450px;left:-250px;top:12%;background:#a664dc}.glow-b{width:420px;height:420px;right:-250px;top:37%;background:#e05280}.site{max-width:1120px;min-height:100vh;margin:auto;padding:0 28px;display:flex;flex-direction:column}.topbar{display:flex;justify-content:space-between;align-items:center;padding:25px 0 22px;border-bottom:1px solid var(--line)}.logo{display:flex;align-items:center;gap:10px;color:white;text-decoration:none;font:800 23px 'Space Grotesk',sans-serif;letter-spacing:-1px}.logo small{display:block;font:800 9px 'DM Sans',sans-serif;letter-spacing:2.3px;color:#c8bfdd;margin-top:0}.logo-mark{height:42px;width:42px;border-radius:14px;background:var(--lime);color:#161422;display:grid;place-items:center;font-size:27px;transform:rotate(-8deg)}.lime{color:var(--lime)}.headright{display:flex;align-items:center;gap:20px}.livebadge,.chip{border:1px solid var(--line);border-radius:100px;color:var(--muted);font-weight:800;font-size:11px;padding:10px 13px;letter-spacing:.7px}.tiny-dot{display:inline-block;width:8px;height:8px;background:var(--lime);box-shadow:0 0 12px var(--lime);border-radius:50%;margin-right:7px}.ukcm{color:var(--muted);font-size:12px;font-weight:700;text-decoration:none}main{flex:1;padding:54px 0 70px}footer{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding:22px 0 26px;color:#89809e;font-size:12px}.split{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:55px;align-items:center;min-height:490px}.eyebrow{font-weight:800;letter-spacing:2.5px;font-size:12px;color:var(--lime);text-transform:uppercase}.hero{font:700 clamp(55px,8vw,95px)/1.04 'Space Grotesk',sans-serif;letter-spacing:-5px;margin:28px 0}.hero .pink{color:var(--pink)}.hero .blue{color:var(--blue)}p{line-height:1.65}.subhead{font-size:18px;color:var(--muted);max-width:540px}.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:25px}.card{background:linear-gradient(140deg,#282337,#1d1a2d);border:1px solid #444056;border-radius:28px;padding:30px;box-shadow:0 20px 90px #0907132a}.card h2,.card h3{margin:0 0 10px;font-family:'Space Grotesk',sans-serif;letter-spacing:-.8px}.card h2{font-size:27px}.muted{color:var(--muted)}.small{font-size:12px}.micro{font-size:10px;text-transform:uppercase;letter-spacing:2px;font-weight:800;color:var(--muted)}.field{display:flex;flex-direction:column;gap:8px;margin:18px 0}.field label{font-weight:800;font-size:12px}.input{width:100%;border:1px solid #5a536c;background:#151326;color:white;outline:none;border-radius:12px;font:600 17px 'DM Sans',sans-serif;padding:14px 16px}.input:focus{border-color:var(--lime);box-shadow:0 0 0 3px #d0ff8722}.btn{cursor:pointer;background:var(--lime);color:#171429;border:0;border-radius:13px;padding:15px 19px;font:800 14px 'DM Sans',sans-serif;transition:transform .12s,filter .12s}.btn:hover{transform:translateY(-2px);filter:brightness(1.06)}.btn:disabled{opacity:.44;cursor:not-allowed;transform:none}.btn.full{width:100%}.btn.secondary{background:#38324f;color:white;border:1px solid #544d6a}.btn.pink{background:var(--pink)}.btn.blue{background:var(--blue)}.btn.red{background:var(--red)}.btn.slim{padding:10px 14px;font-size:12px}.actions{display:flex;gap:9px;flex-wrap:wrap}.steps{display:grid;gap:12px;margin-top:25px}.steps div{display:flex;gap:12px;align-items:center;color:var(--muted);font-size:14px}.stepnum{background:#37314e;border-radius:10px;padding:6px 10px;color:var(--lime);font-weight:900}.gamewrap{max-width:910px;margin:0 auto}.gamehead{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:22px}.gamehead h1{font:700 clamp(32px,5vw,56px)/1.1 'Space Grotesk',sans-serif;letter-spacing:-2px;margin:8px 0}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:18px}.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:14px}.person{display:flex;align-items:center;gap:10px;background:#221e36;border:1px solid #3c3653;border-radius:14px;padding:12px;min-width:0}.avatar{display:grid;place-items:center;min-width:32px;height:32px;background:#49405e;border-radius:10px;font-weight:800}.person-text{overflow:hidden;flex:1}.person-name{font-weight:800;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.person-sub{font-size:11px;color:var(--muted)}.roomtag{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:100px;font-size:12px;font-weight:800;background:#38314b;border:1px solid #5c5274}.roomtag.a{background:#22304e;color:#c3d8ff;border-color:#4c6bad}.roomtag.b{background:#512c3b;color:#ffc4ca;border-color:#a84d60}.inset{background:#171427;border:1px dashed #4c4564;border-radius:18px;padding:19px}.roundtitle{font-size:13px;font-weight:800;color:var(--muted);letter-spacing:1.4px;text-transform:uppercase}.timer{font:800 clamp(66px,11vw,120px)/1 'Space Grotesk',sans-serif;letter-spacing:-6px;margin:14px 0 9px;font-variant-numeric:tabular-nums}.timer.urgent{color:var(--red)}.progress{height:9px;border-radius:99px;background:#3d354c;overflow:hidden}.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--pink));transition:width .7s linear}.secret{background:linear-gradient(135deg,#2a2945,#222036);border:1px solid #56506f;border-radius:22px;padding:24px;position:relative;overflow:hidden}.secret.blue{background:linear-gradient(145deg,#233c6d,#182a50);border-color:#4967ab}.secret.red{background:linear-gradient(145deg,#612c46,#3f2137);border-color:#a14b69}.secret.gray{background:linear-gradient(145deg,#474358,#222035)}.secret .secret-icon{font-size:42px}.secret h2{font:700 34px 'Space Grotesk',sans-serif;letter-spacing:-1.6px;margin:10px 0 5px}.secret p{margin:0;color:#ecdcf0}.secret-mask{padding:29px 19px;background:#211d31;border:1px dashed #514a64;border-radius:18px;text-align:center}.secret-mask strong{display:block;font-size:20px;margin:7px}.seats{display:flex;gap:8px;flex-wrap:wrap}.choice{display:flex;gap:8px;align-items:center;padding:12px;border:1px solid #544a69;background:#201d30;border-radius:12px;cursor:pointer;font-weight:700;font-size:14px}.choice input{accent-color:var(--lime);width:17px;height:17px}.choice:has(input:checked){border-color:var(--lime);background:#2d3341}.stack{display:grid;gap:14px}.notice{border:1px solid #55506c;border-radius:16px;padding:18px;background:#25213a;color:#e9e4f7}.notice.blue{background:#26375d;border-color:#536cbd}.notice.pink{background:#5c2c47;border-color:#aa5477}.notice.success{background:#304232;border-color:#6f9c52}.notice strong{display:block;margin-bottom:5px}.labelrow{display:flex;justify-content:space-between;align-items:center;gap:12px}.leader{color:var(--lime);font-size:12px;font-weight:800}.alert{padding:18px;background:#5d273b;border:1px solid #b24c6a;color:#ffd5df;border-radius:16px;margin-bottom:20px}.big-emoji{font-size:65px;margin:8px 0}.results{background:linear-gradient(145deg,#332a45,#231d34);border-radius:28px;padding:36px;text-align:center;border:1px solid #61537b}.results h2{font:800 clamp(55px,8vw,85px)/1.02 'Space Grotesk',sans-serif;margin:10px 0}.results.red h2{color:var(--red)}.results.blue h2{color:var(--blue)}.resultgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:25px 0}.resultgrid .inset{text-align:center}.resultgrid b{font-size:21px}.divider{height:1px;background:var(--line);margin:20px 0}.toast{position:fixed;z-index:50;bottom:25px;left:50%;transform:translate(-50%,40px);background:var(--lime);color:#171429;padding:15px 23px;border-radius:13px;font-weight:800;opacity:0;transition:all .24s;max-width:90%;text-align:center;pointer-events:none}.toast.show{transform:translate(-50%,0);opacity:1}.loading{display:grid;place-items:center;min-height:400px;color:var(--muted)}.spinner{width:36px;height:36px;border:4px solid #58516f;border-top-color:var(--lime);border-radius:50%;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.pulse{animation:pulse 1s infinite alternate}@keyframes pulse{to{transform:scale(1.03)}}.move{position:fixed;z-index:30;inset:0;background:#121020eb;display:grid;place-items:center;backdrop-filter:blur(8px);padding:25px}.move-panel{text-align:center;max-width:520px;border-radius:29px;border:1px solid #6d6687;background:linear-gradient(145deg,#2f2945,#1e1930);padding:35px}.move-panel h2{font:800 clamp(46px,9vw,78px)/1.04 'Space Grotesk',sans-serif;margin:8px 0}.move-panel p{color:var(--muted)}@media(max-width:750px){.site{padding:0 16px}.topbar{padding:16px 0}.headright{gap:7px}.ukcm{display:none}.split,.twocol,.resultgrid{grid-template-columns:1fr;gap:20px}.split{min-height:0}.hero{font-size:clamp(54px,12vw,78px);letter-spacing:-3.5px;margin:17px 0}.card{padding:23px}main{padding:30px 0 45px}.gamehead{align-items:flex-start;flex-direction:column}.timer{font-size:82px}footer{font-size:10px}.people{grid-template-columns:1fr 1fr}.person{padding:9px}.secret h2{font-size:27px}}@media(max-width:370px){.people{grid-template-columns:1fr}.livebadge{font-size:9px;padding:7px}.logo{font-size:19px}.logo-mark{width:34px;height:34px}.chip{padding:7px;font-size:10px}}
+
+
+.strategy-card{background:linear-gradient(135deg,#3a3153,#26223d);border:1px solid #7b638c;border-radius:20px;padding:22px}
+.strategy-card .eyebrow{font-size:10px}.strategy-card h3{font-size:21px;line-height:1.3;margin:12px 0 8px}.strategy-card p{color:var(--muted);margin:0 0 14px;font-size:13px}
+.role-list{display:grid;gap:9px}.role-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #534a65;border-radius:12px;padding:11px}
+.role-row .btn{white-space:nowrap}.note-field{margin:9px 0 0}.notebook-entry{background:#181525;padding:13px;border:1px solid #4b445e;border-radius:13px;margin:9px 0}.notebook-entry strong{display:block}.notebook-entry small{display:block;color:var(--muted);margin:5px 0}
+.pace-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.pace-grid .btn{padding:11px 6px;font-size:11px}.callout{background:#2d283d;border:1px solid #65567e;padding:14px;border-radius:14px}.share-popup{position:fixed;inset:0;z-index:55;background:#10101cdd;display:grid;place-items:center;padding:16px;backdrop-filter:blur(10px)}.share-dialog{max-width:440px;width:100%;background:#2a233f;border:1px solid #92799c;border-radius:24px;padding:28px;box-shadow:0 14px 80px #0008}.share-dialog h2{font-family:'Space Grotesk',sans-serif;font-size:29px;margin:8px 0}.share-dialog .actions{margin-top:19px}.share-dialog .btn{flex:1}
+.status-dot{height:8px;width:8px;display:inline-block;border-radius:50%;background:var(--lime)}.mini{font-size:12px;color:var(--muted)}.secondary-line{color:var(--muted);font-size:12px;margin-top:10px}
+@media(max-width:470px){.pace-grid{grid-template-columns:1fr 1fr 1fr}.role-row{flex-wrap:wrap}.role-row .btn{flex:1}}
+
+.collapsible-panel{padding:0!important;overflow:hidden}
+.collapsible-panel>summary{list-style:none;cursor:pointer;position:relative;padding:18px 44px 18px 19px;display:flex;flex-direction:column;gap:5px;font:800 19px/1.2 'Space Grotesk',sans-serif}
+.collapsible-panel>summary::-webkit-details-marker{display:none}
+.collapsible-panel>summary:after{content:'+';position:absolute;right:18px;top:16px;color:var(--lime);font:800 25px/1 'Space Grotesk',sans-serif}
+.collapsible-panel[open]>summary:after{content:'−'}
+.collapsible-panel>summary small{font:500 12px/1.45 'DM Sans',sans-serif;color:var(--muted)}
+.collapsible-panel>.collapsible-inner{padding:2px 19px 20px;border-top:1px solid #3c3453}
+.collapsible-panel:focus-within{border-color:#8675a5}
+/* Mobile pass: clear hierarchy, large thumb targets and scrollable details */
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+button,input,textarea{font-family:inherit}
+.btn{min-height:46px;touch-action:manipulation}
+.btn:focus-visible,.input:focus-visible,a:focus-visible,.choice:focus-within{outline:3px solid #d0ff87;outline-offset:3px}
+.mobile-quicknav{display:none}
+#my-card,#share-cards,#choose-leader,#my-notebook{scroll-margin-top:112px}
+@media(max-width:750px){
+  body{background:linear-gradient(164deg,#181629 0%,#111121 55%);}
+  .site{padding:0 14px;max-width:640px}
+  .topbar{padding:13px 0;position:relative}
+  .logo{font-size:19px;letter-spacing:-.8px;gap:8px}
+  .logo-mark{height:37px;width:37px;min-width:37px;font-size:23px;border-radius:12px}
+  .logo small{font-size:8px;letter-spacing:1.4px}
+  .livebadge{padding:8px 9px;font-size:9px;letter-spacing:0;white-space:nowrap}
+  main{padding:24px 0 38px;min-width:0}
+  .split{gap:23px;display:grid;grid-template-columns:minmax(0,1fr)}
+  .hero{font-size:clamp(47px,13vw,68px);letter-spacing:-3.7px;line-height:1.06;margin:13px 0 18px}
+  .eyebrow{font-size:10px;letter-spacing:1.55px}
+  .subhead{font-size:15px;line-height:1.55}
+  .tags{gap:7px;margin-top:16px}.chip{font-size:10px;padding:7px 10px;letter-spacing:0;max-width:100%}
+  .card{padding:20px;border-radius:21px;min-width:0;box-shadow:none}
+  .card h2{font-size:23px;line-height:1.18}
+  .field{margin:16px 0}
+  .input{font-size:16px;min-height:48px;padding:13px 14px;max-width:100%}
+  .btn{font-size:14px;line-height:1.25;min-height:48px;padding:13px 16px}
+  .btn.slim{min-height:43px;font-size:13px;padding:11px 13px}
+  .actions{gap:9px}
+  .actions > .btn{flex:1 1 auto}
+  .gamehead{gap:9px;margin-bottom:13px}
+  .gamehead h1{font-size:clamp(33px,9vw,45px);letter-spacing:-1.65px;margin:2px 0 4px}
+  .gamehead .muted{margin:5px 0 0;font-size:13px}
+  .twocol{gap:14px}
+  .stack{gap:13px;min-width:0}
+  .gamewrap{max-width:100%;min-width:0}
+  .roomtag{padding:7px 11px;font-size:11px}
+  .gamehead>.roomtag{font-size:12px;letter-spacing:.2px}
+  .people{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .person{padding:9px;gap:7px;min-width:0}
+  .avatar{min-width:29px;height:29px;border-radius:9px;font-size:12px}
+  .person-name{font-size:12px}.person-sub{font-size:10px}
+  .roundtitle{font-size:11px;letter-spacing:.7px}
+  .timer-card{background:linear-gradient(140deg,#302a48,#25213a);border-color:#6a5987}
+  .timer{font-size:clamp(69px,19vw,103px);line-height:1.05;letter-spacing:-4px;margin:9px 0 13px}
+  .timer-card .muted{font-size:13px;line-height:1.5}
+  .progress{height:8px}
+  .mobile-quicknav{display:flex;position:sticky;top:0;z-index:9;gap:7px;margin:0 -14px 15px;padding:11px 14px;background:#151326ed;backdrop-filter:blur(18px);overflow-x:auto;scrollbar-width:none;border-bottom:1px solid #39354c}
+  .mobile-quicknav::-webkit-scrollbar{display:none}
+  .mobile-quicknav a{flex:0 0 auto;text-decoration:none;border:1px solid #625477;background:#352d4c;color:#f5f3ff;border-radius:30px;min-height:39px;padding:10px 12px;font-size:12px;font-weight:800;white-space:nowrap}
+  .secret,.secret-mask{padding:20px;border-radius:18px}
+  .secret h2{font-size:32px;line-height:1.15;overflow-wrap:anywhere}
+  .secret-mask strong{font-size:19px}
+  .secret-mask .btn{margin-top:12px;width:100%}
+  .strategy-card{padding:21px;border-radius:19px;background:linear-gradient(120deg,#3d3154,#26223d)}
+  .strategy-card h3{font-size:21px;line-height:1.26;margin:10px 0}
+  .strategy-card .btn{width:100%}
+  .collapsible-panel>summary{padding:17px 44px 17px 16px;font-size:18px}
+  .collapsible-panel>.collapsible-inner{padding:5px 15px 16px}
+  .role-row{display:block;padding:13px;border-radius:14px}
+  .role-row>.actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));margin-top:10px}
+  .role-row .btn{width:100%;white-space:normal}
+  .notes-section .labelrow{align-items:flex-start}
+  .notes-section h2{font-size:20px}
+  .notebook-entry{padding:12px;margin:7px 0}
+  .notebook-entry .input{min-height:45px}
+  .resultgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .resultgrid .inset{padding:12px;min-width:0}
+  .resultgrid b{font-size:16px;overflow-wrap:anywhere}
+  .results{padding:22px 14px;border-radius:20px}
+  .results h2{font-size:clamp(41px,12vw,69px);overflow-wrap:anywhere}
+  .share-dialog{max-height:90dvh;overflow:auto;padding:22px 19px;border-radius:21px}
+  .share-dialog h2{font-size:25px}
+  .share-dialog .actions{display:grid;grid-template-columns:1fr;gap:9px}
+  .share-popup,.move{padding:12px}
+  .move-panel{width:100%;max-height:92dvh;overflow:auto;padding:25px 20px;border-radius:23px}
+  .move-panel h2{font-size:clamp(40px,11vw,60px)}
+  .toast{bottom:calc(12px + env(safe-area-inset-bottom));width:calc(100% - 24px);max-width:500px;font-size:13px;padding:13px 15px}
+  footer{font-size:10px;line-height:1.4;padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+}
+@media(max-width:390px){
+  .site{padding:0 12px}.mobile-quicknav{margin-left:-12px;margin-right:-12px;padding:9px 12px}
+  .people{grid-template-columns:1fr 1fr}
+  .pace-grid .btn{font-size:11px;padding:10px 4px}
+  .roomtag{max-width:100%}
+  .actions .btn{min-width:0;overflow-wrap:anywhere}
+}
+@media(max-width:330px){.people{grid-template-columns:1fr}.livebadge{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="glow glow-a"></div><div class="glow glow-b"></div>
+<div class="site">
+<header class="topbar"><a class="logo" href="./"><span class="logo-mark">↔</span><span>ROOM<span class="lime">SWAP</span><small>SECRET ROLES. BIG LIES.</small></span></a><div class="headright"><span class="livebadge"><span class="tiny-dot"></span> PRIVATE LINK</span><a class="ukcm" href="https://www.ukcomedymap.co.uk/" target="_blank" rel="noopener">by UK Comedy Map ↗</a></div></header>
+<main id="app"><div class="loading"><div class="spinner"></div><p>Starting Room Swap…</p><p class="muted small">Connecting to your party game.</p></div></main>
+<footer><span>Two rooms. One big secret.</span><span>Made for real-life parties ✳</span></footer>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>
+// Show a useful error if the game module cannot load at all (404, stale cache, syntax error).
+window.__roomSwapStarted = false;
+window.roomSwapShowBootProblem = function (reason) {
+  if (window.__roomSwapStarted) return;
+  var root = document.getElementById('app');
+  if (!root) return;
+  root.innerHTML = '<div class="card" style="max-width:610px;margin:30px auto"><p class="micro">STARTUP CHECK</p><h2>Room Swap couldn\'t start</h2><p class="muted">The browser could not start the game code. All game files are built into this page, so no extra JavaScript files are required.</p><p id="boot-reason" class="alert"></p><div class="actions"><a class="btn" href="?v=trust-timers-7" style="text-decoration:none">Try again ↻</a></div></div>';
+  document.getElementById('boot-reason').textContent = reason || 'A JavaScript error stopped the game.';
+};
+window.addEventListener('error', function (evt) {
+  if (!window.__roomSwapStarted) {
+    const label = evt.message || 'A browser JavaScript error occurred';
+    const loc = evt.lineno ? ' (line ' + evt.lineno + ')' : '';
+    window.roomSwapShowBootProblem(label + loc);
+  }
+});
+window.addEventListener('unhandledrejection', function (evt) {
+  if (!window.__roomSwapStarted) window.roomSwapShowBootProblem(String(evt.reason?.message || evt.reason || 'Unknown startup error'));
+});
+setTimeout(function () {
+  if (!window.__roomSwapStarted) window.roomSwapShowBootProblem('The game script has not started after 10 seconds. Please check the error details below.');
+}, 10000);
+</script>
+<script type="module" id="room-swap-app">
+// Standalone build: avoids stale or missing app.js / config.js files.
+const firebaseConfig = {
+  apiKey: 'AIzaSyCygBWwyZ6mwYF6VTA2uTAvfuzNurI3oxw',
+  authDomain: 'same-brain-f21f2.firebaseapp.com',
+  projectId: 'same-brain-f21f2',
+  storageBucket: 'same-brain-f21f2.firebasestorage.app',
+  messagingSenderId: '225411351152',
+  appId: '1:225411351152:web:7dc632fd22ff8aa2f16ab5',
+  measurementId: 'G-Z0X9TWLQZP'
+};
+
+window.__roomSwapStarted = true;
+
+const ROOT = 'roomSwapRooms';
+const app = document.getElementById('app');
+const toastEl = document.getElementById('toast');
+const params = new URLSearchParams(location.search);
+const roomId = params.get('game') || '';
+const invite = roomId ? `${location.origin}${location.pathname}?game=${encodeURIComponent(roomId)}` : '';
+let f, db, auth, uid = '', room = null, players = [], secret = null;
+let joined = false, busy = false, error = '', roleVisible = false, chosen = [], movedTo = '', previousArea = '';
+let mySelection = null, selections = {A:null,B:null}, activeSelArea = '';
+let unsubRoom, unsubPlayers, unsubSecret, unsubSelectionA, unsubSelectionB;
+let toastT, voteApplying = false, ticking = false, autoEnding = false;
+let initStage = 'Loading the game libraries…', initSlow = false;
+let incomingShares = [], seenShareEvents = new Set(), shareWatchUnsub = null, outgoingWatch = new Map();
+let viewedInvite = '', savedIntel = {}, notePanelVisible = true, strategyStep = 0, shareBusy = false, restoredDealKey = '';
+let openPanels = new Set();
+const CURRENT_BUILD = 'trust-timers-7';
+const PACE = {quick:'Quick',balanced:'Balanced',relaxed:'Relaxed'};
+const paceTimes = (count, pace='balanced') => {
+  const tier=count<=10?0:count<=20?1:2;
+  const values={quick:[[3,2,1],[4,3,2],[5,4,3]], balanced:[[5,4,3],[7,5,4],[9,7,5]], relaxed:[[7,5,4],[9,7,5],[12,9,6]]};
+  return (values[pace]||values.balanced)[tier].map(n=>n*60000);
+};
+function clockMinutes(ms){return Math.round(ms/60000)+'m';}
+function intelKey(){return 'room-swap-intel:'+roomId+':'+uid+':'+(room?.dealId||'none');}
+function loadIntel(){try{savedIntel=JSON.parse(localStorage.getItem(intelKey())||'{}')||{};}catch{savedIntel={};}}
+function storeIntel(){try{localStorage.setItem(intelKey(),JSON.stringify(savedIntel));}catch{}}
+const shareRef = (target,from,mode,deal=room?.dealId) => f.doc(db,ROOT,roomId,'shareInbox',target,'requests',from);
+const teamRef = id => f.doc(db,ROOT,roomId,'teamCards',id);
+const canShare = () => room?.phase==='talk' && joined && players.length>1 && Boolean(myArea());
+
+const esc = (s='') => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const me = () => players.find(p=>p.uid===uid);
+const nameOf = id => players.find(p=>p.uid===id)?.name || 'Someone';
+const isHost = () => room?.hostUid === uid;
+const myArea = () => me()?.area || '';
+const isLeader = area => room?.leaders?.[area] === uid;
+const areaLabel = a => a === 'A' ? 'Room A' : 'Room B';
+const fmtClock = ms => {const s=Math.max(0,Math.ceil(ms/1000));return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;};
+const duration = round => (room?.timings?.[round-1] || paceTimes(players.length,room?.pace)[round-1]);
+const hostagesNeeded = (count, round) => count <= 10 ? 1 : count <= 21 ? [2,1,1][round-1] : [3,2,1][round-1];
+const rand = () => [...crypto.getRandomValues(new Uint8Array(18))].map(b=>b.toString(16).padStart(2,'0')).join('');
+const shuffle = list => {const a=[...list];for(let i=a.length-1;i>0;i--){const j=crypto.getRandomValues(new Uint32Array(1))[0]%(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;};
+const refRoom = () => f.doc(db,ROOT,roomId);
+const refPlayers = () => f.collection(db,ROOT,roomId,'players');
+const refPlayer = id => f.doc(refPlayers(),id);
+const refSecret = id => f.doc(db,ROOT,roomId,'secrets',id);
+const refSelect = a => f.doc(db,ROOT,roomId,'selections',a);
+function toast(msg){toastEl.textContent=msg;toastEl.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>toastEl.classList.remove('show'),3300);}
+function fail(e){console.error(e);const code=e?.code||'';const msg=e?.message||String(e);error = code==='permission-denied'?'Firestore rules are blocking this action. Check the published Room Swap rules.':code==='auth/operation-not-allowed'||code==='auth/admin-restricted-operation'?'Anonymous sign-in is disabled. Enable it in Firebase Authentication → Sign-in method.':code.startsWith('auth/')?`Firebase sign-in error: ${code}. ${msg.slice(0,140)}`:msg.slice(0,230);toast(error);render();}
+async function action(fn){if(busy)return;busy=true;render();try{await fn();error='';}catch(e){fail(e);}finally{busy=false;render();}}
+async function init(){
+  const slowWatch=setTimeout(()=>{if(!uid&&!error){initSlow=true;render();}},10000);
+  try{
+    render();
+    const [a,b,c]=await Promise.all([import('https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js'),import('https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js'),import('https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js')]);
+    f={...a,...b,...c};
+    initStage='Signing you in securely…';render();
+    const firebase=f.initializeApp(firebaseConfig,'room-swap');auth=f.getAuth(firebase);db=f.getFirestore(firebase);
+    const current=await f.signInAnonymously(auth);uid=current.user.uid;
+    initSlow=false;
+    if(roomId) connect();else render();
+  }catch(e){fail(e);}finally{clearTimeout(slowWatch);}
+}
+function connect(){
+  unsubRoom=f.onSnapshot(refRoom(),snap=>{if(!snap.exists()){error='Room not found. Ask for a new link.';room=null;render();return;}
+    const prev=room?.phase, prevDeal=room?.dealId;room=snap.data();
+    if(prevDeal!==room.dealId){loadIntel();seenShareEvents.clear();incomingShares=[];disconnectShareWatch();restoredDealKey='';}
+    if(joined) syncShares();
+    if(prev && prev!=='ended' && room.phase==='ended'){try{navigator.vibrate?.([130,70,130]);}catch{}}
+    render(); syncSelection();
+  },fail);
+  unsubPlayers=f.onSnapshot(refPlayers(),snap=>{
+    const old=previousArea;players=snap.docs.map(d=>d.data()).sort((a,b)=>a.name.localeCompare(b.name));
+    joined=players.some(p=>p.uid===uid);const now=myArea();
+    if(joined&&!unsubSecret){unsubSecret=f.onSnapshot(refSecret(uid),s=>{secret=s.exists()?s.data():null;render();},fail);}
+    if(old && now && old!==now){movedTo=now;roleVisible=false;chosen=[];try{navigator.vibrate?.([180,90,180,90,300]);}catch{}}
+    previousArea=now;render();syncSelection();
+    if(joined)syncShares();if(isHost())maybeApplyVotes();
+  },fail);
+}
+function syncSelection(){
+  if(!room||!joined||room.phase==='lobby')return;
+  const area=myArea();
+  if(isHost()){
+    if(!unsubSelectionA)unsubSelectionA=f.onSnapshot(refSelect('A'),s=>{selections.A=s.exists()?s.data():null;render();},()=>{});
+    if(!unsubSelectionB)unsubSelectionB=f.onSnapshot(refSelect('B'),s=>{selections.B=s.exists()?s.data():null;render();},()=>{});
+  }else if(area && activeSelArea!==area){
+    unsubSelectionA?.();unsubSelectionB?.();unsubSelectionA=unsubSelectionB=null;activeSelArea=area;selections={A:null,B:null};
+    const un=f.onSnapshot(refSelect(area),s=>{selections[area]=s.exists()?s.data():null;render();},()=>{});
+    if(area==='A')unsubSelectionA=un;else unsubSelectionB=un;
+  }
+  mySelection=selections[area]||null;
+}
+
+function disconnectShareWatch(){
+  shareWatchUnsub?.();shareWatchUnsub=null;
+  for(const un of outgoingWatch.values())un();outgoingWatch.clear();
+}
+function watchOutgoing(target,mode){
+  const key=target+'_'+mode;if(outgoingWatch.has(key))return;
+  const ref=shareRef(target,uid,mode);
+  const un=f.onSnapshot(ref,s=>{const d=s.data();
+    if(!d||d.dealId!==room?.dealId)return;
+    if(d.status==='accepted'){
+      toast(`${nameOf(target)} agreed to share! Identity added to your notebook.`);
+      captureVerified(target,d.mode).catch(fail);un();outgoingWatch.delete(key);
+    }else if(d.status==='declined'){
+      toast(`${nameOf(target)} declined the reveal.`);un();outgoingWatch.delete(key);
+    }
+  },fail);
+  outgoingWatch.set(key,un);
+}
+async function restoreOutgoing(){
+  const key=room?.dealId+':'+uid;
+  if(!room?.dealId||restoredDealKey===key||players.length<1)return;
+  restoredDealKey=key;
+  await Promise.all(players.filter(p=>p.uid!==uid).map(async p=>{
+    try{const s=await f.getDoc(shareRef(p.uid,uid,'full'));const d=s.data();
+      if(d?.dealId!==room.dealId)return;
+      if(d.status==='accepted')await captureVerified(p.uid,d.mode);
+      else if(d.status==='pending')watchOutgoing(p.uid,d.mode);
+    }catch(e){console.warn('Could not restore an exchange',e);}
+  }));
+}
+function syncShares(){
+  if(!room||!joined||!room.dealId||room.phase==='lobby'||room.phase==='ended')return;
+  if(!shareWatchUnsub){
+    shareWatchUnsub=f.onSnapshot(f.collection(db,ROOT,roomId,'shareInbox',uid,'requests'),snap=>{
+      incomingShares=snap.docs.map(x=>({...x.data(),id:x.id})).filter(x=>x.dealId===room?.dealId);
+      const pending=incomingShares.filter(x=>x.status==='pending'&&x.round===room?.round&&room.phase==='talk');
+      const key=pending[0]?.id;
+      if(key&&!seenShareEvents.has(key)){seenShareEvents.add(key);try{navigator.vibrate?.([70,40,70]);}catch{}}
+      for(const data of incomingShares)if(data.status==='accepted')captureVerified(data.fromUid,data.mode).catch(console.warn);
+      render();
+    },fail);
+  }
+  restoreOutgoing().catch(console.warn);
+}
+function verifiedRecord(id, mode, data){
+  const p=players.find(v=>v.uid===id);if(!p||!data)return;
+  const old=savedIntel[id]||{};
+  savedIntel[id]={...old,name:p.name,team:data.team, role:mode==='full'?data.role:old.role||'',level:mode==='full'?'full':old.level||'team',confirmed:true};
+  storeIntel();render();
+}
+async function captureVerified(other,mode){
+  if(!room?.dealId||!other||other===uid)return;
+  if(savedIntel[other]?.level==='full'||(mode==='team'&&savedIntel[other]?.confirmed))return;
+  const doc=await f.getDoc(mode==='full'?refSecret(other):teamRef(other));
+  if(doc.exists())verifiedRecord(other,mode,doc.data());
+}
+async function requestShare(other,mode){
+  if(!canShare())return toast('Card sharing is only available during discussion.');
+  if(!players.some(p=>p.uid===other && p.area===myArea() && p.uid!==uid))return toast('That player is no longer in your room.');
+  if(mode==='team'&&players.length<=10)return toast('With 10 or fewer players, share full cards only.');
+  if(shareBusy)return;shareBusy=true;
+  try{
+    const ref=shareRef(other,uid,mode);
+    const existing=await f.getDoc(ref);
+    const data={fromUid:uid,toUid:other,area:myArea(),round:room.round,dealId:room.dealId,mode,status:'pending',createdAt:f.serverTimestamp()};
+    if(existing.exists()){
+      const old=existing.data();
+      const upgrade=old.dealId===room.dealId && old.status==='accepted'&&old.mode==='team'&&mode==='full';
+      if(old.dealId===room.dealId&&!upgrade)return toast(old.status==='accepted'?'You already exchanged cards.':'A request was already sent.');
+      await f.updateDoc(ref,{...data,respondedAt:f.deleteField()});
+    }else await f.setDoc(ref,data);
+    watchOutgoing(other,mode);
+    toast(`Asked ${nameOf(other)} to exchange ${mode==='full'?'full role cards':'team colours'}.`);
+  }catch(e){fail(e);}finally{shareBusy=false;}
+}
+async function answerShare(data,accept){
+  if(!canShare())return toast('That invitation is no longer available.');
+  if(data.toUid!==uid||data.area!==myArea()||data.round!==room.round)return toast('That request has expired.');
+  if(!players.some(p=>p.uid===data.fromUid&&p.area===myArea()))return toast('That player moved to another room.');
+  if(shareBusy)return;shareBusy=true;
+  try{
+    await f.updateDoc(shareRef(uid,data.fromUid,data.mode,data.dealId),{status:accept?'accepted':'declined',respondedAt:f.serverTimestamp()});
+    if(accept){await captureVerified(data.fromUid,data.mode);toast(`You and ${nameOf(data.fromUid)} exchanged ${data.mode==='full'?'roles':'colours'}!`);}
+    else toast('You declined the request.');
+  }catch(e){fail(e);}finally{shareBusy=false;}
+}
+const ALL_PROMPTS={
+  common:[
+    'Who would you trust to make the hostage decision?',
+    'Ask one person what they know for certain, rather than what they suspect.',
+    'What has the newest arrival learned from the other room?',
+    'Who is trying hardest to control the conversation? Why?',
+    'Form a small alliance. How will you know it is genuine?',
+    'Ask who has personally verified someone’s card.',
+    'Which story has changed since the last round?',
+    'Who has avoided sharing a card? Is that suspicious or sensible?',
+    'Who can explain why a particular hostage swap would help?',
+    'Ask two players separately who they think is safe to send.',
+    'Is anyone making you feel rushed into a vote?',
+    'Who seems to have the most information from across the rooms?',
+    'Would switching the leader improve your chances?',
+    'What might your opponents want you to believe right now?',
+    'Can someone prove a claim by mutually exchanging cards?',
+    'Tell a plausible story. See whether others challenge it.',
+    'What are you assuming without evidence?',
+    'Which player should stay here for the next round, and why?',
+    'Ask the group for its strongest theory in one sentence.',
+    'Could the best-looking plan actually be a trap?'
+  ],
+  blue:[
+    'Find allies who can protect the President without publicly identifying them.',
+    'Ask whether a proposed swap risks delivering the President to the Bomber.',
+    'Can you verify a trusted teammate before voting for them?',
+    'If you know where the President is, who else knows?',
+    'Look for someone pushing to move a suspicious person into your room.',
+    'Keep the President separated from the Bomber after the FINAL exchange.',
+    'Would keeping a suspicious player under watch be safer than swapping them?'
+  ],
+  red:[
+    'Can you identify which room the President is likely to finish in?',
+    'Convince a leader to move someone who helps your plan.',
+    'Be useful to a Blue player so they include you in their strategy.',
+    'Consider whether sending the Bomber away helps or harms your team.',
+    'Find allies without exposing the Bomber.',
+    'Ask for a card exchange with someone whose allegiance matters.',
+    'What rumour would change the next hostage selection?'
+  ],
+  President:[
+    'Your survival matters more than being trusted. Who really needs to know your role?',
+    'Avoid being the obvious centre of attention; discreetly find a trustworthy ally.',
+    'Think about which room the Bomber might enter after the final swap.',
+    'Could revealing your role cause the wrong people to protect—or move—you?'
+  ],
+  Bomber:[
+    'You need to finish in the President’s room. Find clues before committing.',
+    'Can you gain the room leader’s trust without exposing your role?',
+    'Which player looks unusually protected? Are they the President?',
+    'If you are selected as a hostage, is that where you want to go?'
+  ],
+  Gambler:[
+    'You can win by predicting the winning team. Gather clues from both sides.',
+    'Which side appears to control the final hostage selections?',
+    'Set your team prediction on your role card before the final reveal.'
+  ],
+  ending:[
+    'Last round: where will the President and Bomber be AFTER this exchange?',
+    'Ask the leader to explain the final hostage pick aloud.',
+    'Look at your verified notebook. Which facts matter to the final swap?',
+    'Stop chasing every rumour. Decide on the final room outcome.',
+    'Who needs to be in your room at the exact end of the game?'
+  ]
+};
+function strategyText(){
+  const role=secret?.role||'',team=secret?.team||'';
+  const options=[...ALL_PROMPTS.common,...(ALL_PROMPTS[team]||[]),...(ALL_PROMPTS[role]||[]),...(room?.round===3?ALL_PROMPTS.ending:[])];
+  const seed=(uid+':'+room?.round).split('').reduce((a,c)=>((a*31)+c.charCodeAt(0))>>>0,11);
+  return options[(seed+strategyStep*7)%options.length];
+}
+function strategyUI(){return `<section class="strategy-card"><p class="eyebrow">✳ YOUR NEXT MOVE · ROUND ${room.round}</p><h3>${esc(strategyText())}</h3><p>Optional conversation idea — nobody else can see this suggestion. Use it or ignore it.</p><button id="next-prompt" class="btn secondary slim">Another idea ↻</button></section>`;}
+function sharingUI(){
+  if(!secret||players.length<2)return '';
+  const allowed=room.phase==='talk';
+  const other=roomMembers().filter(p=>p.uid!==uid);
+  return `<details id="share-cards" class="card share-section collapsible-panel" ${openPanels.has('share-cards')?'open':''}><summary><span>🤝 Compare cards</span><small>Request a private reveal from someone in this room</small></summary><div class="collapsible-inner"><p class="muted small">Only players currently in your room can share cards. Both must agree, and each gets the verified identity in their private notebook.</p>${other.length?`<div class="role-list">${other.map(p=>`<div class="role-row"><div><strong>${esc(p.name)}</strong><div class="mini">${savedIntel[p.uid]?.confirmed?'✓ Confirmed '+(savedIntel[p.uid]?.role||savedIntel[p.uid]?.team+' team'):'Not verified yet'}</div></div><div class="actions"><button class="btn secondary slim" data-share="${esc(p.uid)}" data-mode="full" ${!allowed||busy?'disabled':''}>Show roles</button>${players.length>10?`<button class="btn secondary slim" data-share="${esc(p.uid)}" data-mode="team" ${!allowed||busy?'disabled':''}>Colours only</button>`:''}</div></div>`).join('')}</div>`:'<div class="notice">Nobody else is in your room.</div>'}<p class="secondary-line">With 10 or fewer players, only full-role sharing is offered to preserve the bluffing. Sharing is disabled during hostage selection.</p></div></details>`;
+}
+function notebookUI(){
+  const ordered=players.filter(p=>p.uid!==uid);
+  return `<details id="my-notebook" class="card notes-section collapsible-panel" ${openPanels.has('my-notebook')?'open':''}><summary><span>📝 My private notebook</span><small>Confirmed cards and private notes · only you</small></summary><div class="collapsible-inner"><p class="muted small">Verified identities come from agreed card reveals. Your typed notes are <strong>unverified claims</strong>, not proof.</p><div class="stack">${ordered.map(p=>{const info=savedIntel[p.uid]||{};return `<div class="notebook-entry"><strong>${esc(p.name)}</strong><small>${info.confirmed?`<span class="status-dot"></span> VERIFIED ${esc(info.role||info.team?.toUpperCase()+' TEAM'||'')}`:'UNKNOWN · no verified card'}${info.confirmed&&info.level==='team'?' · team colour only':''}</small><label for="note-${esc(p.uid)}" class="micro">Private note / claim</label><input class="input note-field" id="note-${esc(p.uid)}" data-intel-note="${esc(p.uid)}" maxlength="180" placeholder="e.g. Claims the President is in Room B" value="${esc(info.note||'')}"></div>`;}).join('')}</div></div></details>`;
+}
+function shareOverlayHTML(){
+  if(room?.phase!=='talk'||!joined)return '';
+  const req=incomingShares.find(r=>r.status==='pending'&&r.round===room?.round&&r.dealId===room?.dealId&&players.some(p=>p.uid===r.fromUid&&p.area===myArea()));
+  if(!req)return '';
+  return `<div class="share-popup"><section class="share-dialog" role="dialog" aria-modal="true" aria-label="Mutual card exchange"><p class="eyebrow">🔒 PRIVATE REQUEST</p><h2>${esc(nameOf(req.fromUid))} wants to compare cards</h2><p class="muted">Agree to reveal <strong>${req.mode==='full'?'both full roles':'both team colours'}</strong>. You will both receive verified information in your own notebooks. You can decline.</p><div class="actions"><button id="accept-share" data-request-id="${esc(req.id)}" class="btn" ${shareBusy?'disabled':''}>Agree & reveal →</button><button id="decline-share" data-request-id="${esc(req.id)}" class="btn secondary" ${shareBusy?'disabled':''}>Decline</button></div></section></div>`;
+}
+
+async function maybeApplyVotes(){
+  if(!room||room.phase!=='talk'||voteApplying||!joined||!isHost())return;
+  for(const area of ['A','B']){
+    const members=players.filter(p=>p.area===area);
+    const totals=new Map();for(const p of members)if(p.vote&&members.some(m=>m.uid===p.vote))totals.set(p.vote,(totals.get(p.vote)||0)+1);
+    const majority=[...totals.entries()].find(([target,n])=>n>members.length/2&&room.leaders?.[area]!==target);
+    if(majority){voteApplying=true;
+      try{const batch=f.writeBatch(db);batch.update(refRoom(),{[`leaders.${area}`]:majority[0]});for(const p of members)batch.update(refPlayer(p.uid),{vote:''});await batch.commit();toast(`${nameOf(majority[0])} is the new ${areaLabel(area)} leader!`);}catch(e){console.warn(e);}finally{voteApplying=false;}break;
+    }
+  }
+}
+function nameInput(){return `<div class="field"><label for="nickname">YOUR NICKNAME</label><input class="input" id="nickname" maxlength="24" autocomplete="nickname" value="${esc(localStorage.getItem('room-swap-name')||'')}" placeholder="e.g. Alex"></div>`;}
+function welcome(){return `<div class="split"><div><span class="eyebrow">✳ A GAME FOR PEOPLE WITH TRUST ISSUES</span><h1 class="hero">Two rooms.<br><span class="pink">One big</span><br><span class="blue">secret.</span></h1><p class="subhead">An in-person party game of secret teams, bluffing and high-stakes hostage swaps. Your phone handles the rules. You do the lying.</p><div class="tags"><span class="chip">✳ No minimum · up to 30</span><span class="chip">✳ Flexible round timers</span><span class="chip">✳ Private card sharing</span><span class="chip">✳ Private invite link</span></div></div><div class="card"><p class="micro">HOST A NEW GAME</p><h2>Ready to swap sides?</h2><p class="muted">You'll need two separate spaces where players can't hear the other room.</p>${nameInput()}<button class="btn full" id="create" ${busy?'disabled':''}>Create a private room →</button><div class="divider"></div><div class="steps"><div><span class="stepnum">1</span> Invite everyone with your link</div><div><span class="stepnum">2</span> Secret roles appear on each phone</div><div><span class="stepnum">3</span> Talk, bluff, and swap players</div></div></div></div>`;}
+function joinUI(){return `<div class="split"><div><span class="eyebrow">✳ YOU'VE BEEN INVITED</span><h1 class="hero">Come in.<br><span class="pink">Trust no one.</span></h1><p class="subhead">One nickname. One secret role. Two rooms full of people who may be lying to you.</p></div><div class="card"><p class="micro">PRIVATE GAME</p><h2>Join the party</h2>${nameInput()}<button class="btn full" id="join" ${busy||room?.phase!=='lobby'?'disabled':''}>Join game →</button>${room?.phase!=='lobby'?'<p class="muted small">This game has already started. Ask the host to create a new room.</p>':''}</div></div>`;}
+function peopleCards(list,withArea=false){return `<div class="people">${list.map(p=>`<div class="person"><span class="avatar">${esc((p.name||'?').slice(0,1).toUpperCase())}</span><div class="person-text"><div class="person-name">${esc(p.name)}${p.uid===uid?' (you)':''}</div><div class="person-sub">${withArea?areaLabel(p.area):p.uid===room?.hostUid?'HOST':'PLAYER'}</div></div></div>`).join('')}</div>`;}
+function lobby(){return `<div class="gamewrap"><div class="gamehead"><div><p class="micro">PRIVATE LOBBY</p><h1>Gather your <span class="lime">suspects.</span></h1><p class="muted">${players.length} joined · Start whenever you like</p></div><span class="chip">LOBBY OPEN</span></div><div class="twocol"><div class="card"><h2>Invite your people</h2><p class="muted">Send this URL to anyone in the room.</p><input id="invite-link" class="input" readonly value="${esc(invite)}"><div class="actions" style="margin-top:12px"><button class="btn" id="copy">Copy invite link</button><button class="btn secondary" id="share">Share ↗</button></div><div class="divider"></div><p class="muted small">Separate your guests into two real spaces before starting. Keep screens private unless you deliberately show your role.</p></div><div class="card"><h2>Players (${players.length})</h2>${peopleCards(players)}${isHost()?`<div class="divider"></div><p class="micro">ROUND LENGTH · ${esc(PACE[room.pace||'balanced'])}</p><div class="pace-grid">${Object.keys(PACE).map(p=>`<button class="btn ${room.pace===p?'':'secondary'}" data-pace="${p}" ${busy?'disabled':''}>${PACE[p]}</button>`).join('')}</div><p class="muted small">${paceTimes(players.length,room.pace).map(clockMinutes).join(' · ')} · Host can add two minutes while playing.</p><button class="btn full" id="start" ${players.length<1||players.length>30||busy?'disabled':''}>${players.length<4?'Start preview →':'Deal secret roles & start →'}</button><p class="muted small">No minimum: you can start alone. With 1–3 players, this runs as a short-group preview without hostage exchanges. 4+ players can make exchanges; 6+ is best for social deduction.</p>`:'<p class="muted small">Waiting for the host to start…</p>'}</div></div></div>`;}
+function secretCard(){
+  if(!secret)return `<div id="my-card" class="secret-mask"><strong>Preparing your role…</strong><p class="muted small">The host is dealing the roles.</p></div>`;
+  if(!roleVisible)return `<div id="my-card" class="secret-mask"><span style="font-size:33px">🔒</span><strong>Your role is hidden</strong><p class="muted small">Only reveal it when nobody's looking — or when you want someone to see it.</p><button class="btn secondary slim" id="show-role">Reveal my card 👁</button></div>`;
+  const role=secret.role;
+  const team=secret.team;
+  const classes=team==='blue'?'blue':team==='red'?'red':'gray';
+  const symbol=role==='President'?'🏛️':role==='Bomber'?'💣':role==='Gambler'?'🎲':team==='blue'?'🔵':'🔴';
+  const help=role==='President'?'Stay away from the Bomber in the final room.':role==='Bomber'?'End up in the same room as the President.':role==='Gambler'?'Predict the winning team before the final reveal.':team==='red'?'Help the Bomber find the President.':'Keep the President safe.';
+  return `<div id="my-card" class="secret ${classes}"><p class="micro">EYES ONLY · SECRET ROLE</p><div class="secret-icon">${symbol}</div><h2>${esc(role)}</h2><p>${team==='neutral'?'NEUTRAL PLAYER':team.toUpperCase()+' TEAM'} · ${help}</p><div style="margin-top:20px"><button class="btn secondary slim" id="hide-role">Hide my role 🔒</button></div>${role==='Gambler'?`<div class="divider"></div><p class="small">Predict the winning side:</p><div class="actions"><button class="btn ${secret.guess==='blue'?'blue':'secondary'} slim" data-guess="blue">Blue</button><button class="btn ${secret.guess==='red'?'red':'secondary'} slim" data-guess="red">Red</button></div>`:''}</div>`;
+}
+function roomMembers(){return players.filter(p=>p.area===myArea());}
+function nominateHTML(){const area=myArea();const members=roomMembers();if(!area)return '';
+  return `<div id="choose-leader" class="card"><div class="labelrow"><h2>Choose your leader</h2><span class="roomtag ${area.toLowerCase()}">${areaLabel(area)}</span></div><p class="muted small">Talk it over in person. A majority of room votes appoints a new leader.</p><div class="stack">${members.map(p=>`<button class="btn ${me()?.vote===p.uid?'blue':'secondary'} slim" data-vote="${esc(p.uid)}" ${busy?'disabled':''}>${p.uid===room?.leaders?.[area]?'👑 ':''}${esc(p.name)}${p.uid===me()?.vote?' · your vote':''}</button>`).join('')}</div><p class="muted small" style="margin-bottom:0">Current leader: <strong>${esc(nameOf(room?.leaders?.[area]))}</strong></p></div>`;}
+function talkUI(){const rem=room.deadlineMs-Date.now();return `<div class="gamewrap"><div class="gamehead"><div><p class="micro">ROUND ${room.round} OF 3 · DISCUSSION</p><h1>Find your <span class="lime">people.</span></h1></div><span class="roomtag ${myArea().toLowerCase()}">You're in ${areaLabel(myArea())}</span></div><nav class="mobile-quicknav" aria-label="Jump to game controls"><a href="#my-card">🔒 My role</a><a href="#share-cards">🤝 Swap cards</a><a href="#choose-leader">👑 Vote</a><a href="#my-notebook">📝 Notebook</a></nav><div class="twocol"><div class="stack"><div class="card timer-card"><p class="roundtitle">Time to make your move</p><div class="timer ${rem<30000?'urgent':''}" id="timer">${fmtClock(rem)}</div><div class="progress" role="progressbar" aria-label="Time remaining"><span id="timer-progress" style="width:${Math.max(0,Math.min(100,rem/duration(room.round)*100))}%"></span></div><p class="muted">Talk out loud. Make alliances, compare identities and try to control the next hostage swap.</p>${players.length<4?'<div class="notice"><strong>Small-group preview</strong>No hostage exchanges with fewer than 4 players. Practise roles, card sharing and the final reveal.</div>':''}${isHost()?`<div class="actions"><button class="btn secondary" id="extend">+2 minutes ⏱</button><button id="finish-talk" class="btn secondary" ${busy?'disabled':''}>${players.length<4?(room.round===3?'Reveal results →':'End round →'):'End discussion →'}</button></div>`:''}</div>${secretCard()}${strategyUI()}${sharingUI()}</div><div class="stack"><div class="card"><div class="labelrow"><h2>${areaLabel(myArea())} · players</h2><span class="roomtag ${myArea().toLowerCase()}">${roomMembers().length} inside</span></div>${peopleCards(roomMembers())}</div>${nominateHTML()}${notebookUI()}</div></div></div>`;}
+
+function selectUI(){const area=myArea();const leaderId=room?.leaders?.[area];const assigned=selections[area];const need=hostagesNeeded(players.length,room.round);const locked=assigned?.locked&&assigned?.round===room.round;const isMine=isLeader(area);const list=roomMembers().filter(p=>p.uid!==leaderId);
+  return `<div class="gamewrap"><div class="gamehead"><div><p class="micro">ROUND ${room.round} OF 3 · HOSTAGE EXCHANGE</p><h1>Who gets <span class="pink">sent away?</span></h1></div><span class="roomtag ${area.toLowerCase()}">${areaLabel(area)}</span></div><div class="twocol"><div class="stack"><div class="card"><h2>${locked?'🔒 Choices locked':'Pick your hostages'}</h2><p class="muted">Each leader must choose <strong>${need} ${need===1?'player':'players'}</strong>. Leaders cannot send themselves. Both rooms lock independently.</p>${isMine&&!locked?`<div class="stack">${list.map(p=>`<label class="choice"><input type="checkbox" data-pick="${esc(p.uid)}" ${chosen.includes(p.uid)?'checked':''}>${esc(p.name)}</label>`).join('')}</div><p class="muted small" id="count">${chosen.length} / ${need} selected</p><button class="btn full" id="lock-picks" ${chosen.length!==need||busy?'disabled':''}>Lock in hostages →</button>`:locked?`<div class="notice success"><strong>Selections locked</strong>${(assigned.picks||[]).map(id=>esc(nameOf(id))).join(', ')}</div>`:`<div class="notice"><strong>Waiting for ${esc(nameOf(leaderId))}</strong>The leader of your room is choosing ${need} ${need===1?'player':'players'}.</div>`}</div>${secretCard()}</div><div class="stack"><div class="card"><h2>Exchange status</h2><div class="stack"><div class="notice ${room.locks?.A?'success':''}"><strong>Room A ${room.locks?.A?'✓ ready':'· deciding'}</strong>${room.locks?.A?'Hostages chosen and locked.':'Waiting for Room A leader.'}</div><div class="notice ${room.locks?.B?'success':''}"><strong>Room B ${room.locks?.B?'✓ ready':'· deciding'}</strong>${room.locks?.B?'Hostages chosen and locked.':'Waiting for Room B leader.'}</div></div>${isHost()?`<div class="divider"></div><button class="btn full" id="exchange" ${busy||!room.locks?.A||!room.locks?.B?'disabled':''}>${room.round===3?'Complete final swap & reveal winner 💥':'Swap players & begin next round →'}</button><p class="muted small">Host: click once both leaders have locked in their choices. You'll receive the same secret role as everyone else.</p>`:'<p class="muted small">The host will swap the selected players when both rooms are ready.</p>'}</div>${notebookUI()}<div class="card"><h2>Now what?</h2><p class="muted">Stay in your current room until the exchange happens. The chosen players will receive a full-screen move instruction.</p></div></div></div></div>`;
+}
+function resultsUI(){
+  if(room?.winner==='preview')return `<div class="gamewrap"><div class="results"><p class="eyebrow">🎭 SOLO TEST COMPLETE</p><div class="big-emoji">🏛️</div><h2 style="font-size:clamp(35px,7vw,65px);color:var(--lime)">YOU'RE READY!</h2><p class="subhead" style="margin:auto">You completed all three rounds on your own. This was a preview: no Bomber was dealt, no hostage exchanges were possible and nobody won or lost.</p><div class="inset" style="margin:24px auto;max-width:360px"><p class="micro">YOUR SECRET ROLE</p><b>President</b></div><p class="muted">Invite friends to make it a real bluffing game. You can start a rematch with the same room at any time.</p><div class="actions" style="justify-content:center;margin-top:22px">${isHost()?`<button class="btn" id="rematch">Back to lobby ↻</button>`:''}<a class="btn secondary" href="./" style="text-decoration:none">New room →</a></div></div></div>`;
+  const win=room?.winner||'blue';const result=room?.reveal||{};const roles=result.roles||{};const president=result.presidentRoom||'?';const bomber=result.bomberRoom||'?';const personallyWon=secret?.team===win||(secret?.role==='Gambler'&&secret?.guess===win);return `<div class="gamewrap"><div class="results ${win}"><p class="eyebrow">💥 THE FINAL REVEAL</p><div class="big-emoji">${win==='red'?'💣':'🛡️'}</div><h2>${win==='red'?'RED WINS!':'BLUE WINS!'}</h2><p class="subhead" style="margin:auto">${win==='red'?'The Bomber and President ended in the same room. Boom.':'The President escaped the Bomber. Safe for now.'}</p><div class="resultgrid"><div class="inset"><p class="micro">🏛️ PRESIDENT</p><b>${esc(result.presidentName||'Unknown')}</b><p>${areaLabel(president)}</p></div><div class="inset"><p class="micro">💣 BOMBER</p><b>${esc(result.bomberName||'Unknown')}</b><p>${areaLabel(bomber)}</p></div></div>${result.preview?'<p class="muted small">Small-group preview: no hostage exchanges were possible, so the outcome was determined by the original room assignments.</p>':''}<div class="notice ${personallyWon?'success':'pink'}"><strong>${personallyWon?'🎉 Your side won!':'Your side lost this time'}</strong>${secret?.role==='Gambler'?`You backed ${secret.guess||'no team'}. ${secret.guess===win?'Correct call!':'Better luck next time.'}`:`You were on the ${secret?.team||'?'} team.`}</div><div class="divider"></div><h2 style="font-size:24px;color:white">Everybody's roles</h2><div class="people" style="text-align:left">${players.map(p=>`<div class="person"><div class="avatar">${esc(p.name.slice(0,1).toUpperCase())}</div><div class="person-text"><div class="person-name">${esc(p.name)}</div><div class="person-sub">${esc(roles[p.uid]||'?')} · ${areaLabel(p.area)}</div></div></div>`).join('')}</div><div class="actions" style="justify-content:center;margin-top:22px">${isHost()?`<button class="btn" id="rematch">Rematch with these players ↻</button>`:''}<a class="btn secondary" href="./" style="text-decoration:none">New room →</a></div></div></div>`;}
+function overlayHTML(){return movedTo?`<div class="move"><div class="move-panel"><p class="eyebrow">✳ INCOMING HOSTAGE EXCHANGE</p><div class="big-emoji">🚪</div><h2>SWITCH<br><span class="lime">ROOMS!</span></h2><p>You've been moved to <strong>${areaLabel(movedTo)}</strong>. Go there now, and keep your identity secret.</p><button class="btn full" id="dismiss-move">I'm in ${areaLabel(movedTo)} →</button></div></div>`:'';}
+function render(){if(!uid){
+  if(error){app.innerHTML=`<div class="card" style="max-width:600px;margin:30px auto"><p class="micro">CONNECTION PROBLEM</p><h2>Can't connect to Room Swap</h2><p class="alert">${esc(error)}</p><p class="muted small">Check Anonymous Authentication in your Firebase console and make sure the game's files are uploaded.</p><a href="?v=trust-timers-7" class="btn" style="text-decoration:none;display:inline-block">Try again ↻</a></div>`;return;}
+  if(initSlow){app.innerHTML=`<div class="card" style="max-width:600px;margin:30px auto"><p class="micro">CONNECTION DELAY</p><h2>This is taking longer than normal</h2><p class="muted">${esc(initStage)} The game is still trying to connect. If this remains, check your internet connection, Firebase Authentication and the browser's developer console (F12).</p><div class="actions"><a href="?v=trust-timers-7" class="btn" style="text-decoration:none">Try again ↻</a></div></div>`;return;}
+  app.innerHTML=`<div class="loading"><div class="spinner"></div><p>${esc(initStage)}</p></div>`;return;
+}
+  let inner='';if(!roomId)inner=welcome();else if(!room)inner=`<div class="card" style="max-width:560px;margin:45px auto"><h2>${error?"Can't open room":"Opening your invite…"}</h2><p class="muted">${esc(error||'Connecting…')}</p><a href="./" class="btn secondary" style="display:inline-block;text-decoration:none">Home →</a></div>`;else if(!joined)inner=joinUI();else if(room.phase==='lobby')inner=lobby();else if(room.phase==='talk')inner=talkUI();else if(room.phase==='select')inner=selectUI();else if(room.phase==='ended')inner=resultsUI();
+  app.innerHTML=(error&&room?`<div class="alert">${esc(error)} <button class="btn secondary slim" id="dismiss-error">Dismiss</button></div>`:'')+inner+overlayHTML()+shareOverlayHTML();
+}
+async function changePace(p){if(!isHost()||room.phase!=='lobby'||!PACE[p])return;await action(()=>f.updateDoc(refRoom(),{pace:p}));}
+async function extendRound(){if(!isHost()||room.phase!=='talk')return;await action(()=>f.updateDoc(refRoom(),{deadlineMs:Math.max(Date.now(),room.deadlineMs)+120000}));toast('Two extra minutes added for everyone.');}
+async function create(){const name=document.getElementById('nickname')?.value.trim();if(!name)return toast('Enter your nickname first.');if(name.length>24)return toast('Use a shorter nickname.');localStorage.setItem('room-swap-name',name);await action(async()=>{const id=rand();const game=f.doc(db,ROOT,id);await f.setDoc(game,{hostUid:uid,phase:'lobby',round:0,leaders:{A:'',B:''},deadlineMs:0,winner:'',locks:{A:false,B:false},dealId:'',pace:'balanced',createdAt:f.serverTimestamp()});await f.setDoc(f.doc(db,ROOT,id,'players',uid),{uid,name,area:'',vote:'',joinedAt:f.serverTimestamp()});location.href=`${location.pathname}?game=${encodeURIComponent(id)}`;});}
+async function join(){const name=document.getElementById('nickname')?.value.trim();if(!name)return toast('Enter your nickname first.');localStorage.setItem('room-swap-name',name);await action(async()=>{if(room.phase!=='lobby')throw new Error('This game has already started.');await f.setDoc(refPlayer(uid),{uid,name,area:'',vote:'',joinedAt:f.serverTimestamp()});joined=true;toast('You joined the game!');});}
+async function startGame(){await action(async()=>{
+  if(!isHost()||room.phase!=='lobby')throw new Error('Only the host can start.');const snap=await f.getDocs(refPlayers());const people=shuffle(snap.docs.map(s=>s.data()));const n=people.length;if(n<1||n>30)throw new Error('This edition supports 1–30 players.');
+  const pairs=Math.floor(n/2);const cards=n===1?[{role:'President',team:'blue'}]:[{role:'President',team:'blue'},{role:'Bomber',team:'red'}];for(let i=0;i<pairs-1;i++)cards.push({role:'Blue Team',team:'blue'},{role:'Red Team',team:'red'});if(n%2)cards.push({role:'Gambler',team:'neutral',guess:''});const roles=shuffle(cards);
+  const dealId=rand().slice(0,14);const timings=paceTimes(n,room.pace);const batch=f.writeBatch(db);for(let i=0;i<n;i++){const person=people[i];batch.set(teamRef(person.uid),{uid:person.uid,team:roles[i].team});batch.update(refPlayer(person.uid),{area:i<Math.ceil(n/2)?'A':'B',vote:''});batch.set(refSecret(person.uid),{uid:person.uid,...roles[i],guess:''});}
+  const groupA=people.slice(0,Math.ceil(n/2));const groupB=people.slice(Math.ceil(n/2));
+  batch.set(refSelect('A'),{round:1,picks:[],locked:false});batch.set(refSelect('B'),{round:1,picks:[],locked:false});
+  batch.update(refRoom(),{phase:'talk',round:1,deadlineMs:Date.now()+timings[0],timings,dealId,leaders:{A:groupA[0]?.uid||'',B:groupB[0]?.uid||''},winner:'',locks:{A:false,B:false},reveal:f.deleteField()});await batch.commit();toast('Roles dealt! The game is on.');
+});}
+async function vote(id){if(!players.some(p=>p.uid===id&&p.area===myArea()))return;await action(()=>f.updateDoc(refPlayer(uid),{vote:id}));}
+async function advanceSmallGroup(){
+  if(!isHost()||room.phase!=='talk'||players.length>=4)return;
+  if(room.round<3){const next=room.round+1;await f.updateDoc(refRoom(),{round:next,phase:'talk',deadlineMs:Date.now()+duration(next)});toast('Preview: next round!');return;}
+  const roleDocs=(await f.getDocs(f.collection(db,ROOT,roomId,'secrets'))).docs.map(s=>s.data());
+  const roles=Object.fromEntries(roleDocs.map(r=>[r.uid,r.role]));
+  const pres=roleDocs.find(r=>r.role==='President');
+  const bomb=roleDocs.find(r=>r.role==='Bomber');
+  const presidentRoom=players.find(p=>p.uid===pres?.uid)?.area||'?';
+  const bomberRoom=players.find(p=>p.uid===bomb?.uid)?.area||'';
+  const solo=players.length===1;
+  await f.updateDoc(refRoom(),{phase:'ended',winner:solo?'preview':presidentRoom===bomberRoom?'red':'blue',reveal:{presidentRoom,bomberRoom,presidentName:pres?nameOf(pres.uid):'Not dealt',bomberName:bomb?nameOf(bomb.uid):'Not dealt',roles,preview:true}});
+  toast(solo?'Solo preview complete!':'Small-group preview complete!');
+}
+async function finishTalk(){await action(async()=>{if(!isHost()||room.phase!=='talk')return;if(players.length<4){await advanceSmallGroup();return;}await f.updateDoc(refRoom(),{phase:'select'});chosen=[];toast('Time to choose hostages!');});}
+async function lockPicks(){const area=myArea(),need=hostagesNeeded(players.length,room.round);if(!isLeader(area)||room.phase!=='select'||chosen.length!==need)return toast(`Choose exactly ${need}.`);const candidates=roomMembers().filter(p=>p.uid!==uid).map(p=>p.uid);if(!chosen.every(c=>candidates.includes(c)))return toast('Invalid hostage selection.');await action(async()=>{await f.updateDoc(refSelect(area),{round:room.round,picks:[...chosen],locked:true});await f.updateDoc(refRoom(),{[`locks.${area}`]:true});toast('Hostages locked. No changing your mind!');});}
+async function guessTeam(team){if(secret?.role!=='Gambler'||!['red','blue'].includes(team)||room.phase==='ended')return;await action(()=>f.updateDoc(refSecret(uid),{guess:team}));}
+async function exchange(){await action(async()=>{
+  if(!isHost()||room.phase!=='select')return;const [as,bs]=await Promise.all([f.getDoc(refSelect('A')),f.getDoc(refSelect('B'))]);const aa=as.data(),bb=bs.data();if(!aa?.locked||!bb?.locked||aa.round!==room.round||bb.round!==room.round)throw new Error('Wait until both rooms are ready.');
+  const needed=hostagesNeeded(players.length,room.round);if(aa.picks.length!==needed||bb.picks.length!==needed)throw new Error('Both rooms must send the required number of hostages.');
+  const picksA=aa.picks,picksB=bb.picks;const inArea=(id,area)=>players.some(p=>p.uid===id&&p.area===area);
+  if(!picksA.every(id=>inArea(id,'A')&&id!==room.leaders.A)||!picksB.every(id=>inArea(id,'B')&&id!==room.leaders.B))throw new Error('Some chosen players are no longer eligible.');
+  const batch=f.writeBatch(db);for(const id of picksA)batch.update(refPlayer(id),{area:'B',vote:''});for(const id of picksB)batch.update(refPlayer(id),{area:'A',vote:''});
+  for(const p of players)if(![...picksA,...picksB].includes(p.uid)&&p.vote)batch.update(refPlayer(p.uid),{vote:''});
+  if(room.round<3){const next=room.round+1;batch.set(refSelect('A'),{round:next,picks:[],locked:false});batch.set(refSelect('B'),{round:next,picks:[],locked:false});batch.update(refRoom(),{round:next,phase:'talk',deadlineMs:Date.now()+duration(next),locks:{A:false,B:false}});}
+  else{const snap=await f.getDocs(f.collection(db,ROOT,roomId,'secrets'));const roleDocs=snap.docs.map(s=>s.data());const pres=roleDocs.find(r=>r.role==='President');const bomb=roleDocs.find(r=>r.role==='Bomber');if(!pres||!bomb)throw new Error('Missing game roles.');
+    const newArea=id=>picksA.includes(id)?'B':picksB.includes(id)?'A':players.find(p=>p.uid===id)?.area;
+    const presidentRoom=newArea(pres.uid),bomberRoom=newArea(bomb.uid),winner=presidentRoom===bomberRoom?'red':'blue';const roles=Object.fromEntries(roleDocs.map(r=>[r.uid,r.role]));
+    batch.update(refRoom(),{phase:'ended',winner,reveal:{presidentRoom,bomberRoom,presidentName:nameOf(pres.uid),bomberName:nameOf(bomb.uid),roles}});
+  }
+  await batch.commit();chosen=[];toast(room.round===3?'The final reveal is here!':'Hostages swapped. Next round!');
+});}
+async function rematch(){await action(async()=>{if(!isHost())return;const batch=f.writeBatch(db);for(const p of players)batch.update(refPlayer(p.uid),{area:'',vote:''});batch.update(refRoom(),{phase:'lobby',round:0,deadlineMs:0,winner:'',locks:{A:false,B:false},leaders:{A:'',B:''},reveal:f.deleteField()});await batch.commit();roleVisible=false;chosen=[];movedTo='';toast('Rematch lobby is open.');});}
+function ticks(){if(!room)return;
+  const el=document.getElementById('timer');if(el&&room.phase==='talk'){const rem=room.deadlineMs-Date.now();el.textContent=fmtClock(rem);el.classList.toggle('urgent',rem<30000);const bar=document.getElementById('timer-progress');if(bar)bar.style.width=`${Math.max(0,Math.min(100,100*rem/duration(room.round)))}%`;
+    if(rem<=0&&isHost()&&!autoEnding){autoEnding=true;(players.length<4?advanceSmallGroup():f.updateDoc(refRoom(),{phase:'select'})).catch(fail).finally(()=>{autoEnding=false;});}
+  }
+}
+app.addEventListener('toggle',e=>{if(e.target.matches?.('#share-cards,#my-notebook')){if(e.target.open)openPanels.add(e.target.id);else openPanels.delete(e.target.id);}},true);
+app.addEventListener('click',async e=>{
+  const jump=e.target.closest?.('.mobile-quicknav a[href^="#"]');
+  if(jump){const target=document.querySelector(jump.getAttribute('href'));if(target){e.preventDefault();if(target.tagName==='DETAILS'){target.open=true;openPanels.add(target.id);}requestAnimationFrame(()=>target.scrollIntoView({behavior:'smooth',block:'start'}));}return;}
+
+  const btn=e.target.closest('button');if(!btn)return;const id=btn.id;
+  if(id==='next-prompt'){strategyStep++;render();return;}
+  if(id==='extend')return extendRound();
+  if(btn.dataset.pace)return changePace(btn.dataset.pace);
+  if(btn.dataset.share)return requestShare(btn.dataset.share,btn.dataset.mode);
+  if(id==='accept-share'||id==='decline-share'){
+    const req=incomingShares.find(v=>v.id===btn.dataset.requestId);if(req)return answerShare(req,id==='accept-share');return;
+  }
+  if(id==='create')return create();if(id==='join')return join();if(id==='start')return startGame();if(id==='finish-talk')return finishTalk();if(id==='lock-picks')return lockPicks();if(id==='exchange')return exchange();if(id==='rematch')return rematch();
+  if(id==='show-role'){roleVisible=true;render();return;}if(id==='hide-role'){roleVisible=false;render();return;}
+  if(id==='dismiss-move'){movedTo='';render();return;}if(id==='dismiss-error'){error='';render();return;}
+  if(id==='copy'){try{await navigator.clipboard.writeText(invite);toast('Invite link copied!');}catch{const input=document.getElementById('invite-link');input?.select();document.execCommand('copy');toast('Invite link copied!');}return;}
+  if(id==='share'){if(navigator.share){try{await navigator.share({title:'Join Room Swap',text:'Come play Room Swap with us!',url:invite});}catch{}}else{await navigator.clipboard.writeText(invite);toast('Invite link copied!');}return;}
+  if(btn.dataset.vote)return vote(btn.dataset.vote);if(btn.dataset.guess)return guessTeam(btn.dataset.guess);
+});
+app.addEventListener('input',e=>{const note=e.target.closest('[data-intel-note]');if(!note)return;const id=note.dataset.intelNote;savedIntel[id]={...(savedIntel[id]||{}),name:nameOf(id),note:note.value.trim().slice(0,180)};storeIntel();});
+app.addEventListener('change',e=>{const note=e.target.closest('[data-intel-note]');if(note){const id=note.dataset.intelNote;savedIntel[id]={...(savedIntel[id]||{}),name:nameOf(id),note:note.value.trim().slice(0,180)};storeIntel();return;}const cb=e.target.closest('[data-pick]');if(!cb)return;const id=cb.dataset.pick;if(cb.checked){chosen=[...new Set([...chosen,id])];}else chosen=chosen.filter(x=>x!==id);const need=hostagesNeeded(players.length,room.round);const count=document.getElementById('count');if(count)count.textContent=`${chosen.length} / ${need} selected`;const lock=document.getElementById('lock-picks');if(lock)lock.disabled=chosen.length!==need||busy;});
+setInterval(ticks,500);
+init();
+
+</script>
+</body></html>
