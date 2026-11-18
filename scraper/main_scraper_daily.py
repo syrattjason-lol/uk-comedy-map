@@ -2803,6 +2803,22 @@ def canonical_event_url(url):
         return url.lower()
 
 
+def same_ticket_url(a, b):
+    """True if two records point to the same actual booking link.
+
+    Use the existing URL canonicalisation so www., tracking parameters, fragments
+    and trailing slashes do not create false differences. Never consider a blank,
+    placeholder or non-HTTP link a shared ticket link.
+    """
+    url_a = clean_text(a.get("ticket_url", ""))
+    url_b = clean_text(b.get("ticket_url", ""))
+    return (
+        is_valid_source_url(url_a)
+        and is_valid_source_url(url_b)
+        and canonical_event_url(url_a) == canonical_event_url(url_b)
+    )
+
+
 _TICKET_ID_PATTERNS = [
     ("skiddle", re.compile(r"skiddle\.com/(?:e/(\d{5,})|whats-on/.+?/(\d{5,}))/?$", re.I)),
     ("eventbrite", re.compile(r"eventbrite\.[a-z.]+/e/(?:[^/?#]*-)?(?:tickets-)?(\d{9,})", re.I)),
@@ -2990,6 +3006,18 @@ def events_are_same_performance(a, b, ambiguous_check=None):
     la, lb = performance_label(a.get("title", "")), performance_label(b.get("title", ""))
     if la != lb:
         return False, ""
+
+    # An identical booking URL is stronger evidence than the scraped title or
+    # venue label (one card may be labelled "More from this event organiser").
+    # Keep different dates, cities and independently timed performances apart.
+    if same_ticket_url(a, b):
+        ca, cb = clean_text(a.get("city", "")).lower(), clean_text(b.get("city", "")).lower()
+        if ca and cb and ca != cb:
+            return False, ""
+        if (ta is None or tb is None) and ambiguous_check and ambiguous_check(a, b):
+            return False, "ambiguous"
+        return True, "same booking URL"
+
     ida, idb = ticket_event_id(a.get("ticket_url", "")), ticket_event_id(b.get("ticket_url", ""))
     if ida and ida == idb:
         return True, "same event id"
@@ -3036,6 +3064,12 @@ def _title_quality(e):
     score = 0
     if not t:
         return -99
+    # Generic headings are sometimes scraped from a related-event card instead
+    # of the actual show. They must not replace a real show title on merge.
+    if re.search(r"\bmore\s+from\s+(?:this|the|an?)\s+(?:event\s+)?organi[sz]er\b|\bmore\s+events?\s+from\b", t, re.I):
+        score -= 12
+    if slugify_text(t) == slugify_text(e.get("venue", "")):
+        score -= 4
     if re.search(r"\d{1,2}[:.]\d{2}|\b(?:mon|tue|wed|thu|fri|sat|sun)\w*\s+\d{1,2}\b|tickets?|\|\|", t, re.I):
         score -= 2
     if re.match(r"^(?:book(?:/information|\s+now)?|buy|more\s+info|tickets?|information|details|find\s+out\s+more)\b", t, re.I):
@@ -3054,7 +3088,8 @@ def merge_event_records(records):
         return records[0]
     ranked = sorted(records, key=event_quality, reverse=True)
     best = dict(ranked[0])
-    best["title"] = max(records, key=_title_quality).get("title", best.get("title", ""))
+    best_title_record = max(records, key=_title_quality)
+    best["title"] = best_title_record.get("title", best.get("title", ""))
     timed = [r for r in ranked if r.get("time")]
     if timed:
         best["time"] = timed[0]["time"]
@@ -3066,6 +3101,15 @@ def merge_event_records(records):
     if venues:
         with_room = [v for v in venues if " - " in v]
         best["venue"] = with_room[0] if with_room else venues[0]
+    # When one ticket link was scraped as a generic organiser card and another
+    # as the real event, use the venue paired with the clearly better title.
+    # Leave the normal room/detail preference unchanged for ordinary merges.
+    if all(same_ticket_url(records[0], r) for r in records[1:]):
+        other_title_scores = [_title_quality(r) for r in records if r is not best_title_record]
+        if (other_title_scores and
+                _title_quality(best_title_record) - max(other_title_scores) >= 3 and
+                clean_text(best_title_record.get("venue", ""))):
+            best["venue"] = clean_text(best_title_record["venue"])
     for field in ("city", "state", "price"):
         if not clean_text(best.get(field, "")):
             for r in ranked:
@@ -3120,11 +3164,12 @@ def layered_dedupe(events, record_stats=False):
             continue
 
         def ambiguous(a, b, idxs=idxs):
-            # times recorded for this title at this venue/date
+            # A link may be shared across multiple timed performances. When a
+            # record has no time, do not let it bridge two different shows.
             times = set()
             for k in idxs:
                 c = events[k]
-                if titles_match_strength(c, a) == 2 and venues_compatible(c, a):
+                if same_ticket_url(c, a) or (titles_match_strength(c, a) == 2 and venues_compatible(c, a)):
                     t = _event_time_minutes(c)
                     if t is not None:
                         times.add(t)
@@ -4731,8 +4776,8 @@ def confidence_score(event):
 def dedupe_events(events):
     """Layered de-duplication (v3).
 
-    Merges records of the same performance from different sources (canonical
-    ticket IDs, normalised title + date + venue/city + time), keeps separate
+    Merges records of the same performance from different sources (matching
+    ticket URLs, canonical ticket IDs, normalised title + date + venue/city + time), keeps separate
     dates, cities and performance times apart, never merges on title alone, and
     keeps the best metadata from each merged record.
     """
