@@ -994,7 +994,7 @@ def clean_display_title(raw_title, event=None):
     # instead of becoming a fake line-up "Ed Byrne, Tragedy Plus Time".
     if " - " in title and not re.search(r"\b(?:special|show|club|night|cabaret|festival)\b", title, re.I):
         dash_parts = [p.strip() for p in title.split(" - ") if p.strip()]
-        act_first = looks_like_person_name(dash_parts[0]) or looks_like_double_act(dash_parts[0])
+        act_first = bool(dash_parts) and (looks_like_person_name(dash_parts[0]) or looks_like_double_act(dash_parts[0]))
         name_list = len(dash_parts) >= 3 and all(looks_like_person_name(p) for p in dash_parts)
         if len(dash_parts) >= 2 and "," not in dash_parts[0] and act_first and not name_list:
             title = f"{dash_parts[0]}: {' - '.join(dash_parts[1:])}"

@@ -22,7 +22,7 @@ jobs:
   scrape:
     if: github.event_name != 'push'
     runs-on: ubuntu-24.04
-    timeout-minutes: 325
+    timeout-minutes: 355
     strategy:
       fail-fast: false
       matrix:
@@ -70,7 +70,7 @@ jobs:
       - name: Run scraper for this batch
         run: |
           mkdir -p shards
-          timeout 300m python -u scraper/main_scraper_daily.py \
+          timeout 345m python -u scraper/main_scraper_daily.py \
             --venues scraper/venue-shard.xlsx \
             --out-json shards/shows-${{ matrix.shard }}.json \
             --headless
