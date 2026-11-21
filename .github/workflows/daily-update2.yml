@@ -1,0 +1,325 @@
+name: Daily UK Comedy Map update
+
+on:
+  schedule:
+    - cron: '1 0 * * *'
+      timezone: 'Europe/London'
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: uk-comedy-map-pages
+  cancel-in-progress: false
+
+jobs:
+  # Eight independent scrapers run in parallel, each handling 1/8 of the Excel list.
+  scrape:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 355
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: scraper/requirements.txt
+      - name: Install scraper packages
+        run: python -m pip install -r scraper/requirements.txt
+      - name: Install Playwright Chromium
+        run: python -m playwright install --with-deps chromium
+      - name: Allocate a venue batch
+        env:
+          SHARD_INDEX: ${{ matrix.shard }}
+          SHARD_COUNT: '8'
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          from openpyxl import Workbook, load_workbook
+
+          part = int(os.environ['SHARD_INDEX'])
+          parts = int(os.environ['SHARD_COUNT'])
+          source = Path('scraper/venues.xlsx')
+          book = load_workbook(source,read_only=True,data_only=True)
+          rows = book.worksheets[0].iter_rows(values_only=True)
+          header = next(rows)
+          out = Workbook()
+          sheet = out.active
+          sheet.append(list(header))
+          count = 0
+          for index,row in enumerate(rows):
+              if index % parts == part and any(cell is not None for cell in row):
+                  sheet.append(list(row))
+                  count += 1
+          if count == 0:
+              raise SystemExit('No venues allocated to this shard')
+          out.save('scraper/venue-shard.xlsx')
+          print(f'Allocated {count} venue rows to batch {part + 1}/{parts}')
+          PY
+      - name: Run scraper for this batch
+        run: |
+          mkdir -p shards
+          timeout 345m python -u scraper/main_scraper_daily.py \
+            --venues scraper/venue-shard.xlsx \
+            --out-json shards/shows-${{ matrix.shard }}.json \
+            --headless
+      - name: Store completed batch
+        uses: actions/upload-artifact@v4
+        with:
+          name: shows-shard-${{ matrix.shard }}
+          path: shards/shows-${{ matrix.shard }}.json
+          if-no-files-found: error
+          retention-days: 2
+
+  combine-and-package:
+    if: github.event_name != 'push'
+    needs: scrape
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - name: Download all eight batch results
+        uses: actions/download-artifact@v4
+        with:
+          pattern: shows-shard-*
+          path: shards
+          merge-multiple: true
+      - name: Merge, deduplicate and validate shows
+        run: |
+          python - <<'PY'
+          import json
+          import re
+          import unicodedata
+          from collections import defaultdict
+          from pathlib import Path
+          from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+          
+          # Merge the outputs from 8 independent workers. A matching event-specific
+          # booking URL + date takes priority over differences in titles and venues.
+          files = sorted(Path('shards').glob('shows-*.json'))
+          if len(files) != 8:
+              raise SystemExit(f'Expected eight completed worker files, received {len(files)}')
+          
+          records = []
+          for path in files:
+              data = json.loads(path.read_text(encoding='utf-8'))
+              if not isinstance(data, list) or not data:
+                  raise SystemExit(f'Invalid or empty worker result: {path}')
+              for row in data:
+                  if not isinstance(row, dict) or not all(row.get(f) for f in ('city','comedian','venue','date')):
+                      raise SystemExit(f'Invalid show in {path}: {row!r}')
+              print(f'{path.name}: {len(data):,} shows')
+              records.extend(data)
+          
+          TRACKING = {'fbclid','gclid','dclid','msclkid','mc_cid','mc_eid','_gl','_ga','igshid',
+                      'ref','referrer','ref_src','source','si','aff','affiliate','affid','sscid',
+                      'cmp','campaign','trk','tracking','clickid','sharer','share','quote','text','mini'}
+          GENERIC_PATHS = {'','/','/events','/event','/shows','/comedy','/whats-on',
+                           '/whatson','/tickets','/listings','/gigs','/calendar',
+                           '/comedy-club','/upcoming-events'}
+          GENERIC_PREFIXES = ('/p/','/users/','/user/','/organiser/','/organizer/',
+                              '/category/','/categories/','/venue/','/venues/','/af/')
+          
+          def event_url(raw):
+              """Only event-specific URLs identify a show; ignore tracking parameters."""
+              try:
+                  u = urlsplit(str(raw or '').strip())
+                  if u.scheme not in ('http','https') or not u.hostname:
+                      return ''
+                  path = re.sub(r'/+', '/', u.path).rstrip('/') or '/'
+                  if path.casefold() in GENERIC_PATHS or path.casefold().startswith(GENERIC_PREFIXES):
+                      return ''
+                  # Reject one-segment organiser/brand pages. Preserve actual event IDs.
+                  parts = [p for p in path.split('/') if p]
+                  if len(parts) <= 1 and any(s in path.casefold() for s in ('club','venue','event','show','ticket')):
+                      return ''
+                  keep = sorted((k,v) for k,v in parse_qsl(u.query, keep_blank_values=True)
+                                if not k.casefold().startswith('utm_') and k.casefold() not in TRACKING)
+                  return urlunsplit(('https', u.hostname.casefold().removeprefix('www.'), path, urlencode(keep), ''))
+              except (ValueError, TypeError):
+                  return ''
+          
+          def norm(value):
+              text = unicodedata.normalize('NFKD', str(value or '').casefold())
+              text = ''.join(ch for ch in text if not unicodedata.combining(ch))
+              return re.sub(r'[^a-z0-9]+',' ',text).strip()
+          
+          def title_quality(show):
+              title = str(show.get('comedian','')).strip()
+              clean = norm(title)
+              if not clean or clean in {'more from this event organiser','more from this event organizer',
+                                        'event details','book now','buy tickets','tickets','more information',
+                                        'comedy','the comedy club','upcoming events','read more'}:
+                  return -1000
+              if 'more from this event organ' in clean or clean.startswith(('book tickets','buy tickets')):
+                  return -1000
+              score = min(len(title), 100) / 100
+              if len(title) > 130:
+                  score -= 2
+              if re.search(r'(?:\bcomedy club with\b|\bcomedy club\b$)', title, re.I):
+                  score -= 0.4
+              if ':' in title or '!' in title:
+                  score += 0.4
+              if re.search(r'\b(?:more from|click here|whats on|show details|view events)\b',title,re.I):
+                  score -= 6
+              return score
+          
+          def time_identity(show):
+              time = str(show.get('time') or '').strip()
+              match = re.search(r'\b([01]?\d|2[0-3]):([0-5]\d)\b',time)
+              if match:
+                  return f'{int(match.group(1)):02d}:{match.group(2)}'
+              title = str(show.get('comedian') or '')
+              match = re.search(r'\b(1[0-2]|0?[1-9])(?::([0-5]\d))?\s*(am|pm)\b', title, re.I)
+              if match:
+                  hour = int(match.group(1)) % 12 + (12 if match.group(3).lower() == 'pm' else 0)
+                  return f'{hour:02d}:{match.group(2) or "00"}'
+              return ''
+          
+          def slot_identity(show):
+              m = re.search(r'\b(early|late|matinee|afternoon|evening|first|second)\s+show\b',
+                            str(show.get('comedian') or ''), re.I)
+              return m.group(1).lower() if m else ''
+          
+          def compatible(a,b):
+              at, bt = time_identity(a), time_identity(b)
+              if at and bt and at != bt:
+                  return False
+              a_slot, b_slot = slot_identity(a), slot_identity(b)
+              if a_slot and b_slot and a_slot != b_slot:
+                  return False
+              return True
+          
+          def combine(a,b):
+              # Prefer the informative event title and its venue, rather than metadata
+              # scraped from a generic navigation/organiser card.
+              preferred, other = (a,b) if title_quality(a) >= title_quality(b) else (b,a)
+              out = dict(preferred)
+              for key, value in other.items():
+                  if not out.get(key) and value:
+                      out[key] = value
+              for key in ('featured','open_mic','popular'):
+                  if key in a or key in b:
+                      out[key] = bool(a.get(key) or b.get(key))
+              # Prefer a real poster over a stock default from either source.
+              for candidate in (preferred,other):
+                  img = str(candidate.get('image') or '')
+                  if img.startswith('http') and 'default' not in img.casefold() and 'logo' not in img.casefold():
+                      out['image'] = img
+                      break
+              # Work-in-progress/new material must not accidentally become a tour.
+              if re.search(r'\b(?:w\.?i\.?p\.?|work[ -]?in[ -]?progress|new material|scratch night|preview show)\b',
+                           str(out.get('comedian') or ''), re.I):
+                  out['type'] = 'show'
+                  out['open_mic'] = False
+              return out
+          
+          merged = []
+          by_url = defaultdict(set)
+          by_title = defaultdict(set)
+          for show in records:
+              date = str(show['date'])
+              url = event_url(show.get('tickets',''))
+              url_key = (date,url) if url else None
+              title_key = (date,norm(show['city']),norm(show['venue']),norm(show['comedian']))
+              # URL comes first, even when titles, venue names or city labels differ.
+              url_candidates = sorted(by_url[url_key]) if url_key else []
+              candidates = [idx for idx in url_candidates if compatible(merged[idx],show)]
+              if not candidates:
+                  # Fallback for the same titled performance where no ticket URL match exists.
+                  candidates = [idx for idx in sorted(by_title[title_key]) if compatible(merged[idx],show)]
+              # Do not attach an untimed record to one of several different timed shows.
+              unique_times = {time_identity(merged[idx]) for idx in candidates if time_identity(merged[idx])}
+              if not time_identity(show) and len(unique_times) > 1:
+                  candidates = []
+              if candidates:
+                  idx = candidates[0]
+                  merged[idx] = combine(merged[idx],show)
+              else:
+                  idx = len(merged)
+                  merged.append(show)
+              # Preserve lookup keys from *both* originals even when the better title wins.
+              if url_key:
+                  by_url[url_key].add(idx)
+              by_title[title_key].add(idx)
+          
+          old_path = Path('data/shows.json')
+          if old_path.exists():
+              old = json.loads(old_path.read_text(encoding='utf-8-sig'))
+              if not isinstance(old,list):
+                  raise SystemExit('Existing data/shows.json is not a JSON array')
+              if len(old)>=100 and len(merged)<len(old)*0.2:
+                  raise SystemExit(f'Cannot replace {len(old):,} existing shows with only {len(merged):,} new shows')
+          if len(merged)<100:
+              raise SystemExit(f'Cannot publish only {len(merged)} shows')
+          merged.sort(key=lambda s:(not s.get('featured',False),s.get('date',''),s.get('city',''),s.get('venue','')))
+          old_path.parent.mkdir(parents=True,exist_ok=True)
+          old_path.write_text(json.dumps(merged,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(f'Merged {len(records):,} rows from 8 batches: removed {len(records)-len(merged):,} duplicates; saved {len(merged):,} shows.')
+          PY
+      - name: Commit successful daily update
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/shows.json
+          if ! git diff --staged --quiet; then
+            git commit -m 'Update comedy listings (automated)'
+            git push origin HEAD:main
+          fi
+      - name: Prepare clean website folder
+        run: |
+          mkdir -p "$RUNNER_TEMP/uk-comedy-site"
+          rsync -a --exclude='.git/' --exclude='.github/' --exclude='scraper/' --exclude='shards/' \
+            ./ "$RUNNER_TEMP/uk-comedy-site/"
+          test -f "$RUNNER_TEMP/uk-comedy-site/index.html"
+          test -f "$RUNNER_TEMP/uk-comedy-site/data/shows.json"
+      - uses: actions/configure-pages@v5
+      - name: Package website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/uk-comedy-site
+
+  # A normal edit to the website can still deploy without running the scraper.
+  package-on-push:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - name: Prepare clean website folder
+        run: |
+          mkdir -p "$RUNNER_TEMP/uk-comedy-site"
+          rsync -a --exclude='.git/' --exclude='.github/' --exclude='scraper/' \
+            ./ "$RUNNER_TEMP/uk-comedy-site/"
+          test -f "$RUNNER_TEMP/uk-comedy-site/index.html"
+          test -f "$RUNNER_TEMP/uk-comedy-site/data/shows.json"
+      - uses: actions/configure-pages@v5
+      - name: Package website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/uk-comedy-site
+
+  deploy:
+    needs: [combine-and-package, package-on-push]
+    if: always() && (needs.combine-and-package.result == 'success' || needs.package-on-push.result == 'success')
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish updated website
+        id: deployment
+        uses: actions/deploy-pages@v4

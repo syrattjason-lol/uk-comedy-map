@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Eight independent scrapers run in parallel, each handling 1/8 of the Excel list.
+  # Sixteen independent scrapers run in parallel, each handling 1/16 of the Excel list.
   scrape:
     if: github.event_name != 'push'
     runs-on: ubuntu-24.04
@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
@@ -41,7 +41,7 @@ jobs:
       - name: Allocate a venue batch
         env:
           SHARD_INDEX: ${{ matrix.shard }}
-          SHARD_COUNT: '8'
+          SHARD_COUNT: '16'
         run: |
           python - <<'PY'
           import os
@@ -73,12 +73,15 @@ jobs:
           timeout 345m python -u scraper/main_scraper_daily.py \
             --venues scraper/venue-shard.xlsx \
             --out-json shards/shows-${{ matrix.shard }}.json \
+            --venue-results shards/venue-results-${{ matrix.shard }}.json \
             --headless
       - name: Store completed batch
         uses: actions/upload-artifact@v4
         with:
           name: shows-shard-${{ matrix.shard }}
-          path: shards/shows-${{ matrix.shard }}.json
+          path: |
+            shards/shows-${{ matrix.shard }}.json
+            shards/venue-results-${{ matrix.shard }}.json
           if-no-files-found: error
           retention-days: 2
 
@@ -89,7 +92,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
-      - name: Download all eight batch results
+      - name: Download all sixteen batch results
         uses: actions/download-artifact@v4
         with:
           pattern: shows-shard-*
@@ -105,11 +108,11 @@ jobs:
           from pathlib import Path
           from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
           
-          # Merge the outputs from 8 independent workers. A matching event-specific
+          # Merge the outputs from 16 independent workers. A matching event-specific
           # booking URL + date takes priority over differences in titles and venues.
           files = sorted(Path('shards').glob('shows-*.json'))
-          if len(files) != 8:
-              raise SystemExit(f'Expected eight completed worker files, received {len(files)}')
+          if len(files) != 16:
+              raise SystemExit(f'Expected sixteen completed worker files, received {len(files)}')
           
           records = []
           for path in files:
@@ -266,13 +269,111 @@ jobs:
           merged.sort(key=lambda s:(not s.get('featured',False),s.get('date',''),s.get('city',''),s.get('venue','')))
           old_path.parent.mkdir(parents=True,exist_ok=True)
           old_path.write_text(json.dumps(merged,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-          print(f'Merged {len(records):,} rows from 8 batches: removed {len(records)-len(merged):,} duplicates; saved {len(merged):,} shows.')
+          print(f'Merged {len(records):,} rows from 16 batches: removed {len(records)-len(merged):,} duplicates; saved {len(merged):,} shows.')
+          PY
+      - name: Retire venues with 32 consecutive zero-event days
+        run: |
+          python -m pip install openpyxl==3.1.5
+          python - <<'PY'
+          import json
+          from datetime import datetime, timedelta
+          from pathlib import Path
+          from urllib.parse import parse_qsl, urlencode, urlsplit
+          from zoneinfo import ZoneInfo
+          from openpyxl import load_workbook
+
+          reports = sorted(Path('shards').glob('venue-results-*.json'))
+          if len(reports) != 16:
+              raise SystemExit(f'Expected sixteen venue reports, received {len(reports)}')
+
+          def identity(title, city, website):
+              # Same identity for input Excel rows and scraper reports.
+              url = str(website or '').strip()
+              if url and not url.lower().startswith(('http://', 'https://')):
+                  url = 'https://' + url
+              parts = urlsplit(url)
+              site = (parts.hostname or '').lower().removeprefix('www.')
+              path = parts.path.rstrip('/').casefold()
+              query = urlencode([(k, v) for k, v in parse_qsl(parts.query, keep_blank_values=True)
+                                 if not k.casefold().startswith('utm_')
+                                 and k.casefold() not in {'fbclid', 'gclid', 'mc_cid', 'mc_eid'}])
+              # Keep non-tracking query parameters (they may identify specific ticket pages).
+              words = lambda v: ' '.join(str(v or '').casefold().split())
+              return '|'.join((words(title), words(city), site, path, query))
+
+          observations = {}
+          for report in reports:
+              records = json.loads(report.read_text(encoding='utf-8'))
+              if not isinstance(records, list):
+                  raise SystemExit(f'Invalid venue report: {report}')
+              for item in records:
+                  key = identity(item['title'], item['city'], item['website'])
+                  if item.get('status') == 'error':
+                      if observations.get(key) != 'events':
+                          observations[key] = 'error'
+                  elif item.get('status') == 'ok' and isinstance(item.get('events'), int) and item['events'] >= 0:
+                      status = 'events' if item['events'] > 0 else 'zero'
+                      # For duplicated rows, events win; otherwise errors block zero counting.
+                      if status == 'events' or key not in observations:
+                          observations[key] = status
+                  else:
+                      raise SystemExit(f'Invalid venue observation in {report}: {item!r}')
+
+          history_file = Path('scraper/venue-zero-history.json')
+          history = json.loads(history_file.read_text(encoding='utf-8')) if history_file.exists() else {}
+          today = datetime.now(ZoneInfo('Europe/London')).date()
+          yesterday = today - timedelta(days=1)
+          retire = set()
+          for key, status in observations.items():
+              if status == 'events':
+                  history.pop(key, None)  # A new event resets the zero streak.
+              elif status == 'zero':
+                  previous = history.get(key, {})
+                  last = previous.get('last_zero_on', '')
+                  if last == str(today):
+                      days = max(1, int(previous.get('consecutive_zero_days', 1)))
+                  elif last == str(yesterday):
+                      days = int(previous.get('consecutive_zero_days', 0)) + 1
+                  else:
+                      days = 1  # Missing/unconfirmed days do not count.
+                  history[key] = {'last_zero_on': str(today), 'consecutive_zero_days': days}
+                  if days > 31:
+                      retire.add(key)
+              # Errors are not counted as a zero-result day.
+
+          source = Path('scraper/venues.xlsx')
+          book = load_workbook(source)
+          sheet = book.worksheets[0]
+          headers = {str(c.value or '').strip().casefold(): n for n, c in enumerate(sheet[1])}
+          def value(row, *names):
+              for name in names:
+                  n = headers.get(name)
+                  if n is not None and row[n] is not None and str(row[n]).strip():
+                      return row[n]
+              return ''
+
+          removed = []
+          for row_number in range(sheet.max_row, 1, -1):
+              row = [c.value for c in sheet[row_number]]
+              key = identity(value(row, 'title', 'name'), value(row, 'city'),
+                             value(row, 'website') or value(row, 'url'))
+              if key in retire:
+                  removed.append((value(row, 'title', 'name'), value(row, 'city')))
+                  sheet.delete_rows(row_number)
+                  history.pop(key, None)
+          if removed:
+              book.save(source)
+              for title, city in reversed(removed):
+                  print(f'Removed after >31 consecutive zero-event days: {title} ({city})')
+          history_file.parent.mkdir(parents=True, exist_ok=True)
+          history_file.write_text(json.dumps(history, ensure_ascii=False, indent=2, sort_keys=True) + '\n', encoding='utf-8')
+          print(f'Checked {len(observations)} venues; removed {len(removed)}; tracking {len(history)} zero streaks.')
           PY
       - name: Commit successful daily update
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/shows.json
+          git add data/shows.json scraper/venues.xlsx scraper/venue-zero-history.json
           if ! git diff --staged --quiet; then
             git commit -m 'Update comedy listings (automated)'
             git push origin HEAD:main

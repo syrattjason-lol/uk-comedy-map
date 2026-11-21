@@ -4836,6 +4836,12 @@ def load_venues(csv_file):
         if any(b in source_url.lower() for b in BLOCKED_DOMAINS):
             continue
 
+        # Known site that hangs for hours: exclude it from every daily batch.
+        host = (urlparse(source_url).hostname or "").lower()
+        if host == "freefestival.co.uk" or host.endswith(".freefestival.co.uk"):
+            print(f"Skipping Free Edinburgh Fringe Festival: {source_url}")
+            continue
+
         venues.append({
             "title": title,
             "city": city,
@@ -6696,6 +6702,7 @@ def parse_args():
     parser.add_argument("--end-date", default="", help="Latest event date YYYY-MM-DD; defaults to UK today plus 365 days")
     parser.add_argument("--max-events-per-venue", type=int, default=MAX_EVENTS_PER_VENUE, help="Safety cap on in-window events kept per venue")
     parser.add_argument("--diagnostics", default="", help="Optional diagnostics report path (.xlsx, or .csv for CSV files)")
+    parser.add_argument("--venue-results", default="", help="Optional per-venue result JSON for daily zero-event tracking")
     parser.add_argument("--today", default="", help=argparse.SUPPRESS)
     return parser.parse_args()
 
@@ -6752,6 +6759,7 @@ def run():
 
     all_events = []
     zero_event_venues = []
+    venue_results = []
     venue_diags = []
     del REVIEW_ROWS[:]
 
@@ -6763,12 +6771,16 @@ def run():
             events = scrape_venue(venue)
             DIAGNOSTICS.accepted = list(events)
             print("  Found", len(events), "events")
+            venue_results.append({"title": venue["title"], "city": venue["city"],
+                                  "website": venue["website"], "status": "ok", "events": len(events)})
             if len(events) == 0:
                 zero_event_venues.append(venue)
             all_events.extend(events)
         except Exception as exc:
             print("  Error:", exc)
             DIAGNOSTICS.errors.append(f"exception: {exc.__class__.__name__}: {exc}")
+            venue_results.append({"title": venue["title"], "city": venue["city"],
+                                  "website": venue["website"], "status": "error"})
             zero_event_venues.append(venue)
         venue_diags.append(DIAGNOSTICS)
         DIAGNOSTICS = None
@@ -6795,6 +6807,11 @@ def run():
     print("Filtered events:", len(filtered))
 
     save_events(filtered, out_json=args.out_json, allow_large_drop=args.allow_large_drop)
+    if args.venue_results:
+        report_path = Path(args.venue_results)
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        report_path.write_text(json.dumps(venue_results, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"Saved {len(venue_results)} per-venue results to {report_path}")
     # Diagnostics are opt-in. Normal daily runs create ONLY data/shows.json.
     if args.diagnostics:
         save_diagnostics(args.diagnostics, venue_diags, filtered, cross_source_duplicates)
