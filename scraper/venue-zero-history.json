@@ -11,6 +11,10 @@
     "consecutive_zero_days": 5,
     "last_zero_on": "2026-11-25"
   },
+  "1leisure medina theatre|newport|medinatheatre.co.uk||": {
+    "consecutive_zero_days": 1,
+    "last_zero_on": "2026-11-25"
+  },
   "5 headliners for £10 at the fringe|edinburgh|rgb.monster|/headliners|": {
     "consecutive_zero_days": 5,
     "last_zero_on": "2026-11-25"
@@ -20,6 +24,10 @@
     "last_zero_on": "2026-11-25"
   },
   "accidental theatre|belfast|accidentaltheatre.co.uk||": {
+    "consecutive_zero_days": 1,
+    "last_zero_on": "2026-11-25"
+  },
+  "ace space|newbury|acespace.org.uk||": {
     "consecutive_zero_days": 1,
     "last_zero_on": "2026-11-25"
   },
@@ -157,6 +165,10 @@
   },
   "bash street theatre|penzance|bashstreet.co.uk||": {
     "consecutive_zero_days": 5,
+    "last_zero_on": "2026-11-25"
+  },
+  "bath comedy festival|bath|bathcomedy.com||": {
+    "consecutive_zero_days": 1,
     "last_zero_on": "2026-11-25"
   },
   "beccles public hall & theatre|beccles|becclespublichall.co.uk||": {
@@ -573,6 +585,10 @@
   },
   "cre8iv little theatre|thornton-cleveleys|cre8ivlittletheatre.co.uk||": {
     "consecutive_zero_days": 5,
+    "last_zero_on": "2026-11-25"
+  },
+  "crown wharf theatre|stone|crownwharftheatre.org.uk||": {
+    "consecutive_zero_days": 1,
     "last_zero_on": "2026-11-25"
   },
   "cuan mor|oban|cuanmor.co.uk||": {
@@ -1091,6 +1107,10 @@
     "consecutive_zero_days": 5,
     "last_zero_on": "2026-11-25"
   },
+  "latitude festival|beccles|latitudefestival.com||": {
+    "consecutive_zero_days": 1,
+    "last_zero_on": "2026-11-25"
+  },
   "laugh train home|london|laughtrainhome.com||": {
     "consecutive_zero_days": 5,
     "last_zero_on": "2026-11-25"
@@ -1128,10 +1148,6 @@
     "last_zero_on": "2026-11-25"
   },
   "leek road venue (lrv)|stoke-on-trent|staffsunion.com|/venues/lrv|": {
-    "consecutive_zero_days": 5,
-    "last_zero_on": "2026-11-25"
-  },
-  "les dawson memorial|lytham saint annes|britishclassiccomedy.co.uk|/one-of-the-all-time-greats-les-dawson|": {
     "consecutive_zero_days": 5,
     "last_zero_on": "2026-11-25"
   },
@@ -1779,10 +1795,6 @@
     "consecutive_zero_days": 5,
     "last_zero_on": "2026-11-25"
   },
-  "roe valley arts and cultural centre|limavady|roevalleyarts.com||": {
-    "consecutive_zero_days": 5,
-    "last_zero_on": "2026-11-25"
-  },
   "roll britannia|alcester|rollbritannia.co.uk||": {
     "consecutive_zero_days": 5,
     "last_zero_on": "2026-11-25"
@@ -1857,6 +1869,10 @@
   },
   "shakespeare comedy club|london|shakespearecomedy.co.uk||": {
     "consecutive_zero_days": 5,
+    "last_zero_on": "2026-11-25"
+  },
+  "shanklin theatre|shanklin|shanklintheatre.com||": {
+    "consecutive_zero_days": 1,
     "last_zero_on": "2026-11-25"
   },
   "shottermill club|haslemere|shottermillclub.co.uk||": {
@@ -1953,10 +1969,6 @@
   },
   "st andrews brew house|norwich|standrewsbrewhouse.com||": {
     "consecutive_zero_days": 5,
-    "last_zero_on": "2026-11-25"
-  },
-  "st austell arts centre|saint austell|staustellartstheatre.org.uk||": {
-    "consecutive_zero_days": 1,
     "last_zero_on": "2026-11-25"
   },
   "st comgall's recreation club|larne|stcomgallslarne.com||": {
@@ -2163,10 +2175,6 @@
     "consecutive_zero_days": 5,
     "last_zero_on": "2026-11-25"
   },
-  "the blackpool opera house|blackpool|wintergardensblackpool.co.uk|/our-venues/large-venues/opera-house|": {
-    "consecutive_zero_days": 1,
-    "last_zero_on": "2026-11-25"
-  },
   "the blakehay theatre|weston-super-mare|blakehay.org.uk||": {
     "consecutive_zero_days": 5,
     "last_zero_on": "2026-11-25"
@@ -2349,10 +2357,6 @@
   },
   "the fishbourne centre|chichester|fishbournecentre.org.uk||": {
     "consecutive_zero_days": 5,
-    "last_zero_on": "2026-11-25"
-  },
-  "the flavel arts centre|dartmouth|theflavel.org.uk||": {
-    "consecutive_zero_days": 1,
     "last_zero_on": "2026-11-25"
   },
   "the flying handbag|blackpool|flyinghandbagblackpool.co.uk||": {
@@ -2571,6 +2575,10 @@
     "consecutive_zero_days": 5,
     "last_zero_on": "2026-11-25"
   },
+  "the old electric|blackpool|theoldelectric.co.uk||": {
+    "consecutive_zero_days": 1,
+    "last_zero_on": "2026-11-25"
+  },
   "the old joint stock pub & theatre|birmingham|oldjointstock.co.uk||": {
     "consecutive_zero_days": 5,
     "last_zero_on": "2026-11-25"
@@ -2703,6 +2711,10 @@
     "consecutive_zero_days": 5,
     "last_zero_on": "2026-11-25"
   },
+  "the theatre chipping norton|chipping norton|chippingnortontheatre.com||": {
+    "consecutive_zero_days": 1,
+    "last_zero_on": "2026-11-25"
+  },
   "the tivoli theatre|wimborne|tivoliwimborne.co.uk||": {
     "consecutive_zero_days": 5,
     "last_zero_on": "2026-11-25"
@@ -2773,6 +2785,10 @@
   },
   "the yard - by silver oak|ely|theyardely.co.uk||": {
     "consecutive_zero_days": 5,
+    "last_zero_on": "2026-11-25"
+  },
+  "theatr clwyd|mold|theatrclwyd.com||": {
+    "consecutive_zero_days": 1,
     "last_zero_on": "2026-11-25"
   },
   "theatr twm o'r nant|denbigh|theatr-twm-or-nant.org.uk||": {
