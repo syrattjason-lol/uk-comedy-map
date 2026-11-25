@@ -25,6 +25,12 @@ fetch("/includes/analytics.html")
 .themed-show-card p{margin:5px 0;color:#555}
 .themed-show-card .ticket-btn{display:inline-flex;margin-top:12px;padding:11px 18px;border-radius:999px;background:linear-gradient(135deg,#FF3C5A,#c91635);color:#fff!important;font-weight:800;text-decoration:none}
 .themed-load-more{display:block;margin:26px auto 0;border:0;cursor:pointer;padding:13px 24px;border-radius:999px;background:linear-gradient(135deg,#FF3C5A,#c91635);color:#fff;font:inherit;font-weight:800}
+.weekend-faq{margin:48px 0 12px}
+.weekend-faq h2{margin-bottom:18px}
+.weekend-faq details{border-bottom:1px solid #e7e7e7;padding:15px 0}
+.weekend-faq summary{cursor:pointer;font-weight:700;line-height:1.45}
+.weekend-faq details p{margin:10px 0 0;color:#555;line-height:1.65}
+.weekend-faq a{color:#c91635;text-decoration:underline;text-underline-offset:2px}
 </style>
 
 <script defer src="/js/themed-shows.js"></script>
@@ -49,30 +55,49 @@ fetch("/includes/analytics.html")
 <section class="hero compact">
   <div class="container">
     <h1>Comedy Shows This Weekend in the UK</h1>
-    <p>Take a look at show, tour and open mic reviews as well as my perspective of the comedy world!</p>
+    <p>Find stand-up, club nights and open mics happening across the UK this weekend.</p>
   </div>
 </section>
 
 <main class="container article">
   <div class="article-wrap">
     
-<h1>Comedy Shows This Weekend in the UK</h1>
-<p>Looking for stand-up comedy shows this weekend? Across the UK there are hundreds of comedy nights happening in clubs, theatres and bars.</p>
-<h2>Comedy Shows in London This Weekend</h2>
-<p>Venues like The Comedy Store, Top Secret Comedy Club and Angel Comedy host stand-up shows every weekend.</p>
-<h2>Comedy Shows in Manchester This Weekend</h2>
-<p>Popular venues include Frog & Bucket, XS Malarkey and the Manchester Comedy Store.</p>
-<h2>Comedy Shows in Bristol This Weekend</h2>
-<p>Bristol has a vibrant comedy scene with venues like Smoke & Mirrors hosting regular shows.</p>
+<p>Fancy a comedy night out? From big-name stand-up to intimate club gigs and open mics, there's plenty to discover. Take a look at the upcoming weekend listings below, or start with a few familiar comedy spots.</p>
+<h2>Comedy in London this weekend</h2>
+<p>Try <a href="/comedy-shows/london.html">London's comedy listings</a> or check venues such as The Comedy Store, Top Secret Comedy Club and Angel Comedy for a mix of established acts and newer faces.</p>
+<h2>Comedy in Manchester this weekend</h2>
+<p>The Frog &amp; Bucket, XS Malarkey and Manchester Comedy Store are good places to begin. Browse <a href="/comedy-shows/manchester.html">Manchester shows</a> to see what's coming up.</p>
+<h2>Comedy in Bristol this weekend</h2>
+<p>For a smaller comedy night, Smoke &amp; Mirrors is worth a look. You can also explore <a href="/comedy-shows/bristol.html">Bristol's latest listings</a>.</p>
 
     
 <section class="themed-listings-section" data-themed-shows data-filter-mode="weekend" data-show-limit="24">
   <h2>Comedy Shows This Weekend</h2>
-  <p>These listings automatically show events taking place from Friday to Sunday of the coming weekend.</p>
+  <p>Browse shows listed for the next Friday to Sunday. Dates and ticket details come from the event listings, so double-check with the venue before you go.</p>
   <p class="themed-show-status" aria-live="polite">Loading matching comedy shows…</p>
   <div class="show-grid themed-show-grid"></div>
   <button class="themed-load-more" type="button" hidden>Load more shows</button>
 </section>
+
+    <section class="weekend-faq" aria-labelledby="weekend-faq-heading">
+      <h2 id="weekend-faq-heading">Weekend comedy FAQs</h2>
+      <details>
+        <summary>Which dates count as this weekend?</summary>
+        <p>The listings cover the next Friday, Saturday and Sunday. If you're visiting on Saturday or Sunday, they'll show the following weekend instead.</p>
+      </details>
+      <details>
+        <summary>Can I find free or cheap comedy shows?</summary>
+        <p>Yes, some clubs and open mic nights offer free or lower-priced entry. Check each listing for prices and booking details.</p>
+      </details>
+      <details>
+        <summary>How do I book tickets?</summary>
+        <p>Choose a show and select “View tickets” to visit the venue, organiser or ticket provider. That's where you can confirm prices and availability.</p>
+      </details>
+      <details>
+        <summary>What if there aren't any shows near me?</summary>
+        <p>Not every gig appears in the feed. Try the <a href="/">main search</a> or browse your <a href="/blog/">local comedy guides</a> for more ideas.</p>
+      </details>
+    </section>
 
     <div class="related-links">
       <strong>Related pages:</strong><br>
