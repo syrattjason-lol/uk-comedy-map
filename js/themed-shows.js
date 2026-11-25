@@ -174,13 +174,26 @@
     return show.comedian || show.title || show.name || show.event || "Comedy show";
   }
 
+  function displayTicketPrice(value) {
+    const raw = String(value ?? '').trim();
+    if (!raw) return '';
+    if (/^free$/i.test(raw)) return 'Free';
+    const amounts = [...raw.matchAll(/£\s*(\d[\d,]*(?:\.\d{1,2})?)/g)]
+      .map(match => Number(match[1].replace(/,/g, '')))
+      .filter(Number.isFinite);
+    if (amounts.length < 2) return raw;
+    const max = Math.max(...amounts);
+    return '£' + (Number.isInteger(max) ? String(max) : max.toFixed(2))
+      + (/booking fee/i.test(raw) ? ' + booking fee' : '');
+  }
+
   function renderCard(show) {
     const title = escapeHtml(titleFor(show));
     const venue = escapeHtml(show.venue || "");
     const location = escapeHtml([show.city, show.state].filter(Boolean).join(", "));
     const date = formatDate(show);
     const time = escapeHtml(show.time || show.start_time || "");
-    const price = escapeHtml(show.price || show.cost || "");
+    const price = escapeHtml(displayTicketPrice(show.price ?? show.cost ?? show.ticket_price));
     const ticket = escapeHtml(ticketFor(show));
     const image = escapeHtml(imageFor(show));
 
