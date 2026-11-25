@@ -445,6 +445,19 @@ function escapeHtml(value){
   return String(value || '').replace(/[&<>"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));
 }
 
+function displayTicketPrice(value) {
+  const raw = String(value ?? '').trim();
+  if (!raw) return '';
+  if (/^free$/i.test(raw)) return 'Free';
+  const amounts = [...raw.matchAll(/£\s*(\d[\d,]*(?:\.\d{1,2})?)/g)]
+    .map(match => Number(match[1].replace(/,/g, '')))
+    .filter(Number.isFinite);
+  if (amounts.length < 2) return raw;
+  const max = Math.max(...amounts);
+  return '£' + (Number.isInteger(max) ? String(max) : max.toFixed(2))
+    + (/booking fee/i.test(raw) ? ' + booking fee' : '');
+}
+
 function cleanImage(image){
   const value = String(image || '').trim();
   if (!value) return '/images/default-comedy.jpg';
@@ -566,6 +579,8 @@ function renderShows(items){
     const safeTitle = title.length > 80 ? title.substring(0,80) + '…' : title;
     const dateLabel = show.premium ? show.date : new Date(show.date).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
 
+    const priceLabel = displayTicketPrice(show.price ?? show.ticket_price ?? show.cost);
+
     card.innerHTML = `
       <div class="show-image">
         <img src="${cleanImage(show.image)}" loading="lazy" onerror="this.onerror=null;this.src='/images/default-comedy.jpg'" alt="${escapeHtml(title)}">
@@ -575,6 +590,7 @@ function renderShows(items){
         <p class="venue">${escapeHtml(show.venue)}</p>
         <p class="meta">📍 ${escapeHtml(show.city)}</p>
         <p class="meta">📅 ${escapeHtml(dateLabel)}</p>
+        ${priceLabel ? `<p class="meta show-price">Price: ${escapeHtml(priceLabel)}</p>` : ''}
         <a class="ticket-btn" href="${escapeHtml(show.tickets || '#')}" target="_blank" rel="noopener noreferrer">Tickets</a>
       </div>`;
     container.appendChild(card);
