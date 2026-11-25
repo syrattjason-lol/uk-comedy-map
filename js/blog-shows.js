@@ -37,10 +37,20 @@
     if (type === 'touring') return has(title,tourNames) && !/\b(tribute|lookalike|impersonator|impressionist)\b/i.test(title);
     return false;
   }
+  function displayTicketPrice(value) {
+    const raw = String(value ?? '').trim();
+    if (!raw) return '';
+    if (/^free$/i.test(raw)) return 'Free';
+    const amounts = [...raw.matchAll(/£\s*(\d[\d,]*(?:\.\d{1,2})?)/g)]
+      .map(match => Number(match[1].replace(/,/g, '')))
+      .filter(Number.isFinite);
+    if (amounts.length < 2) return raw;
+    const max = Math.max(...amounts);
+    return '£' + (Number.isInteger(max) ? String(max) : max.toFixed(2))
+      + (/booking fee/i.test(raw) ? ' + booking fee' : '');
+  }
   function price(s) {
-    const val = String(s.price || s.ticket_price || s.cost || '').trim();
-    if (!val) return 'Check ticket price';
-    return val;
+    return displayTicketPrice(s.price ?? s.ticket_price ?? s.cost) || 'Check ticket price';
   }
   function httpsUrl(v) {
     const value = String(v || '');
