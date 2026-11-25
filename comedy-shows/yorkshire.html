@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comedy Shows in Yorkshire | UK Comedy Map</title>
+  <meta name="description" content="Discover stand-up and live comedy across Yorkshire, from Leeds and Sheffield to York and the coast.">
   <link rel="stylesheet" href="/css/styles.css">
   <link rel="icon" href="/favicon.png">
   
@@ -250,7 +251,7 @@
 <section class="hero compact">
   <div class="container">
     <h1>Comedy Shows in Yorkshire</h1>
-    <p>Find upcoming stand-up shows, comedy club nights and live comedy events across Yorkshire.</p>
+    <p>Discover stand-up and live comedy across Yorkshire, from Leeds and Sheffield to York and the coast.</p>
     <div class="city-tools">
       <input id="showSearch" class="city-search" type="search" placeholder="Search Yorkshire comedy shows, venues or dates">
       <div class="show-filter-row" aria-label="Show filters">
@@ -267,22 +268,29 @@
 <main class="container">
   <section class="section">
     <h2>Upcoming Comedy Shows in Yorkshire</h2>
-    <p class="section-intro">Browse Yorkshire comedy listings using the search and quick filters.</p>
+    <p class="section-intro">Browse upcoming gigs and use the search or filters to find a show that suits you.</p>
     <div id="shows" class="show-grid"></div>
     <button id="loadMoreBtn" class="load-more-btn">Load more shows</button>
   </section>
 
   <section class="city-highlight">
-    <div>
-      <h2>Yorkshire Comedy Guide</h2>
-      <p>Use this page to find stand-up shows, comedy clubs, regular nights and venue listings across Yorkshire. Cards pull from the same live show data, images, ticket links and text.</p>
+    <div><h2>A guide to comedy in Yorkshire</h2><p>Yorkshire's comedy scene stretches from city-centre clubs in Leeds and Sheffield to theatre and independent nights in York, Hull, Ripon and Scarborough. Regional listings are especially useful if you live outside the largest cities.</p></div>
+    <div class="highlight-badge" aria-hidden="true">🎤</div>
+  </section>
+
+  <section class="section location-guides" aria-labelledby="location-guides-heading">
+    <h2 id="location-guides-heading">Explore comedy in Yorkshire</h2>
+    <p class="section-intro">Use the location search to find a nearby town, or browse the dedicated Leeds page for city-specific shows.</p>
+    <div class="location-guide-links">
+      <a href="/comedy-shows/leeds.html">Leeds comedy shows <span aria-hidden="true">→</span></a>
+      <a href="/blog/comedians-on-tour-uk.html">Comedians on tour <span aria-hidden="true">→</span></a>
+      <a href="/blog/open-mic-comedy-uk.html">Open mic comedy in the UK <span aria-hidden="true">→</span></a>
     </div>
-    <div class="highlight-badge">🎤</div>
   </section>
 
   <section class="section">
     <h2>Yorkshire Comedy Venues</h2>
-    <p class="section-intro">Venue cards are generated from the live listings above, so they stay linked to the same show data.</p>
+    <p class="section-intro">Explore venues with upcoming shows and find a place for your next comedy night.</p>
     <div id="venueCards" class="venue-list"></div>
   </section>
 
@@ -315,6 +323,12 @@
       <a href="/comedy-shows/west-midlands">West Midlands</a>
       <a class="active" href="/comedy-shows/yorkshire">Yorkshire</a>
     </div>
+  </section>
+
+  <section class="section location-faq" aria-labelledby="location-faq-heading">
+    <h2 id="location-faq-heading">Comedy in Yorkshire: FAQs</h2>
+    <details><summary>Can I find comedy outside Leeds?</summary><p>Search for Sheffield, York, Hull, Ripon or Scarborough in the regional listings and check the show date.</p></details>
+    <details><summary>How do I book a comedy show?</summary><p>Choose a listing and follow its ticket link to the organiser or venue. Confirm the date, price and availability before booking.</p></details>
   </section>
 
   <section class="section map-cta">
